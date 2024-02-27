@@ -7,7 +7,7 @@ import SearchBar from './components/Search.jsx';
 import RegisterForm from './components/Register.jsx';
 import LoginForm from './components/LoginForm.jsx';
 import Nav from './components/Nav.jsx';
-
+import { GlobalProvider } from './components/GlobalContext.jsx';
 const App = () => {
   const [user, setUser] = useState(null);
 
@@ -17,7 +17,8 @@ const App = () => {
   };
 
   return (
-    <Router>
+    <GlobalProvider>
+      <Router>
         <Nav />
         <Routes>
           <Route path="/" element={<AuktionsLista />} />
@@ -28,7 +29,8 @@ const App = () => {
           <Route path="/login" element={<LoginForm onLoginSuccess={handleLoginSuccess} />} />
         </Routes>
         {user && <div>Välkommen, {user.username}!</div>}
-    </Router>
+      </Router>
+    </GlobalProvider>
   );
 };
 
