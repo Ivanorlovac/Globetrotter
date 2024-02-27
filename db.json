@@ -39,17 +39,7 @@
       "startBid": "1000",
       "currentBid": "1000",
       "image": "https://www.sydafrikaresor.se/wp-content/uploads/shutterstock_427956421-1-scaled.jpg"
-    },
-    {
-      "id": "b85b",
-      "title": "maldiver5",
-      "description": "hjgfwekgfikwh",
-      "startBid": "12000",
-      "currentBid": "12000",
-      "image": ""
     }
-  
-    
   ],
   "bids": [
     {
@@ -170,6 +160,11 @@
       "id": "6ecf",
       "auctionId": "338e",
       "amount": "5000000"
+    },
+    {
+      "id": "a270",
+      "auctionId": "338e",
+      "amount": "2000"
     }
   ],
   "users": [
