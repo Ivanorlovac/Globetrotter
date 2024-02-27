@@ -6,8 +6,7 @@ import SkapaAuktion from './components/SkapaAuktion';
 import SearchBar from './components/Search.jsx';
 import RegisterForm from './components/Register.jsx';
 import LoginForm from './components/LoginForm.jsx';
-import Nav from './components/Nav.jsx';
-import NavbarComp from './components/navbar.jsx';
+import NavbarOffcanvas from './components/Navbar.jsx';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -20,7 +19,7 @@ const App = () => {
   return (
 
     <Router>
-      <NavbarComp />
+      <NavbarOffcanvas />
       <Routes>
         <Route path="/" element={<AuktionsLista />} />
         <Route path="/auktion/:id" element={<AuktionsDetaljer />} />
