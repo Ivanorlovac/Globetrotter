@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+
 
 const RegisterForm = () => {
   const [username, setUsername] = useState('');
@@ -8,12 +8,22 @@ const RegisterForm = () => {
   const handleRegister = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:3001/users', {
-        username,
-        password,
-        role: 'user' // Standardroll för nya användare
+      const response = await fetch('http://localhost:3000/users', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          username,
+          password,
+          role: 'user' // Standardroll för nya användare
+        }),
       });
-      console.log('Registrering lyckades', response.data);
+      if (!response.ok) {
+        throw new Error('Registrering misslyckades');
+      }
+      const data = await response.json();
+      console.log('Registrering lyckades', data);
       // Hantera efter registrering, t.ex. omdirigering eller visa meddelande
     } catch (error) {
       console.error('Registrering misslyckades', error);
@@ -43,9 +53,13 @@ const RegisterForm = () => {
 
 const handleLogin = async (username, password) => {
   try {
-    const response = await axios.get(`http://localhost:3001/users?username=${username}&password=${password}`);
-    if (response.data.length > 0) {
-      console.log('Inloggning lyckades', response.data[0]);
+    const response = await fetch(`http://localhost:3000/users?username=${username}&password=${password}`);
+    if (!response.ok) {
+      throw new Error('Nätverksfel vid inloggning');
+    }
+    const users = await response.json();
+    if (users.length > 0) {
+      console.log('Inloggning lyckades', users[0]);
       // Hantera inloggad användare, spara användarinfo i tillstånd eller localStorage för sessionhantering
     } else {
       console.log('Inloggning misslyckades: användarnamn eller lösenord är felaktigt');

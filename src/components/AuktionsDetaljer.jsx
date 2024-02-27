@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+
 import { useParams } from 'react-router-dom';
 
 
@@ -9,10 +9,15 @@ const AuktionsDetaljer = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/auctions/${id}`)
+    fetch(`http://localhost:3000/auctions/${id}`)
       .then(response => {
-        setAuction(response.data);
-      });
+        if (!response.ok) {
+          throw new Error('Nätverksfel vid hämtning av auktionsdetaljer');
+        }
+        return response.json();
+      })
+      .then(data => setAuction(data))
+      .catch(error => console.error('Fel:', error));
   }, [id]);
 
   const handleBidSubmit = (e) => {
@@ -23,10 +28,22 @@ const AuktionsDetaljer = () => {
       
     };
 
-    axios.post('http://localhost:3001/bids', newBid)
+    fetch('http://localhost:3000/bids', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newBid),
+    })
       .then(response => {
-        console.log('Bid successfully placed:', response.data);
-        
+        if (!response.ok) {
+          throw new Error('Nätverksfel vid läggande av bud');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Bid successfully placed:', data);
+        // Du kan här välja att uppdatera UI:t eller ge användaren feedback
       })
       .catch(error => console.error('Failed to place bid:', error));
   };
