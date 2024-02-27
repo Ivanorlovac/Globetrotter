@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import SearchBar from './Search'; // Antag att detta är sökfältets komponent
+import SearchBar from './Search';
 import { Link } from 'react-router-dom';
 
 const AuktionsLista = () => {
   const [auctions, setAuctions] = useState([]);
   const [filteredAuctions, setFilteredAuctions] = useState([]);
 
-  // Lägger till useEffect här för att hämta auktionsdata när komponenten laddas
   useEffect(() => {
-    axios.get('http://localhost:3001/auctions')
-      .then(response => {
-        setAuctions(response.data);
-        setFilteredAuctions(response.data); // Initialt är filtrerade auktioner samma som alla auktioner
-      });
-  }, []);
+    async function load() {
+      const response = await fetch('/api/auctions')
+      const items = await response.json()
+      setAuctions(items)
+    }
+    load()
+  }, [])
 
   const handleSearch = (searchTerm) => {
     const term = searchTerm.toLowerCase();
@@ -31,8 +30,8 @@ const AuktionsLista = () => {
   return (
     <div className="container">
       <SearchBar onSearch={handleSearch} />
-      {filteredAuctions.map(auction => (
-        <Link to={`/auktion/${auction.id}`} key={auction.id} style={{ textDecoration: 'none', color: 'inherit' }}>
+      {auctions.map(auction => (
+        <Link to={`/auction/${auction.id}/${auction.title}`} key={auction.id} style={{ textDecoration: 'none', color: 'inherit' }}>
           <div className="auction-item mb-4">
             <img src={auction.image} alt={auction.title} style={{ width: '100%', height: 'auto', maxWidth: '600px' }} className="mb-3" />
             <h5>{auction.title}</h5>

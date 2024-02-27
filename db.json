@@ -4,23 +4,23 @@
       "id": "1",
       "title": "Vintage Rolex Klocka",
       "description": "En sällsynt vintage Rolex klocka från 1954.",
-      "startBid": 50000,
+      "valuedPrice": 50000,
       "currentBid": 55000,
-      "image": "https://nymansur.commerce.services/product/raw/rolex-m126333-0010.png",
+      "image": ["https://nymansur.commerce.services/product/raw/rolex-m126333-0010.png"],
       "endTime": "2024-03-01T12:00:00Z"
     },
     {
       "id": "2",
       "title": "Bomb",
       "description": "rhh",
-      "startBid": "500",
+      "valuedPrice": "500",
       "image": "https://media.istockphoto.com/id/491745908/sv/foto/cartoon-bomb-3d-illustration.jpg?s=612x612&w=is&k=20&c=NutMRHwBs4DuzkZk0BnL1RA0pIVIKRwq8ds8JnikqWY="
     },
     {
       "id": "e93a",
       "title": "maldiverna",
       "description": "hbkjberb",
-      "startBid": "1000",
+      "valuedPrice": "1000",
       "currentBid": "1000",
       "image": ""
     },
@@ -28,7 +28,7 @@
       "id": "89f7",
       "title": "Maldiverna2",
       "description": "jajajajaja",
-      "startBid": "5000",
+      "valuedPrice": "5000",
       "currentBid": "5000",
       "image": ""
     },
@@ -36,7 +36,7 @@
       "id": "338e",
       "title": "Maldiverna",
       "description": "wrwetewrt",
-      "startBid": "1000",
+      "valuedPrice": "1000",
       "currentBid": "1000",
       "image": "https://www.sydafrikaresor.se/wp-content/uploads/shutterstock_427956421-1-scaled.jpg"
     },
@@ -44,7 +44,7 @@
       "id": "b85b",
       "title": "maldiver5",
       "description": "hjgfwekgfikwh",
-      "startBid": "12000",
+      "valuedPrice": "12000",
       "currentBid": "12000",
       "image": ""
     }
