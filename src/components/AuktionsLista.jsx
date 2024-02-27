@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+
 import SearchBar from './Search'; // Antag att detta är sökfältets komponent
 import { Link } from 'react-router-dom';
 
@@ -9,11 +9,18 @@ const AuktionsLista = () => {
 
   // Lägger till useEffect här för att hämta auktionsdata när komponenten laddas
   useEffect(() => {
-    axios.get('http://localhost:3001/auctions')
+    fetch('http://localhost:3000/auctions')
       .then(response => {
-        setAuctions(response.data);
-        setFilteredAuctions(response.data); // Initialt är filtrerade auktioner samma som alla auktioner
-      });
+        if (!response.ok) {
+          throw new Error('Något gick fel vid hämtning av auktioner');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setAuctions(data);
+        setFilteredAuctions(data); // Initialt är filtrerade auktioner samma som alla auktioner
+      })
+      .catch(error => console.error('Fel:', error));
   }, []);
 
   const handleSearch = (searchTerm) => {
