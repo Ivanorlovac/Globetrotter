@@ -1,0 +1,195 @@
+{
+  "auctions": [
+    {
+      "id": "1",
+      "title": "Vintage Rolex Klocka",
+      "description": "En sällsynt vintage Rolex klocka från 1954.",
+      "startBid": 50000,
+      "currentBid": 55000,
+      "image": "https://nymansur.commerce.services/product/raw/rolex-m126333-0010.png",
+      "endTime": "2024-03-01T12:00:00Z"
+    },
+    {
+      "id": "2",
+      "title": "Bomb",
+      "description": "rhh",
+      "startBid": "500",
+      "image": "https://media.istockphoto.com/id/491745908/sv/foto/cartoon-bomb-3d-illustration.jpg?s=612x612&w=is&k=20&c=NutMRHwBs4DuzkZk0BnL1RA0pIVIKRwq8ds8JnikqWY="
+    },
+    {
+      "id": "e93a",
+      "title": "maldiverna",
+      "description": "hbkjberb",
+      "startBid": "1000",
+      "currentBid": "1000",
+      "image": ""
+    },
+    {
+      "id": "89f7",
+      "title": "Maldiverna2",
+      "description": "jajajajaja",
+      "startBid": "5000",
+      "currentBid": "5000",
+      "image": ""
+    },
+    {
+      "id": "338e",
+      "title": "Maldiverna",
+      "description": "wrwetewrt",
+      "startBid": "1000",
+      "currentBid": "1000",
+      "image": "https://www.sydafrikaresor.se/wp-content/uploads/shutterstock_427956421-1-scaled.jpg"
+    },
+    {
+      "id": "b85b",
+      "title": "maldiver5",
+      "description": "hjgfwekgfikwh",
+      "startBid": "12000",
+      "currentBid": "12000",
+      "image": ""
+    }
+  
+    
+  ],
+  "bids": [
+    {
+      "id": "1",
+      "auctionId": "1",
+      "userId": "2",
+      "amount": 56000,
+      "time": "2023-02-23T10:00:00Z"
+    },
+    {
+      "id": "2",
+      "auctionId": "2",
+      "userId": "2",
+      "amount": 57000,
+      "time": "2023-02-24T11:00:00Z"
+    },
+    {
+      "id": "d382",
+      "auctionId": "1",
+      "amount": "1000000"
+    },
+    {
+      "id": "dbe3",
+      "auctionId": "1",
+      "amount": "1000000"
+    },
+    {
+      "id": "20e3",
+      "auctionId": "1",
+      "amount": "1000000"
+    },
+    {
+      "id": "ed52",
+      "auctionId": "1",
+      "amount": "1000000"
+    },
+    {
+      "id": "81b8",
+      "auctionId": "1",
+      "amount": "1000000"
+    },
+    {
+      "id": "242b",
+      "auctionId": "1",
+      "amount": "1000000"
+    },
+    {
+      "id": "f836",
+      "auctionId": "c883",
+      "amount": "3"
+    },
+    {
+      "id": "01b2",
+      "auctionId": "c883",
+      "amount": "3"
+    },
+    {
+      "id": "77de",
+      "auctionId": "c883",
+      "amount": "3"
+    },
+    {
+      "id": "b203",
+      "auctionId": "c883",
+      "amount": "3"
+    },
+    {
+      "id": "8c38",
+      "auctionId": "c883",
+      "amount": "3"
+    },
+    {
+      "id": "963a",
+      "auctionId": "2",
+      "amount": "5646"
+    },
+    {
+      "id": "554e",
+      "auctionId": "2",
+      "amount": "5646"
+    },
+    {
+      "id": "7540",
+      "auctionId": "2",
+      "amount": "5646"
+    },
+    {
+      "id": "f5f7",
+      "auctionId": "2",
+      "amount": "5646"
+    },
+    {
+      "id": "9bd9",
+      "auctionId": "2",
+      "amount": "5646"
+    },
+    {
+      "id": "f066",
+      "auctionId": "2",
+      "amount": "5646"
+    },
+    {
+      "id": "6097",
+      "auctionId": "2",
+      "amount": "5646"
+    },
+    {
+      "id": "855f",
+      "auctionId": "2",
+      "amount": "5646"
+    },
+    {
+      "id": "5a88",
+      "auctionId": "1",
+      "amount": "100000"
+    },
+    {
+      "id": "6ecf",
+      "auctionId": "338e",
+      "amount": "5000000"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "username": "admin",
+      "password": "admin",
+      "role": "admin"
+    },
+    {
+      "id": "2",
+      "username": "user",
+      "password": "user",
+      "role": "user"
+    },
+    {
+      "id": "8e40",
+      "username": "ivanorlovac@gmail.com",
+      "password": "123456",
+      "role": "user"
+    }
+  ]
+}
