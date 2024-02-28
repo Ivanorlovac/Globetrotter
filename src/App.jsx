@@ -8,6 +8,7 @@ import RegisterForm from './components/Register.jsx';
 import LoginForm from './components/LoginForm.jsx';
 import Nav from './components/Nav.jsx';
 import { GlobalProvider } from './components/GlobalContext.jsx';
+import Footer from './components/footer.jsx';
 const App = () => {
   const [user, setUser] = useState(null);
 
@@ -30,6 +31,7 @@ const App = () => {
         </Routes>
         {user && <div>Välkommen, {user.username}!</div>}
       </Router>
+      <Footer/>
     </GlobalProvider>
   );
 };
