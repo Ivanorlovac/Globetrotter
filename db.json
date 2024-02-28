@@ -7,14 +7,17 @@
       "valuedPrice": 50000,
       "currentBid": 55000,
       "image": ["https://nymansur.commerce.services/product/raw/rolex-m126333-0010.png"],
-      "endTime": "2024-03-01T12:00:00Z"
+      "endTime": "2024-03-01T12:00:00Z",
+      "creator": "ClockShop AB",
+      "creator-image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfSpVBxVuyQy-YbAai0G_pgi0N-m6e_r8G-Q&usqp=CAU",
+      "category": "1"
     },
     {
       "id": "2",
       "title": "Bomb",
       "description": "rhh",
       "valuedPrice": "500",
-      "image": "https://media.istockphoto.com/id/491745908/sv/foto/cartoon-bomb-3d-illustration.jpg?s=612x612&w=is&k=20&c=NutMRHwBs4DuzkZk0BnL1RA0pIVIKRwq8ds8JnikqWY="
+      "image": "https://i.postimg.cc/65WQSJdg/images.jpg"
     },
     {
       "id": "e93a",
@@ -48,9 +51,26 @@
       "currentBid": "12000",
       "image": ""
     }
-  
-    
   ],
+  "categories":[
+    {
+      "id":"1",
+      "type":"all-inclusive"
+    },
+    {
+      "id": "2",
+      "type": "spa"
+    },
+    {
+      "id": "3",
+      "type": "city"
+    },   
+    {
+      "id": "4",
+      "type": "adventure"
+    }   
+  ],
+
   "bids": [
     {
       "id": "1",

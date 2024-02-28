@@ -1,4 +1,9 @@
+:root{
 
+  --main-color:rgb(255, 255, 255);
+
+
+}
 
 .bidding-main {
   background-color: rgb(10, 147, 0);
@@ -6,80 +11,48 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  .bidding-1{
-    background-color: red;
-    width: 100%;
-    max-height: 500px;
-    min-height: 200px;
+  .bidding-back{
     display: flex;
-    justify-content: center;
-    .img-carousel{
-      height: 100%;
-      width: 100%;
-      max-width: 60vw;
-      min-width: 300px;
-      background-color: blue;
-      *{
-        height: 100%;
-      }
-      .carousel-item, .carousel, .slide, .active{
-        width: 100%;
-      }
-    }
-  }
-  .bidding-2 {
-    background-color: rgb(255, 248, 56);
+    margin-top: 1rem;
+    margin-left: 1rem;
     width: 100%;
-    height: 130px;
-    display: flex;
-    div:first-child{
+    height: 60px;
+    align-items: flex-start;
+    .go-back{
       display: flex;
-      align-items: center;
-      height: 100%;
-      flex-grow: 4;
-      background-color: rgb(0, 102, 102);
-      h2{
-        margin-left: 20px;
-      }
-    }
-    button {
-      height: 100%;
-      width: 150px;
-      background-color: rgb(86, 86, 255);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       justify-content: center;
-      margin: 0;
-      p{
-        font-size: 20px;
+      align-items: center;
+      width: 100px;
+      height: 40px;
+      border-radius: 10px;
+      background-color: var(--main-color);
+      border: 1px solid grey;
+      gap: 5px;
+      *{
+        margin:  0;
       }
-      svg{
-        width: 2rem;
-        height: 2rem;
+    }
+    .go-back:hover{
+      background-color: rgb(193, 193, 193);
+    }
+  }
+  .bidding-content{
+    width: 100%;
+    .bidding-image {
+        width: 30rem;
+        background-color: red;
+        .image-container{
+          width: 80%;
+          height: auto;
+          background-color: blue;
+        }
       }
-    }
+    
+      .bidding-information {
+        margin-left: 2.813rem;
+        flex: 12 1 0%;
+        background-color: blue;
+      }
   }
-  .bidding-3 {
-    background-color: rgb(0, 119, 255);
-    width: 100%;
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    div:first-child{
-      width: 60%;
-      background-color: aqua;
-    }
-    div:last-child {
-      width: 60%;
-      height: 100%;
-      background-color: rgb(0, 255, 0)
-    }
-  }
-  .bidding-4 {
-    background-color: rgb(255, 0, 174);
-    width: 100%;
-    height: 200px;
-  }
+
 }

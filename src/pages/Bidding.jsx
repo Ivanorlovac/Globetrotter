@@ -2,7 +2,7 @@ import { useState, useEffect } from "react"
 import { useParams } from "react-router-dom"
 import { MDBCarousel, MDBCarouselItem } from 'mdb-react-ui-kit';
 import { FaStar } from "react-icons/fa";
-
+import { IoIosArrowRoundBack } from "react-icons/io";
 
 export default function Bidding() {
 
@@ -14,11 +14,11 @@ export default function Bidding() {
       console.log("ID:", id)
       const response = await fetch("/api/auctions/" + id)
       const data = await response.json()
-      setAuction(data)      
+      setAuction(data)
     }
     load()
   }, [])
-  
+
   const ImgCarousel = () => <>
     <div className="img-carousel" >
       <MDBCarousel showControls>
@@ -31,43 +31,30 @@ export default function Bidding() {
         <MDBCarouselItem itemId={3}>
           <img src='https://mdbootstrap.com/img/new/slides/043.jpg' className='d-block w-100' alt='...' />
         </MDBCarouselItem>
-      </MDBCarousel>    
+      </MDBCarousel>
     </div>
-    </>
-    
+  </>
+
   return <>
     <p>Hej</p>
     <div className="bidding-main">
-      <div className="bidding-1">
-        <ImgCarousel />
-      </div>
-      <div className="bidding-2">
-        <div>
-          <h2>{auction.title}</h2>
-        </div>
-        <button on onClick={''}>
-          <p>Add to favorite</p>
-          <FaStar />
+      <div className="bidding-back">
+        <button type="button" onClick={''} className="go-back">
+          <IoIosArrowRoundBack />
+          <p>Go back</p>
         </button>
       </div>
-      <div className="bidding-3">
-        <div className="bidding-description">
-          <article>
-            {auction.description}
-          </article>
+      <div className="bidding-content">
+        <div className="bidding-image">
+          <div className="image-container">
+            <ImgCarousel/>
+          </div>
         </div>
-        <div className="bidding-status">
-          <form>
-            <div>
-              <p>Time left: </p>
-              {}
-            </div>
-          </form>
+        <div className="bidding-information">
+
         </div>
       </div>
-      <div className="bidding-4">
 
-      </div>      
     </div>
   </>
 }
