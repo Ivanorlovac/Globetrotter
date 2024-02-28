@@ -2,7 +2,7 @@
 @import url(./homepage.css);
 @import url(./biddingSite.css);
 
-main{
+#main-pic{
   background-image: url('https://st4.depositphotos.com/4640111/41072/i/450/depositphotos_410721236-stock-photo-planning-vacation-travel-plan-trip.jpg');
   background-repeat: none;
   background-size: 1920px 1080px;
@@ -10,7 +10,7 @@ main{
 }
 
 #main-background{
-  background-color: rgba(255, 255, 255, 0.61);
+  background-color: rgba(77, 77, 77, 0.712);
 }
 
 #navbar-field{

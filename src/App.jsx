@@ -7,6 +7,7 @@ import SearchBar from './components/Search.jsx';
 import RegisterForm from './components/Register.jsx';
 import LoginForm from './components/LoginForm.jsx';
 import NavbarOffcanvas from './components/navbar.jsx';
+import Homepage from './pages/homepage.jsx';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -20,6 +21,7 @@ const App = () => {
 
     <Router>
       <NavbarOffcanvas />
+      <Homepage/>
       <Routes>
         <Route path="/" element={<AuktionsLista />} />
         <Route path="/auktion/:id" element={<AuktionsDetaljer />} />
