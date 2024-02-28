@@ -37,7 +37,7 @@ const AuktionsLista = () => {
   // Endast en return-sats ska användas här
   return (
     <div className="container">
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar  />
       {filteredAuctions.map(auction => (
         <Link to={`/auktion/${auction.id}`} key={auction.id} style={{ textDecoration: 'none', color: 'inherit' }}>
           <div className="auction-item mb-4">
