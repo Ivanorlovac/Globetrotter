@@ -6,7 +6,7 @@ import SkapaAuktion from './components/SkapaAuktion';
 import SearchBar from './components/Search.jsx';
 import RegisterForm from './components/Register.jsx';
 import LoginForm from './components/LoginForm.jsx';
-import NavbarOffcanvas from './components/navbar.jsx';
+import NavbarOffcanvas from './components/Navbar.jsx';
 import Homepage from './pages/homepage.jsx';
 
 const App = () => {
@@ -14,25 +14,27 @@ const App = () => {
 
   const handleLoginSuccess = (userData) => {
     setUser(userData);
-    
+
   };
 
-  return (
+  return <main id="main-pic">
+    <div id="main-background">
+      <Router>
+        <NavbarOffcanvas />
+        <Routes>
+          <Route path="/" element={<Homepage />} />
+          <Route path="/auktion/:id" element={<AuktionsDetaljer />} />
+          <Route path="/skapa-auktion" element={<SkapaAuktion />} />
+          <Route path="/search" element={<SearchBar />} />
+          <Route path="/register" element={<RegisterForm />} />
+          <Route path="/login" element={<LoginForm onLoginSuccess={handleLoginSuccess} />} />
+        </Routes>
+        {user && <div>Välkommen, {user.username}!</div>}
+      </Router>
+    </div>
+  </main>
 
-    <Router>
-      <NavbarOffcanvas />
-      <Homepage/>
-      <Routes>
-        <Route path="/" element={<AuktionsLista />} />
-        <Route path="/auktion/:id" element={<AuktionsDetaljer />} />
-        <Route path="/skapa-auktion" element={<SkapaAuktion />} />
-        <Route path="/search" element={<SearchBar />} />
-        <Route path="/register" element={<RegisterForm />} />
-        <Route path="/login" element={<LoginForm onLoginSuccess={handleLoginSuccess} />} />
-      </Routes>
-      {user && <div>Välkommen, {user.username}!</div>}
-    </Router>
-  );
+
 };
 
 export default App;
