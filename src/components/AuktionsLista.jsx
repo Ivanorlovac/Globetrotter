@@ -41,7 +41,9 @@ const AuktionsLista = () => {
       {filteredAuctions.map(auction => (
         <Link to={`/auktion/${auction.id}`} key={auction.id} style={{ textDecoration: 'none', color: 'inherit' }}>
           <div className="auction-item mb-4">
-            <img src={auction.image} alt={auction.title} style={{ width: '100%', height: 'auto', maxWidth: '600px' }} className="mb-3" />
+
+            {auction.images.map(image =>
+              <img src={image} alt={auction.title} style={{ width: '100%', height: 'auto', maxWidth: '600px' }} className="mb-3" />)}
             <h5>{auction.title}</h5>
             <p>{auction.description}</p>
             <p>Startbud: {auction.startBid} SEK</p>
