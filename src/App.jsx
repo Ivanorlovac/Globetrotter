@@ -8,7 +8,8 @@ import RegisterForm from './components/Register.jsx';
 import LoginForm from './components/LoginForm.jsx';
 import NavbarOffcanvas from './components/Navbar.jsx';
 import Homepage from './pages/homepage.jsx';
-
+import { GlobalProvider } from './components/GlobalContext.jsx';
+import Footer from './components/footer.jsx';
 const App = () => {
   const [user, setUser] = useState(null);
 
@@ -19,6 +20,7 @@ const App = () => {
 
   return <main id="main-pic">
     <div id="main-background">
+      <GlobalProvider>
       <Router>
         <NavbarOffcanvas />
         <Routes>
@@ -30,7 +32,9 @@ const App = () => {
           <Route path="/login" element={<LoginForm onLoginSuccess={handleLoginSuccess} />} />
         </Routes>
         {user && <div>Välkommen, {user.username}!</div>}
-      </Router>
+        </Router>
+      <Footer/>
+    </GlobalProvider>
     </div>
   </main>
 
