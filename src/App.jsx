@@ -18,7 +18,8 @@ const App = () => {
 
   };
 
-  return <main id="main-pic">
+  return <>
+  <main id="main-pic">
     <div id="main-background">
       <GlobalProvider>
       <Router>
@@ -33,11 +34,12 @@ const App = () => {
         </Routes>
         {user && <div>Välkommen, {user.username}!</div>}
         </Router>
-      <Footer/>
-    </GlobalProvider>
+      
+      </GlobalProvider>
     </div>
   </main>
-
+  <Footer/>
+</>
 
 };
 
