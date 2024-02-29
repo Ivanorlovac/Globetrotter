@@ -29,7 +29,6 @@ const App = () => {
             <NavbarOffcanvas />
             <Routes>
               <Route path="/" element={<Homepage />} />
-              <Route path="/auktion/:id" element={<AuktionsDetaljer />} />
               <Route path="/skapa-auktion" element={<SkapaAuktion />} />
               <Route path="/search" element={<SearchBar />} />
               <Route path="/register" element={<RegisterForm />} />

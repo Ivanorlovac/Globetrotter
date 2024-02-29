@@ -38,7 +38,7 @@ const AuktionsLista = () => {
     <div className="container">
       <SearchBar  />
       {filteredAuctions.map(auction => (
-        <Link to={`/auktion/${auction.id}`} key={auction.id} style={{ textDecoration: 'none', color: 'inherit' }}>
+        <Link to={`/auction/${auction.id}/${auction.title}`} key={auction.id} style={{ textDecoration: 'none', color: 'inherit' }}>
           <div className="auction-item mb-4">
 
             {auction.images.map(image =>
