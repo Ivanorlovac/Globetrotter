@@ -1,13 +1,15 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useContext } from "react"
 import { useParams } from "react-router-dom"
 import { MDBCarousel, MDBCarouselItem } from 'mdb-react-ui-kit';
-import { FaStar } from "react-icons/fa";
 import { IoIosArrowRoundBack } from "react-icons/io";
+import Timer from "../components/Timer.jsx";
+import { Globalcontext } from "../components/GlobalContext.jsx";
 
 export default function Bidding() {
 
   const [auction, setAuction] = useState({})
   const { id } = useParams()
+  const { timeCloseAution } = useContext(Globalcontext)
 
   useEffect(() => {
     async function load() {
@@ -35,11 +37,12 @@ export default function Bidding() {
     </div>
   </>
 
+  
   return <>
     <p>Hej</p>
     <div className="bidding-main">
       <div className="bidding-back">
-        <button type="button" onClick={''} className="go-back">
+        <button type="button" className="go-back">
           <IoIosArrowRoundBack />
           <p>Go back</p>
         </button>
@@ -47,11 +50,36 @@ export default function Bidding() {
       <div className="bidding-content">
         <div className="bidding-image">
           <div className="image-container">
-            <ImgCarousel/>
+              <img src={auction.image} />
+          </div>
+          <div className="bidding-about">
+            <h4>About Auction</h4>
+            <div className="bidding-about-information">
+              <p>{auction.description}</p>
+            </div>
           </div>
         </div>
-        <div className="bidding-information">
 
+        <div className="bidding-information">
+          <div className="bidding-title">
+            <h2>{auction.title}</h2>
+            <p>Categoty: clocks</p>
+            <div className="bidding-creator">
+              <div className="creator-container">
+                <img src={auction.creatorImage} />
+              </div>
+              <p>{auction.creator}</p>
+            </div>
+          </div>
+          {Object.keys(auction).length > 0 && (
+            <div className="bidding-countdown">
+              {timeCloseAution ? (
+                <p>Stängd</p>
+              ) : (
+                <Timer objTime={auction.endTime} />
+              )}
+            </div>
+          )}
         </div>
       </div>
 
