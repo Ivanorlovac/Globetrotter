@@ -12,7 +12,7 @@ import { GlobalProvider } from './components/GlobalContext.jsx';
 import Footer from './components/footer.jsx';
 import AboutUs from './pages/aboutUs.jsx';
 import Contact from './pages/contact.jsx';
-
+import Faq from './pages/faq.jsx';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -39,6 +39,7 @@ const App = () => {
           <Route path="/login" element={<LoginForm onLoginSuccess={handleLoginSuccess} />} />
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/faq" element={<Faq />} />
         </Routes>
         {user && <div>Välkommen, {user.username}!</div>}
         

@@ -10,7 +10,7 @@ export default function Footer() {
         <Col>
           <p><Link to ="/contact">Kontakt</Link></p>
 
-          <p>FAQ</p>
+          <p><Link to ="/faq">FAQ</Link></p>
         </Col>
         <Col>
           <p>Jobba hos oss</p>
