@@ -4,6 +4,7 @@ import { MDBCarousel, MDBCarouselItem } from 'mdb-react-ui-kit';
 import { IoIosArrowRoundBack } from "react-icons/io";
 import Timer from "../components/Timer.jsx";
 import { Globalcontext } from "../components/GlobalContext.jsx";
+import Carousel from "../components/Carousel.jsx";
 
 export default function Bidding() {
 
@@ -39,7 +40,6 @@ export default function Bidding() {
 
   
   return <>
-    <p>Hej</p>
     <div className="bidding-main">
       <div className="bidding-back">
         <button type="button" className="go-back">
@@ -50,7 +50,8 @@ export default function Bidding() {
       <div className="bidding-content">
         <div className="bidding-image">
           <div className="image-container">
-              <img src={auction.image} />
+            {/* <img src={auction.images} /> */}
+            <Carousel objImages={auction.images} />
           </div>
           <div className="bidding-about">
             <h4>About Auction</h4>

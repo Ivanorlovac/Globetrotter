@@ -44,3 +44,12 @@
 footer{
   background-color: #85a2c1;
 }
+
+.carousel{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 600px;
+  height: 400px;
+  
+}
