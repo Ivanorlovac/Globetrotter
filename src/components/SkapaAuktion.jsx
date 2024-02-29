@@ -1,46 +1,70 @@
-
 import React, { useState } from 'react';
-import axios from 'axios';
-
 
 const SkapaAuktion = () => {
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [startBid, setStartBid] = useState('');
-  const [imageUrl, setImageUrl] = useState('');
+  const [imageUrl, setImageUrl] = useState(''); 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios.post('http://localhost:3001/auctions', {
+
+    // Definiera datan som ska skickas
+    const auctionData = {
       title,
       description,
       startBid,
       currentBid: startBid,
-      image: imageUrl,
-    }).then(() => {
-      console.log('Auktion skapad med bild-URL');
-    }).catch(error => {
-      console.error('Fel vid skapande av auktion:', error);
-    });
+      image: imageUrl, // Antag att detta är URL:en till bilden som sparas
+    };
+
+    // Använd fetch för att skicka POST-begäran
+    fetch('http://localhost:3000/auctions', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(auctionData),
+    })
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Nätverksrespons var inte ok');
+        }
+        return response.json();
+      })
+      .then(data => {
+        console.log('Auktion skapad med bild-URL:', data);
+        // Hantera framgångsrikt skapad auktion här, t.ex. rensa formuläret eller visa en bekräftelse
+      })
+      .catch(error => {
+        console.error('Fel vid skapande av auktion:', error);
+      });
   };
 
   const uploadImage = (e) => {
-    const file = e.target.files[0];
+    const file = e.target.files[0]; // Hämta filen från input
     if (!file) return;
 
-    
     const formData = new FormData();
-    formData.append('file', file);
-    
-    axios.post('https://dinbilduppladdningstjanst.com/upload', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data',
-      },
-    }).then(response => {
-      
-      setImageUrl(response.data.url);
-    }).catch(error => console.error('Uppladdning misslyckades:', error));
+    formData.append('file', file); 
+    formData.append('upload_preset', 'your_preset_here');
+
+    // Använd fetch för att skicka filen till din bilduppladdningstjänst
+    fetch(''
+      , {
+      method: 'POST',
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.secure_url) {
+          // Antag att data.secure_url är URL:en till den uppladdade bilden
+          setImageUrl(data.secure_url); // Spara URL i din komponents state
+        }
+      })
+      .catch((error) => console.error('Error:', error));
   };
+
 
   return (
     <div className="container mt-4">
@@ -66,6 +90,7 @@ const SkapaAuktion = () => {
             onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </div>
+
         <div className="mb-3">
           <label htmlFor="image" className="form-label">Bild</label>
           <input
@@ -75,8 +100,7 @@ const SkapaAuktion = () => {
             onChange={uploadImage}
           />
         </div>
-      
-        
+
 
         <div className="mb-3">
           <label htmlFor="startBid" className="form-label">Startbud</label>

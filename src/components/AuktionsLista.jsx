@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import SearchBar from './Search';
+
+import SearchBar from './Search'; // Antag att detta är sökfältets komponent
 import { Link } from 'react-router-dom';
 
 const AuktionsLista = () => {
@@ -7,13 +8,19 @@ const AuktionsLista = () => {
   const [filteredAuctions, setFilteredAuctions] = useState([]);
 
   useEffect(() => {
-    async function load() {
-      const response = await fetch('/api/auctions')
-      const items = await response.json()
-      setAuctions(items)
-    }
-    load()
-  }, [])
+    fetch('http://localhost:3000/auctions')
+      .then(response => {
+        if (!response.ok) {
+          throw new Error('Något gick fel vid hämtning av auktioner');
+        }
+        return response.json();
+      })
+      .then(data => {
+        setAuctions(data);
+        setFilteredAuctions(data); // Initialt är filtrerade auktioner samma som alla auktioner
+      })
+      .catch(error => console.error('Fel:', error));
+  }, []);
 
   const handleSearch = (searchTerm) => {
     const term = searchTerm.toLowerCase();
@@ -29,11 +36,13 @@ const AuktionsLista = () => {
   // Endast en return-sats ska användas här
   return (
     <div className="container">
-      <SearchBar onSearch={handleSearch} />
-      {auctions.map(auction => (
-        <Link to={`/auction/${auction.id}/${auction.title}`} key={auction.id} style={{ textDecoration: 'none', color: 'inherit' }}>
+      <SearchBar  />
+      {filteredAuctions.map(auction => (
+        <Link to={`/auktion/${auction.id}`} key={auction.id} style={{ textDecoration: 'none', color: 'inherit' }}>
           <div className="auction-item mb-4">
-            <img src={auction.image} alt={auction.title} style={{ width: '100%', height: 'auto', maxWidth: '600px' }} className="mb-3" />
+
+            {auction.images.map(image =>
+              <img src={image} alt={auction.title} style={{ width: '100%', height: 'auto', maxWidth: '600px' }} className="mb-3" />)}
             <h5>{auction.title}</h5>
             <p>{auction.description}</p>
             <p>Startbud: {auction.startBid} SEK</p>

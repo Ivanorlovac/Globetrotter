@@ -6,17 +6,29 @@ const SearchBar = ({ onSearch }) => {
   const handleChange = (event) => {
     const term = event.target.value;
     setSearchTerm(term);
-    onSearch(term);
+    ;
   };
 
+  function handleSearch(event) {
+    onSearch(event.target.value)
+    event.preventDefault()
+
+  }
+
   return (
-    <input
-      type="text"
-      className="form-control mb-3"
-      placeholder="Sök efter titel, beskrivning eller pris..."
-      value={searchTerm}
-      onChange={handleChange}
-    />
+    <search>
+      <form onSubmit={handleSearch}>
+        <input
+          type="text"
+          className="form-control mb-3"
+          placeholder="Sök efter titel, beskrivning eller pris..."
+          value={searchTerm}
+          onChange={handleChange}
+        />
+        <input type='submit' value='Sök'></input>
+      </form>
+    </search>
+
   );
 };
 

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+
 
 const LoginForm = ({ onLoginSuccess }) => {
   const [username, setUsername] = useState('');
@@ -9,10 +9,15 @@ const LoginForm = ({ onLoginSuccess }) => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.get(`http://localhost:3001/users?username=${username}&password=${password}`);
-      if (response.data.length > 0) {
+      // Använder fetch för att göra en GET-begäran
+      const response = await fetch(`http://localhost:3000/users?username=${username}&password=${password}`);
+      if (!response.ok) {
+        throw new Error('Nätverksfel vid inloggning');
+      }
+      const data = await response.json();
+      if (data.length > 0) {
         // Anropa onLoginSuccess med användardata
-        onLoginSuccess(response.data[0]);
+        onLoginSuccess(data[0]);
       } else {
         setError('Felaktigt användarnamn eller lösenord.');
       }
