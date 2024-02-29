@@ -10,6 +10,8 @@ import NavbarOffcanvas from './components/Navbar.jsx';
 import Homepage from './pages/homepage.jsx';
 import { GlobalProvider } from './components/GlobalContext.jsx';
 import Footer from './components/footer.jsx';
+import AboutUs from './pages/aboutUs.jsx';
+
 const App = () => {
   const [user, setUser] = useState(null);
 
@@ -19,10 +21,12 @@ const App = () => {
   };
 
   return <>
+    <GlobalProvider>
+      <Router>
   <main id="main-pic">
     <div id="main-background">
-      <GlobalProvider>
-      <Router>
+     
+      
         <NavbarOffcanvas />
         <Routes>
           <Route path="/" element={<Homepage />} />
@@ -31,14 +35,17 @@ const App = () => {
           <Route path="/search" element={<SearchBar />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/login" element={<LoginForm onLoginSuccess={handleLoginSuccess} />} />
+          <Route path="/aboutUs" element={<AboutUs />} />
         </Routes>
         {user && <div>Välkommen, {user.username}!</div>}
-        </Router>
+        
       
-      </GlobalProvider>
+      
     </div>
   </main>
-  <Footer/>
+    <Footer /> 
+  </Router>
+ </GlobalProvider>
 </>
 
 };
