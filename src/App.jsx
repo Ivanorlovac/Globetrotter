@@ -13,6 +13,7 @@ import Footer from './components/footer.jsx';
 import AboutUs from './pages/aboutUs.jsx';
 import Contact from './pages/contact.jsx';
 import Faq from './pages/faq.jsx';
+import Job from './pages/job.jsx';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -40,6 +41,7 @@ const App = () => {
           <Route path="/aboutUs" element={<AboutUs />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/faq" element={<Faq />} />
+          <Route path="/job" element={<Job />} />
         </Routes>
         {user && <div>Välkommen, {user.username}!</div>}
         
