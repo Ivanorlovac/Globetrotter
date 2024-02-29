@@ -2,6 +2,10 @@
 @import url(./homepage.css);
 @import url(./biddingSite.css);
 
+#logo{
+  width: 80px;
+}
+
 #main-pic{
   background-image: url('https://st4.depositphotos.com/4640111/41072/i/450/depositphotos_410721236-stock-photo-planning-vacation-travel-plan-trip.jpg');
   background-repeat: none;
