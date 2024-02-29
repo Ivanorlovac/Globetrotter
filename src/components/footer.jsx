@@ -8,7 +8,8 @@ export default function Footer() {
     <Container>
       <Row>
         <Col>
-          <p>Kontakt</p>
+          <p><Link to ="/contact">Kontakt</Link></p>
+
           <p>FAQ</p>
         </Col>
         <Col>
@@ -19,7 +20,7 @@ export default function Footer() {
       <Row>
         <Col>
           <p>&#169; Copyright</p>
-          <p><Link to ="/aboutUs">About us </Link></p>
+          <p><Link to ="/aboutUs">Om oss </Link></p>
         </Col>
       </Row>
 
