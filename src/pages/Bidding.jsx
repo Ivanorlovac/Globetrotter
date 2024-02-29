@@ -71,15 +71,9 @@ export default function Bidding() {
               <p>{auction.creator}</p>
             </div>
           </div>
-          {Object.keys(auction).length > 0 && (
             <div className="bidding-countdown">
-              {timeCloseAution ? (
-                <p>Stängd</p>
-              ) : (
-                <Timer objTime={auction.endTime} />
-              )}
+              <Timer objTime={auction.endTime} />
             </div>
-          )}
         </div>
       </div>
 
