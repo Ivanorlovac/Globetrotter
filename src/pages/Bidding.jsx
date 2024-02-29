@@ -72,7 +72,7 @@ export default function Bidding() {
             </div>
           </div>
             <div className="bidding-countdown">
-              <Timer objTime={auction.endTime} />
+              <Timer objEndTime={auction.endTime} fontSize={15} showBorder={true} setBold={true} />
             </div>
         </div>
       </div>
