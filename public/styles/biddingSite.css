@@ -137,6 +137,17 @@
               transform: translateX(-50%);
             }
           }
+          .creator-text>p {
+            margin: 0px;
+          }
+          .creator-text>p:first-child {
+            font-size: 80%;
+            color:  rgb(61, 61, 61);
+          }
+          .creator-text>p:last-child {
+            font-weight: bold;
+          }
+
         }
       }
 
@@ -152,7 +163,16 @@
             margin-left: 20px;
           }
       }
+      .place-bid {
+        margin-top: 20px;
+        background-color: var(--information-about);
+        width: 100%;
+        height: 150px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
 
+      }
     }
   }
 }

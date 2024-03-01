@@ -6,15 +6,15 @@ function GlobalProvider({ children }) {
   
   const [user, setUser] = useState({})
   const [search, setSearch] = useState('')
-  const [timeCloseAution, setTimeCloseAution] = useState(false)
+  const [favorites, setFavorites] = useState([])
 
   return <Globalcontext.Provider value={{
     user,
     setUser,
     search,
     setSearch,
-    timeCloseAution,
-    setTimeCloseAution
+    favorites,
+    setFavorites
   }}>
     {children}
   </Globalcontext.Provider>

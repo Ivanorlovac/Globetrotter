@@ -3,8 +3,13 @@ import { useParams, useNavigate } from "react-router-dom"
 import { MDBCarousel, MDBCarouselItem } from 'mdb-react-ui-kit';
 import { IoIosArrowRoundBack } from "react-icons/io";
 import Timer from "../components/Timer.jsx";
-import { Globalcontext } from "../components/GlobalContext.jsx";
 import Carousel from "../components/Carousel.jsx";
+import Favorites from "../components/Favorites.jsx";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import PlaceBid from "../components/PlaceBid.jsx";
+
 
 export default function Bidding() {
 
@@ -55,12 +60,28 @@ export default function Bidding() {
               <div className="creator-container">
                 <img src={auction.creatorImage} />
               </div>
-              <p>{auction.creator}</p>
+              <div className="creator-text">
+                <p>Created by</p>
+                <p>{auction.creator}</p>
+              </div>
             </div>
           </div>
-            <div className="bidding-countdown">
-              <Timer objEndTime={auction.endTime} fontSize={15} showBorder={true} setBold={true} />
-            </div>
+          <div className="bidding-countdown">
+            <Container>
+              <Row>
+                <Col>
+                  <Timer objEndTime={auction.endTime} fontSize={15} showBorder={true} setBold={true} />
+                </Col>
+                <Col>
+                  <Favorites obj={auction} />
+                </Col>
+              </Row>
+            </Container>            
+              
+          </div>
+          <div className="place-bid">
+            <PlaceBid obj={auction.id}/>
+          </div>
         </div>
       </div>
 

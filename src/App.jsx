@@ -22,10 +22,11 @@ const App = () => {
   };
 
   return <>
+    <GlobalProvider>
+      <Router>
     <main id="main-pic">
       <div id="main-background">
-        <GlobalProvider>
-          <Router>
+
             <NavbarOffcanvas />
             <Routes>
               <Route path="/" element={<Homepage />} />
@@ -36,12 +37,12 @@ const App = () => {
               <Route path="/auction/:id/:title" element={<Bidding />} />
             </Routes>
             {user && <div>Välkommen, {user.username}!</div>}
-          </Router>
 
-        </GlobalProvider>
       </div>
     </main>
-    <Footer />
+        <Footer />
+      </Router>
+    </GlobalProvider>
   </>
 
 };
