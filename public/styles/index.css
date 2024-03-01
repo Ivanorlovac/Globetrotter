@@ -45,11 +45,76 @@ footer{
   background-color: #85a2c1;
 }
 
-.carousel{
+.image-container {
+  position: relative;
+  width: 80%;
+  border-radius: 20px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 600px;
+  justify-content: center;
   height: 400px;
+  background-color: var(--information-about);
+  overflow: hidden;
+
+  .arrow {
+      position: absolute;
+      width: 2rem;
+      height: 2rem;
+      color: white;
+      filter: drop-shadow(0px 0px 10px #555);
+    }
   
+    .arrow:hover {
+      cursor: pointer;
+    }
+  
+    .arrow-left {
+      left: 0.5rem;
+    }
+  
+    .arrow-right {
+      right: 0.5rem;
+    }
+  .carousel {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    .slide {
+      box-shadow: 0px 0px 7px #666;
+      height: 100%;
+    }
+
+    .slide-hidden {
+      display: none;
+    }
+
+
+
+    .indicators {
+      display: flex;
+      position: absolute;
+      bottom: 1rem;
+    }
+
+    .indicator {
+      background-color: white;
+      height: 12px;
+      width: 12px;
+      border-radius: 100%;
+      border: none;
+      outline: none;
+      box-shadow: 0px 0px 5px #555;
+      margin: 0 0.2rem;
+      cursor: pointer;
+    }
+
+    .indicator-inactive {
+      background-color: grey
+    }
+
+  }
+
 }

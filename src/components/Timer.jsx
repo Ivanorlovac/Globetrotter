@@ -1,18 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import Countdown from 'react-countdown';
-import { Globalcontext } from "./GlobalContext.jsx";
 
 export default function Timer(props) {
 
-  const { timeCloseAution, setTimeCloseAution } = useContext(Globalcontext);
+  const [ timeCloseAution, setTimeCloseAution ] = useState(false);
   const Completionist = () => setTimeCloseAution(true)
 
   let time = props.objEndTime
 
   const styleClosed = {
-    color: "grey",
-    fontSize: "20px",
-    fontWeight: "bold"
+    color: "black",
+    fontSize: props.fontSize,
+    fontWeight: props.setBold ? "bold" : "normal",
   }
 
   const styleTimer = {

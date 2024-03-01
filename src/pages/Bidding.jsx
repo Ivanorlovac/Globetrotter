@@ -1,5 +1,5 @@
 import { useState, useEffect, useContext } from "react"
-import { useParams } from "react-router-dom"
+import { useParams, useNavigate } from "react-router-dom"
 import { MDBCarousel, MDBCarouselItem } from 'mdb-react-ui-kit';
 import { IoIosArrowRoundBack } from "react-icons/io";
 import Timer from "../components/Timer.jsx";
@@ -9,50 +9,36 @@ import Carousel from "../components/Carousel.jsx";
 export default function Bidding() {
 
   const [auction, setAuction] = useState({})
+  const [category, setCategory] = useState({})
   const { id } = useParams()
-  const { timeCloseAution } = useContext(Globalcontext)
+  const navigate = useNavigate();
 
   useEffect(() => {
     async function load() {
-      console.log("ID:", id)
       const response = await fetch("/api/auctions/" + id)
-      const data = await response.json()
-      setAuction(data)
+      
+      const dataAuction = await response.json()
+      setAuction(dataAuction)
     }
     load()
   }, [])
 
-  const ImgCarousel = () => <>
-    <div className="img-carousel" >
-      <MDBCarousel showControls>
-        <MDBCarouselItem itemId={1}>
-          <img src='https://mdbootstrap.com/img/new/slides/041.jpg' className='d-block w-100' alt='...' />
-        </MDBCarouselItem>
-        <MDBCarouselItem itemId={2}>
-          <img src='https://mdbootstrap.com/img/new/slides/042.jpg' className='d-block w-100' alt='...' />
-        </MDBCarouselItem>
-        <MDBCarouselItem itemId={3}>
-          <img src='https://mdbootstrap.com/img/new/slides/043.jpg' className='d-block w-100' alt='...' />
-        </MDBCarouselItem>
-      </MDBCarousel>
-    </div>
-  </>
 
+  const goToHomepage = () => {
+    navigate("/");
+  };
   
   return <>
     <div className="bidding-main">
       <div className="bidding-back">
-        <button type="button" className="go-back">
+        <button type="button" className="go-back" onClick={goToHomepage}>
           <IoIosArrowRoundBack />
           <p>Go back</p>
         </button>
       </div>
       <div className="bidding-content">
         <div className="bidding-image">
-          <div className="image-container">
-            {/* <img src={auction.images} /> */}
-            <Carousel objImages={auction.images} />
-          </div>
+          <Carousel objImages={auction.images} />
           <div className="bidding-about">
             <h4>About Auction</h4>
             <div className="bidding-about-information">
