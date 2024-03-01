@@ -171,7 +171,13 @@
         border-radius: 20px;
         display: flex;
         align-items: center;
-
+        .bid-section{
+          display: flex;
+          .higest-bid{
+            display: flex;
+            gap: 5px;
+          }
+        }
       }
     }
   }

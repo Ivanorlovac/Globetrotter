@@ -31,6 +31,8 @@ export default function Timer(props) {
     );
   };
 
+  
+
   return <>
     {timeCloseAution ? <p style={styleClosed}>Auktion avslutad</p> : time != null ? <div style={styleTimer}><Countdown date={Date.parse(time)} onComplete={Completionist} renderer={renderer}></Countdown></div>
       : <p>00:00:00:00</p>}

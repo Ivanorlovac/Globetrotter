@@ -4,7 +4,8 @@
       "id": "1",
       "title": "Riu Vistamar ,KANARIEÖARNA, SPANIEN",
       "description": "Riu Vistamar ligger högt upp på en klippa mellan den fina Amadoresstranden och Puerto Rico. Från de uppvärmda poolområdena och poolrestaurangen har du utsikt över Atlanten och horisonten. Sitter du på din balkong eller markterrass har du samma fina vy.",
-      "startBid": 50000,
+      "valuationPrice": 50000,
+      "priceRange": 10000,
       "currentBid": 55000,
       "images": [
         "https://i.postimg.cc/hjtZJ162/i-0280587-Web-Original-Compressed.avif",
@@ -12,7 +13,7 @@
         "https://i.postimg.cc/NjxW5FLf/i-0280588-Web-Original-Compressed.avif",
         "https://i.postimg.cc/FRCW0JQN/i-0323685-Web-Original-Compressed.avif"
       ],
-      "endTime": "2024-03-01T12:00:00Z",
+      "endTime": "2024-03-01T14:00:00Z",
       "category": 1,
       "creator": "Suntrip AB",
       "creatorImage": "data:image/png;base64,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"
@@ -445,6 +446,130 @@
       "id": "a270",
       "auctionId": "338e",
       "amount": "2000"
+    },
+    {
+      "id": "9346",
+      "auctionId": "1",
+      "amount": "10"
+    },
+    {
+      "id": "472d",
+      "auctionId": "1",
+      "amount": "20",
+      "userId": 1,
+      "time": 1709289907437
+    },
+    {
+      "id": "a872",
+      "auctionId": "1",
+      "amount": "22",
+      "userId": 1,
+      "time": "1709290046624"
+    },
+    {
+      "id": "d3a9",
+      "auctionId": "1",
+      "amount": "22",
+      "userId": 1,
+      "time": "2024-03-01T10:47:44.405Z"
+    },
+    {
+      "id": "17ef",
+      "auctionId": "1",
+      "amount": "30",
+      "userId": 1,
+      "time": "2024-03-01 11:51:14"
+    },
+    {
+      "id": "6169",
+      "auctionId": "1",
+      "amount": "40",
+      "userId": 1,
+      "time": "2024-03-01 12:02:00"
+    },
+    {
+      "id": "55c9",
+      "auctionId": "1",
+      "amount": "50",
+      "userId": 1,
+      "time": "2024-03-01 13:23:21"
+    },
+    {
+      "id": "41f9",
+      "auctionId": "1",
+      "amount": "60",
+      "userId": 1,
+      "time": "2024-03-01 13:23:45"
+    },
+    {
+      "id": "41b3",
+      "auctionId": "1",
+      "amount": "40",
+      "userId": 1,
+      "time": "2024-03-01 13:30:31"
+    },
+    {
+      "id": "4dba",
+      "auctionId": "1",
+      "amount": "100",
+      "userId": 1,
+      "time": "2024-03-01 13:30:34"
+    },
+    {
+      "id": "cc1b",
+      "auctionId": "1",
+      "amount": "110",
+      "userId": 1,
+      "time": "2024-03-01 13:55:36"
+    },
+    {
+      "id": "ff9f",
+      "auctionId": "1",
+      "amount": "120",
+      "userId": 1,
+      "time": "2024-03-01 14:15:25"
+    },
+    {
+      "id": "6297",
+      "auctionId": "1",
+      "amount": "150",
+      "userId": 1,
+      "time": "2024-03-01 14:24:38"
+    },
+    {
+      "id": "81b5",
+      "auctionId": "1",
+      "amount": "180",
+      "userId": 1,
+      "time": "2024-03-01 14:25:44"
+    },
+    {
+      "id": "b567",
+      "auctionId": "1",
+      "amount": "180",
+      "userId": 1,
+      "time": "2024-03-01 14:25:55"
+    },
+    {
+      "id": "1890",
+      "auctionId": "1",
+      "amount": "181",
+      "userId": 1,
+      "time": "2024-03-01 14:26:29"
+    },
+    {
+      "id": "a8fb",
+      "auctionId": "1",
+      "amount": "182",
+      "userId": 1,
+      "time": "2024-03-01 14:27:40"
+    },
+    {
+      "id": "67ea",
+      "auctionId": "1",
+      "amount": "183",
+      "userId": 1,
+      "time": "2024-03-01 14:29:21"
     }
   ],
   "users": [

@@ -73,14 +73,14 @@ export default function Bidding() {
                   <Timer objEndTime={auction.endTime} fontSize={15} showBorder={true} setBold={true} />
                 </Col>
                 <Col>
-                  <Favorites obj={auction} />
+                  {/* <Favorites obj={auction} /> */}
                 </Col>
               </Row>
             </Container>            
               
           </div>
           <div className="place-bid">
-            <PlaceBid obj={auction.id}/>
+            <PlaceBid />
           </div>
         </div>
       </div>
