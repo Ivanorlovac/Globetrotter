@@ -51,7 +51,7 @@ footer{
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--information-about);
+  background-color: rgb(239, 239, 239);
   overflow: hidden;
 
   .arrow {
@@ -80,17 +80,16 @@ footer{
     justify-content: center;
     align-items: center;
     height: 100%;
-
+    width: 100%;
     .slide {
       box-shadow: 0px 0px 7px #666;
       height: 100%;
+      width: 100%;
     }
 
     .slide-hidden {
       display: none;
     }
-
-
 
     .indicators {
       display: flex;
