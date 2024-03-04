@@ -1,6 +1,5 @@
 import { useState, useEffect, useContext } from "react"
 import { useParams, useNavigate } from "react-router-dom"
-import { MDBCarousel, MDBCarouselItem } from 'mdb-react-ui-kit';
 import { IoIosArrowRoundBack } from "react-icons/io";
 import Timer from "../components/Timer.jsx";
 import Carousel from "../components/Carousel.jsx";
@@ -9,7 +8,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import PlaceBid from "../components/PlaceBid.jsx";
-
+import AuctionEnded from "../components/AuctionEnded.jsx";
 
 export default function Bidding() {
 
@@ -35,8 +34,7 @@ export default function Bidding() {
   
   let timeNow = new Date().toLocaleString('se-SE', { timeZone: 'cet' })
   let timeEnd = new Date(auction.endTime).toLocaleString('se-SE', { timeZone: 'cet' })
-  console.log("Timenow: ", timeNow)
-  console.log("timeEnd: ", timeEnd)
+
 
   if (timeNow > timeEnd) {
     console.log("Tiden har gått ut")
@@ -92,7 +90,7 @@ export default function Bidding() {
               
           </div>
           <div className="place-bid">
-            <PlaceBid />
+            {timeNow < timeEnd ? <PlaceBid /> : <AuctionEnded/>}
           </div>
         </div>
       </div>
