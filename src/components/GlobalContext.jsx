@@ -4,7 +4,12 @@ const Globalcontext = createContext()
 
 function GlobalProvider({ children }) {
   
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState({
+    "id": "2",
+    "username": "user",
+    "password": "user",
+    "role": "user"
+  })
   const [search, setSearch] = useState('')
   const [favorites, setFavorites] = useState([])
 

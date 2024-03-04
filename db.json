@@ -361,7 +361,7 @@
   "bids": [
     {
       "id": "1",
-      "auctionId": "1",
+      "auctionId": "2",
       "userId": "2",
       "amount": 56000,
       "time": "2023-02-23T10:00:00Z"
@@ -583,29 +583,43 @@
       "id": "b567",
       "auctionId": "1",
       "amount": "180",
-      "userId": 1,
+      "userId": 3,
       "time": "2024-03-01 14:25:55"
     },
     {
       "id": "1890",
       "auctionId": "1",
       "amount": "181",
-      "userId": 1,
+      "userId": 2,
       "time": "2024-03-01 14:26:29"
     },
     {
       "id": "a8fb",
       "auctionId": "1",
       "amount": "182",
-      "userId": 1,
+      "userId": 2,
       "time": "2024-03-01 14:27:40"
     },
     {
       "id": "67ea",
       "auctionId": "1",
       "amount": "183",
-      "userId": 1,
+      "userId": 2,
       "time": "2024-03-01 14:29:21"
+    },
+    {
+      "id": "24ee",
+      "auctionId": "1",
+      "amount": "190",
+      "userId": "2",
+      "time": "2024-03-04 12:04:39"
+    },
+    {
+      "id": "c640",
+      "auctionId": "1",
+      "amount": "200",
+      "userId": "2",
+      "time": "2024-03-04 12:06:15"
     }
   ],
   "users": [
@@ -622,7 +636,7 @@
       "role": "user"
     },
     {
-      "id": "8e40",
+      "id": "3",
       "username": "ivanorlovac@gmail.com",
       "password": "123456",
       "role": "user"

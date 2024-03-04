@@ -1,23 +1,28 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import ShowAlert from './ShowAlert.jsx';
-
+import { Globalcontext } from './GlobalContext.jsx';
 
 export default function PlaceBid() {
   
-  const [auction, setAuction] = useState(null);
+  const {user} = useContext(Globalcontext)
   const [bidAmount, setBidAmount] = useState('');
   const [myBids, setMyBids] = useState([])
   const [update, setUpdate] = useState(1)
   const [higestBid, setHigestBid] = useState(0)
   const [checkBid, setCheckBid] = useState(false)
   const [bidPlaced, setBidPlaced] = useState(false)
+  const [showAlert, setShowAlert] = useState(false);
   const { id } = useParams();
-
-  const user_id = 1
+  
+  if (Object.keys(user).length === 0) {
+    console.log("Den är tom")
+  } else {
+    console.log("User inloggad")
+  }
 
   useEffect(() => {
-    fetch(`http://localhost:3000/bids?userId=${user_id}`)
+    fetch(`http://localhost:3000/bids?userId=${user.id}&auctionId=${id}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Nätverksfel vid hämtning av auktionsdetaljer');
@@ -25,26 +30,33 @@ export default function PlaceBid() {
         return response.json();
       })
       .then(data => setMyBids(data))
-      .catch(error => console.error('Fel:', error));    
+      .catch(error => console.error('Fel:', error));  
+    
   }, [update])
 
+  useEffect(() => {
+    const max = Math.max(...myBids.map(item => item.amount))
+    setHigestBid(max)    
+  },[myBids])
 
   useEffect(() => {
-    fetch(`http://localhost:3000/auctions/${id}`)
-      .then(response => {
-        if (!response.ok) {
-          throw new Error('Nätverksfel vid hämtning av auktionsdetaljer');
-        }
-        return response.json();
-      })
-      .then(data => setAuction(data))
-      .catch(error => console.error('Fel:', error));
-  }, [id]);
+    setShowAlert(true);
+
+    const timer = setTimeout(() => {
+      setCheckBid(false)
+      setBidPlaced(false)
+      setShowAlert(false);
+    }, 3000);
+
+    return () => clearTimeout(timer);
+  }, [checkBid, bidPlaced]);
+
 
   const handleBidSubmit = (e) => {
 
     e.preventDefault();
     setBidPlaced(false)
+
 
     if (bidAmount <= 0) {
       return
@@ -58,7 +70,7 @@ export default function PlaceBid() {
     const newBid = {
       auctionId: id,
       amount: bidAmount,
-      userId: user_id,
+      userId: user.id,
       time: new Date().toLocaleString('se-SE', { timeZone: 'cet' })
     };
 
@@ -83,29 +95,29 @@ export default function PlaceBid() {
       .catch(error => console.error('Failed to place bid:', error));
   };
 
-  if (!auction) return <div>Laddar auktionsdetaljer...</div>;
 
-  const Highestbid = () => {
-    const max = Math.max(...myBids.map(item => item.amount))
-    setHigestBid(max)
-    return <p>{max} kr</p>
+
+  const NoUser = () => {
+    return <>
+      <p>Logga in för att lägga och se dina bud.</p>
+    </>
   }
-  
 
 
   return <div className='bid-section'>
-    <div>
-      <form onSubmit={handleBidSubmit}>
-        <input type="submit" value="Lägg bud" />
-        <input type="number" placeholder='Ange summa' value={bidAmount} onChange={(e) => setBidAmount(e.target.value)} />
-      </form>
-      {checkBid ? <ShowAlert type={'danger'} /> : bidPlaced ? <ShowAlert type={'success'} /> : <></>}
-    </div>
-
-    <div className='higest-bid'>
-      <p>Högsta lagda bud: </p>
-      <Highestbid/>
-    </div>
+    {Object.keys(user).length === 0 ? <NoUser /> : <>
+      <div>
+        <form onSubmit={handleBidSubmit}>
+          <input type="submit" value="Lägg bud" />
+          <input type="number" placeholder='Ange summa' value={bidAmount} onChange={(e) => setBidAmount(e.target.value)} />
+        </form>
+        {showAlert && (checkBid ? <ShowAlert type={'danger'} /> : bidPlaced ? <ShowAlert type={'success'} /> : <></>)}
+      </div>
+      <div className='higest-bid'>
+        <p>Ditt högst lagda bud: {higestBid} kr</p>
+      </div>
+    
+    </>}
   </div>
 
 }
