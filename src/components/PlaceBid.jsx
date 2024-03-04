@@ -15,12 +15,6 @@ export default function PlaceBid() {
   const [showAlert, setShowAlert] = useState(false);
   const { id } = useParams();
   
-  if (Object.keys(user).length === 0) {
-    console.log("Den är tom")
-  } else {
-    console.log("User inloggad")
-  }
-
   useEffect(() => {
     fetch(`http://localhost:3000/bids?userId=${user.id}&auctionId=${id}`)
       .then(response => {
