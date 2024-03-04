@@ -2,6 +2,7 @@
 @import url(./homepage.css);
 @import url(./biddingSite.css);
 
+
 #logo{
   width: 80px;
 }
@@ -51,7 +52,7 @@ footer{
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--information-about);
+  background-color: rgb(239, 239, 239);
   overflow: hidden;
 
   .arrow {
