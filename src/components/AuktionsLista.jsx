@@ -49,7 +49,8 @@ const AuktionsLista = () => {
             <p>{auction.description}</p>
             <p>Startbud: {auction.startBid} SEK</p>
             {auction.currentBid && <p>Nuvarande bud: {auction.currentBid} SEK</p>}
-            <p>Slutar: <Timer objEndTime={auction.endTime} fontSize={15} showBorder={false} setBold={false} /></p>
+            <p>Slutar: </p>
+            <Timer objEndTime={auction.endTime} fontSize={15} showBorder={false} setBold={false} />
           </div>
         </Link>
       ))}
