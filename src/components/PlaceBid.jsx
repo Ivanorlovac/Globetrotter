@@ -107,10 +107,10 @@ export default function PlaceBid() {
         </form>
         {showAlert && (checkBid ? <ShowAlert type={'danger'} /> : bidPlaced ? <ShowAlert type={'success'} /> : <></>)}
       </div>
-      <div className='higest-bid'>
-        <p>Ditt högst lagda bud: {higestBid} kr</p>
-      </div>
-    
+
+      <div className='show-bid'>
+        {higestBid > 0 ? <p>Ditt högst lagda bud: {higestBid} kr</p> : <p>Lägg ett bud för att gå med i auction</p>}
+      </div>        
     </>}
   </div>
 

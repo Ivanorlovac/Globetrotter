@@ -173,7 +173,7 @@
         align-items: center;
         .bid-section{
           display: flex;
-          .higest-bid{
+          .show-bid{
             display: flex;
             gap: 5px;
           }

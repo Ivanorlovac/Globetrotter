@@ -33,6 +33,18 @@ export default function Bidding() {
     navigate("/");
   };
   
+  let timeNow = new Date().toLocaleString('se-SE', { timeZone: 'cet' })
+  let timeEnd = new Date(auction.endTime).toLocaleString('se-SE', { timeZone: 'cet' })
+  console.log("Timenow: ", timeNow)
+  console.log("timeEnd: ", timeEnd)
+
+  if (timeNow > timeEnd) {
+    console.log("Tiden har gått ut")
+  } else {
+    console.log("Auktionen är igång fortfarande")
+  }
+
+
   return <>
     <div className="bidding-main">
       <div className="bidding-back">
