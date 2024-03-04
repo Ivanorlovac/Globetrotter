@@ -10,7 +10,6 @@ import NavbarOffcanvas from './components/Navbar.jsx';
 import Homepage from './pages/homepage.jsx';
 import { GlobalProvider } from './components/GlobalContext.jsx';
 import Footer from './components/footer.jsx';
-import AboutUs from './pages/aboutUs.jsx';
 import Contact from './pages/contact.jsx';
 
 
@@ -37,7 +36,7 @@ const App = () => {
           <Route path="/search" element={<SearchBar />} />
           <Route path="/register" element={<RegisterForm />} />
           <Route path="/login" element={<LoginForm onLoginSuccess={handleLoginSuccess} />} />
-          <Route path="/aboutUs" element={<AboutUs />} />
+          
           <Route path="/contact" element={<Contact />} />
         </Routes>
         {user && <div>Välkommen, {user.username}!</div>}
