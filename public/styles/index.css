@@ -47,12 +47,10 @@ footer{
 
 .image-container {
   position: relative;
-  width: 80%;
   border-radius: 20px;
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 400px;
   background-color: var(--information-about);
   overflow: hidden;
 

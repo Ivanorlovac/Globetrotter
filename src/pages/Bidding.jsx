@@ -43,7 +43,7 @@ export default function Bidding() {
       </div>
       <div className="bidding-content">
         <div className="bidding-image">
-          <Carousel objImages={auction.images} />
+          <Carousel objImages={auction.images} width={512} height={400}/>
           <div className="bidding-about">
             <h4>About Auction</h4>
             <div className="bidding-about-information">
