@@ -84,7 +84,7 @@ footer {
   flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
-  align-content: center;
+  align-items: center;
   flex-wrap: nowrap;
 }
 
