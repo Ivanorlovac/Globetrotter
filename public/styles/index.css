@@ -3,8 +3,14 @@
 @import url(./homepage.css);
 @import url(./biddingSite.css);
 
-#logo{
+#logo.rounded{
   width: 80px;
+  border-radius: 50% !important;
+}
+
+#logo_header{
+  font-family: "Playfair Display", serif;
+  font-size:xx-large;
 }
 
 #main-pic{
