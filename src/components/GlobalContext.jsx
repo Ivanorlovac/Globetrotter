@@ -6,16 +6,16 @@ export const useAuth = () => useContext(Globalcontext);
 
 function GlobalProvider({ children }) {
 
-  const [user, setUser] = useState(null)
+  const [user, setUser] = useState({})
   const [search, setSearch] = useState('')
   const [loginMessage, setLoginMessage] = useState('');
 
   const login = (userData) => {
     setUser(userData);
-    setLoginMessage('Välkomen' + userData.username);
+    setLoginMessage('Välkommen' + userData.username);
   };
   const logout = () => {
-    setUser(null);
+    setUser({});
     setLoginMessage('');
   };
 

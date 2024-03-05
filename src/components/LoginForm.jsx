@@ -14,6 +14,7 @@ const LoginForm = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    console.log("Logg in tryckt")
     setError(''); 
     try {
       const response = await fetch(`http://localhost:3000/users?username=${username}&password=${password}`);
@@ -23,10 +24,11 @@ const LoginForm = () => {
       const data = await response.json();
       if (data.length > 0) {
         setUser(data[0]); 
-       
+        console.log("DATA: ", data[0])
         navigate('/');
        
       } else {
+        console.log("here")
         setError('Felaktigt användarnamn eller lösenord.');
       }
     } catch (error) {
