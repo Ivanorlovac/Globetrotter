@@ -52,11 +52,14 @@ export default function Bidding() {
       padding: "7px",
       borderRadius: "20px",
       width: "fit-content",
+      display: "flex",
+      gap: "4px",
     }
 
     return <>
       <div style={styleValutationPrice}>
-        <p style={{margin: "0px"}}>{auction.valuationPrice}</p>
+        <p style={{ margin: "0px" }}>{auction.valuationPrice}</p>
+        <p style={{ margin: "0px" }}>kr</p>
       </div>
     </>
   }
@@ -101,11 +104,11 @@ export default function Bidding() {
                   <p>time left</p>
                   <Timer objEndTime={auction.endTime} fontSize={20} showBorder={true} setBold={true} />
                 </Col>
-                <Col>
+                <Col className="align-items-center">
                   <p>Totalt antal bud</p>
                   <TotalBids fontSize={20} showBorder={true} setBold={true} />
                 </Col>
-                <Col>
+                <Col className="column-bidding">
                   <p>Värdering pris</p>
                   <ValuationPrice />
                 </Col>

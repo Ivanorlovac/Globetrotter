@@ -42,7 +42,7 @@ const AuktionsLista = () => {
       {filteredAuctions.map(auction => (
         <div key={auction.id}>
           <Carousel objImages={auction.images} width={600} height={400} />
-          <Link to={`/auction/${auction.id}/${auction.title}`} key={auction.id} style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Link to={`/auction/${auction.id}/${auction.slug}`} key={auction.id} style={{ textDecoration: 'none', color: 'inherit' }}>
             <div className="auction-item mb-4">
 
               <h5>{auction.title}</h5>

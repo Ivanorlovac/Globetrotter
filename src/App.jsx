@@ -21,26 +21,26 @@ const App = () => {
   };
 
   return <>
-    <main id="main-pic">
-      <div id="main-background">
-      <GlobalProvider>
-        <Router>
-          <NavbarOffcanvas />
-          <Routes>
-            <Route path="/" element={<Homepage />} />
-            <Route path="/auction/:id/:title" element={<p>Bidding page</p>} />
-            <Route path="/skapa-auktion" element={<SkapaAuktion />} />
-            <Route path="/search" element={<SearchBar />} />
-            <Route path="/register" element={<RegisterForm />} />
-            <Route path="/login" element={<LoginForm onLoginSuccess={handleLoginSuccess} />} />
-          </Routes>
-          {user && <div>Välkommen, {user.username}!</div>}
-        </Router>
-      </GlobalProvider>
-      </div>
-    </main>
-    <Footer/>
-</>
+    <GlobalProvider>
+      <Router>
+        <main id="main-pic">
+          <div id="main-background">
+            <NavbarOffcanvas />
+            <Routes>
+              <Route path="/" element={<Homepage />} />
+              <Route path="/auction/:id/:slug" element={<Bidding />} />
+              <Route path="/skapa-auktion" element={<SkapaAuktion />} />
+              <Route path="/search" element={<SearchBar />} />
+              <Route path="/register" element={<RegisterForm />} />
+              <Route path="/login" element={<LoginForm onLoginSuccess={handleLoginSuccess} />} />
+            </Routes>
+            {user && <div>Välkommen, {user.username}!</div>}
+          </div>
+        </main>
+        <Footer />
+      </Router>
+    </GlobalProvider>
+  </>
 
 };
 
