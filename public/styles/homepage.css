@@ -1,0 +1,16 @@
+#homepage_first_section{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#hompage_box {
+  background-color: aquamarine;
+  width: 70%;
+  height: 300px;
+  border: 1px solid #c3c3c3;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-content: center;
+}
