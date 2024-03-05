@@ -12,6 +12,7 @@ function GlobalProvider({ children }) {
   })
   const [search, setSearch] = useState('')
   const [favorites, setFavorites] = useState([])
+  const [bids, setBids] = useState([])
 
   return <Globalcontext.Provider value={{
     user,
@@ -19,7 +20,8 @@ function GlobalProvider({ children }) {
     search,
     setSearch,
     favorites,
-    setFavorites
+    setFavorites,
+    bids
   }}>
     {children}
   </Globalcontext.Provider>

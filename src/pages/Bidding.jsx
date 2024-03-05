@@ -9,6 +9,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import PlaceBid from "../components/PlaceBid.jsx";
 import BidsClosed from "../components/BidsClosed.jsx";
+import TotalBids from "../components/TotalBids.jsx";
 
 export default function Bidding() {
 
@@ -42,6 +43,23 @@ export default function Bidding() {
     console.log("Auktionen är igång fortfarande")
   }
 
+  const ValuationPrice = () => {
+    
+    const styleValutationPrice = {
+      fontSize: 20,
+      fontWeight: "bold",
+      border: "2px solid rgb(177, 177, 177)",
+      padding: "7px",
+      borderRadius: "20px",
+      width: "fit-content",
+    }
+
+    return <>
+      <div style={styleValutationPrice}>
+        <p style={{margin: "0px"}}>{auction.valuationPrice}</p>
+      </div>
+    </>
+  }
 
   return <>
     <div className="bidding-main">
@@ -77,17 +95,22 @@ export default function Bidding() {
             </div>
           </div>
           <div className="bidding-countdown">
-            <Container>
-              <Row>
-                <Col>
-                  <Timer objEndTime={auction.endTime} fontSize={15} showBorder={true} setBold={true} />
+            <Container fluid style={{margin: "0px", padding: "0px"}}>
+              <Row style={{margin: "0px"}}>
+                <Col className="column-bidding">
+                  <p>time left</p>
+                  <Timer objEndTime={auction.endTime} fontSize={20} showBorder={true} setBold={true} />
                 </Col>
                 <Col>
-                  {/* <Favorites obj={auction} /> */}
+                  <p>Totalt antal bud</p>
+                  <TotalBids fontSize={20} showBorder={true} setBold={true} />
+                </Col>
+                <Col>
+                  <p>Värdering pris</p>
+                  <ValuationPrice />
                 </Col>
               </Row>
             </Container>            
-              
           </div>
           <div className="place-bid">
             {timeNow < timeEnd ? <PlaceBid /> : <BidsClosed/>}

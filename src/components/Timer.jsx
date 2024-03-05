@@ -21,6 +21,7 @@ export default function Timer(props) {
     padding: "7px",
     borderRadius: "20px",
     width: "fit-content",
+    textWrap: "nowrap"
   }
 
   const renderer = ({ days, hours, minutes, seconds }) => {
