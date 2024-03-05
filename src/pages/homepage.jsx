@@ -26,7 +26,7 @@ export default function Homepage() {
             <h3>Eller slumpa fram en resa</h3>
           </div>
           <div className='center'>
-            <button id='shuffle_button'><span class="material-symbols-outlined">shuffle</span><br />SLUMPA</button>
+            <button id='shuffle_button'><span className="material-symbols-outlined">shuffle</span><br />SLUMPA</button>
           </div>
       </div>
 

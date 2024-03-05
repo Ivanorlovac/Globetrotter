@@ -39,7 +39,6 @@ const AuktionsLista = () => {
   // Endast en return-sats ska användas här
   return (
     <div className="container">
-      <SearchBar onSearch={handleSearch}  />
       {filteredAuctions.map(auction => (
         <div key={auction.id} className='auction_list_container'>
           <Carousel objImages={auction.images} width={600} height={400} />
