@@ -49,8 +49,7 @@ export default function PlaceBid() {
   const handleBidSubmit = (e) => {
 
     e.preventDefault();
-    setBidPlaced(false)
-
+/*     setBidPlaced(false) */
 
     if (bidAmount <= 0) {
       return
@@ -109,7 +108,7 @@ export default function PlaceBid() {
       </div>
 
       <div className='show-bid'>
-        {higestBid > 0 ? <p>Ditt högst lagda bud: {higestBid} kr</p> : <p>Lägg ett bud för att gå med i auction</p>}
+        {higestBid > 0 ? <p>Ditt högst lagda bud: {higestBid} kr</p> : <p>Lägg ett bud för att gå med i auktion</p>}
       </div>        
     </>}
   </div>

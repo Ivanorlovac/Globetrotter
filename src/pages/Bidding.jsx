@@ -8,7 +8,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import PlaceBid from "../components/PlaceBid.jsx";
-import AuctionEnded from "../components/AuctionEnded.jsx";
+import BidsClosed from "../components/BidsClosed.jsx";
 
 export default function Bidding() {
 
@@ -90,11 +90,10 @@ export default function Bidding() {
               
           </div>
           <div className="place-bid">
-            {timeNow < timeEnd ? <PlaceBid /> : <AuctionEnded/>}
+            {timeNow < timeEnd ? <PlaceBid /> : <BidsClosed/>}
           </div>
         </div>
       </div>
-
     </div>
   </>
 }

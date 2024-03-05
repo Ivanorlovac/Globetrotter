@@ -18,7 +18,6 @@ const App = () => {
 
   const handleLoginSuccess = (userData) => {
     setUser(userData);
-
   };
 
   return <>
@@ -26,7 +25,6 @@ const App = () => {
       <Router>
     <main id="main-pic">
       <div id="main-background">
-
             <NavbarOffcanvas />
             <Routes>
               <Route path="/" element={<Homepage />} />
@@ -37,7 +35,6 @@ const App = () => {
               <Route path="/auction/:id/:title" element={<Bidding />} />
             </Routes>
             {user && <div>Välkommen, {user.username}!</div>}
-
       </div>
     </main>
         <Footer />

@@ -5,7 +5,7 @@ const Globalcontext = createContext()
 function GlobalProvider({ children }) {
   
   const [user, setUser] = useState({
-    "id": "4",
+    "id": "6",
     "username": "user",
     "password": "user",
     "role": "user"

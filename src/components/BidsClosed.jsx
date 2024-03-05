@@ -3,7 +3,7 @@ import { useContext } from "react"
 
 
 
-export default function AuctionEnded() {
+export default function BidsClosed() {
   
   const {user} = useContext(Globalcontext)
   
