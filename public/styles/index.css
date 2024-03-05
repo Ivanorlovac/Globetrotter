@@ -1,4 +1,5 @@
 @import url("https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&display=swap');
 @import url(./homepage.css);
 @import url(./biddingSite.css);
 
@@ -22,24 +23,48 @@
 }
 
 .offcanvas{
+  font-family: "Playfair Display", serif;
   background-color: #85a2c1;
 }
 
 .navlink{
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Playfair Display", serif;
   list-style-type: none;
+  font-size: 20px;
 }
 
-#navlink{
-  color: antiquewhite !important;
+#navlink-home {
+    color: antiquewhite !important;
+  text-decoration: none;
+}
+#navlink-auction-form {
+    color: antiquewhite !important;
+  text-decoration: none;
+}
+#navlink-register {
+    color: antiquewhite !important;
+  text-decoration: none;
+}
+#navlink-login{
+    color: antiquewhite !important;
   text-decoration: none;
 }
 
-#navlink:hover{
+#navlink-home:hover {
   color: black !important;
 }
 
+#navlink-auction-form:hover {
+  color: black !important;
+}
 
+#navlink-register:hover {
+  color: black !important;
+}
+
+#navlink-login:hover {
+  color: black !important;
+}
 
 footer{
   background-color: #85a2c1;
