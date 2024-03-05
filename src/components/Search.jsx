@@ -4,19 +4,18 @@ const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleChange = (event) => {
-    const term = event.target.value;
-    setSearchTerm(term);
-    ;
+    setSearchTerm(event.target.value);
+    
+  };
+  const handleSearch = (event) => {
+    event.preventDefault();
+    onSearch(searchTerm);
   };
 
-  function handleSearch(event) {
-    onSearch(event.target.value)
-    event.preventDefault()
-
-  }
+ 
 
   return (
-    <search>
+    <div> 
       <form onSubmit={handleSearch}>
         <input
           type="text"
@@ -25,10 +24,9 @@ const SearchBar = ({ onSearch }) => {
           value={searchTerm}
           onChange={handleChange}
         />
-        <input type='submit' value='Sök'></input>
+        <input type="submit" value="Sök" />
       </form>
-    </search>
-
+    </div>
   );
 };
 

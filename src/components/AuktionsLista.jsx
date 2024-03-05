@@ -28,8 +28,8 @@ const AuktionsLista = () => {
   const handleSearch = (searchTerm) => {
     const term = searchTerm.toLowerCase();
     const filtered = auctions.filter(auction =>
-      auction.title.toLowerCase().includes(term) ||
-      auction.description.toLowerCase().includes(term) ||
+      auction.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      auction.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
       auction.startBid.toString().includes(searchTerm) ||
       (auction.currentBid && auction.currentBid.toString().includes(searchTerm))
     );
@@ -39,7 +39,7 @@ const AuktionsLista = () => {
   // Endast en return-sats ska användas här
   return (
     <div className="container">
-      <SearchBar  />
+      <SearchBar onSearch={handleSearch}  />
       {filteredAuctions.map(auction => (
         <div key={auction.id}>
           <Carousel objImages={auction.images} width={600} height={400} />
