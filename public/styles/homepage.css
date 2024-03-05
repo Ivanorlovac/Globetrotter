@@ -1,16 +1,81 @@
-#homepage_first_section{
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0");
+
+#homepage_first_section {
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
 #hompage_box {
-  background-color: aquamarine;
+  font-family: "Playfair Display", serif;
+  background-color: #85A2C1;
+  color: antiquewhite;
   width: 70%;
   height: 300px;
   border: 1px solid #c3c3c3;
   display: flex;
   flex-wrap: wrap;
+  flex-direction: column;
   justify-content: center;
   align-content: center;
+  flex-wrap: nowrap;
+}
+
+.center {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#homepage_search {
+  display: flex;
+  justify-content: space-around;
+  align-content: center;
+}
+
+#sec_one {
+  display: flex;
+  flex-direction: column;
+}
+
+#sec_two {
+  font-style: italic;
+}
+
+#sec_three {
+  display: flex;
+  flex-direction: column;
+}
+
+#shuffle_section {
+  padding-top: 3vh;
+}
+
+#shuffle_button {
+  border-radius: 20%;
+  height: 10vh;
+  width: 10vw;
+  border: 1px solid darkgray;
+  color: rgb(86, 86, 86);
+}
+
+#homepage_second_section {
+  margin-top: 5vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.blue_box_centered {
+  background-color: #85A2C1;
+  width: 70%;
+  border: 1px solid #c3c3c3;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: nowrap;
+
 }
