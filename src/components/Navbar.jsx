@@ -21,7 +21,6 @@ function NavbarOffcanvas() {
                 </Offcanvas.Title>
               </Offcanvas.Header>
               <Offcanvas.Body>
-                <SearchBar />
                 <Nav />
               </Offcanvas.Body>
             </Navbar.Offcanvas>
