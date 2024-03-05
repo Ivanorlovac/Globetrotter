@@ -79,6 +79,15 @@ footer {
   background-color: #85a2c1;
 }
 
+.auction_list_container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: nowrap;
+}
+
 .image-container {
   position: relative;
   border-radius: 20px;

@@ -2,6 +2,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import AuktionsLista from '../components/AuktionsLista';
+import SearchBar from '../components/Search';
 
 export default function Homepage() {
   return <>
@@ -16,16 +17,16 @@ export default function Homepage() {
       <div id='homepage_search'>
         <div id='sec_one'>
           <div>
-            <p>Fritext</p>
+            <p>Sök efter en resa:</p>
           </div>
-          <div>
-            <div>Sökruta</div>
+            <div>
+              <SearchBar/>
           </div>
         </div>
         <div id='sec_two'>eller</div>
         <div id='sec_three'>
           <div>
-            <p>Välj datum</p>
+            <p>Sök efter ett datum:</p>
           </div>
           <div>
             <div>Kalender</div>
@@ -33,9 +34,12 @@ export default function Homepage() {
         </div>
       </div>
       <div id='shuffle_section'>
-        <div className='center'><button id='shuffle_button'><span class="material-symbols-outlined">
-          shuffle
-        </span><br/>SLUMPA</button></div>
+          <div className='center'>
+            <h3>Eller slumpa fram en resa</h3>
+          </div>
+          <div className='center'>
+            <button id='shuffle_button'><span class="material-symbols-outlined">shuffle</span><br />SLUMPA</button>
+          </div>
       </div>
 
     </div>
