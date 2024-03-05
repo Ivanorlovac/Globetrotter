@@ -3,7 +3,7 @@ import Countdown from 'react-countdown';
 
 export default function Timer(props) {
 
-  const [ timeCloseAution, setTimeCloseAution ] = useState(false);
+  const [timeCloseAution, setTimeCloseAution ] = useState(false);
   const Completionist = () => setTimeCloseAution(true)
 
   let time = props.objEndTime
@@ -21,7 +21,6 @@ export default function Timer(props) {
     padding: "7px",
     borderRadius: "20px",
     width: "fit-content",
-    textWrap: "nowrap"
   }
 
   const renderer = ({ days, hours, minutes, seconds }) => {
@@ -31,8 +30,6 @@ export default function Timer(props) {
       </span>
     );
   };
-
-  
 
   return <>
     {timeCloseAution ? <p style={styleClosed}>Auktion avslutad</p> : time != null ? <div style={styleTimer}><Countdown date={Date.parse(new Date(time).toLocaleString('se-SE', { timeZone: 'cet' }))} onComplete={Completionist} renderer={renderer}></Countdown></div>

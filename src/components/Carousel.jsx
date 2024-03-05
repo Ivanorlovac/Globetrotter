@@ -1,9 +1,8 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { BsArrowLeftCircleFill, BsArrowRightCircleFill } from "react-icons/bs";
 
-
 export default function Carousel(props) {
-  
+
   const [slide, setSlide] = useState(0);
 
   let images = props.objImages
@@ -16,14 +15,13 @@ export default function Carousel(props) {
   }
 
   const prevtSlide = () => {
-    setSlide(slide === 0 ? images.length -1 : slide - 1);
+    setSlide(slide === 0 ? images.length - 1 : slide - 1);
   }
 
   const sizeCarousel = {
     width: width,
     height: height
   }
-  
   return <>
     {images != null ?
       <div className="image-container" style={sizeCarousel}>
@@ -35,7 +33,7 @@ export default function Carousel(props) {
           })}
           <span className="indicators">
             {images.map((_, idx) => {
-              return <button key={idx} onClick={()=>setSlide(idx)} className={slide === idx ? "indicator" : "indicator indicator-inactive"}></button>
+              return <button key={idx} onClick={() => setSlide(idx)} className={slide === idx ? "indicator" : "indicator indicator-inactive"}></button>
             })}
           </span>
         </div>
@@ -43,8 +41,8 @@ export default function Carousel(props) {
         <BsArrowRightCircleFill className="arrow arrow-right" onClick={nextSlide} />
       </div >
       : <div className="image-container" style={sizeCarousel}><p>No images found</p></div>
-} 
-    
+    }
+
   </>
 }
 

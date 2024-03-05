@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
+import Carousel from './Carousel.jsx';
 
 import SearchBar from './Search'; // Antag att detta är sökfältets komponent
 import { Link } from 'react-router-dom';
+import Timer from './Timer.jsx';
 
 const AuktionsLista = () => {
   const [auctions, setAuctions] = useState([]);
@@ -38,18 +40,20 @@ const AuktionsLista = () => {
     <div className="container">
       <SearchBar  />
       {filteredAuctions.map(auction => (
-        <Link to={`/auction/${auction.id}/${auction.title}`} key={auction.id} style={{ textDecoration: 'none', color: 'inherit' }}>
-          <div className="auction-item mb-4">
+        <div key={auction.id}>
+          <Carousel objImages={auction.images} width={600} height={400} />
+          <Link to={`/auction/${auction.id}/${auction.title}`} key={auction.id} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <div className="auction-item mb-4">
 
-            {auction.images.map(image =>
-              <img src={image} alt={auction.title} style={{ width: '100%', height: 'auto', maxWidth: '600px' }} className="mb-3" />)}
-            <h5>{auction.title}</h5>
-            <p>{auction.description}</p>
-            <p>Startbud: {auction.startBid} SEK</p>
-            {auction.currentBid && <p>Nuvarande bud: {auction.currentBid} SEK</p>}
-            <p>Slutar: {new Date(auction.endTime).toLocaleString()}</p>
-          </div>
-        </Link>
+              <h5>{auction.title}</h5>
+              <p>{auction.description}</p>
+              <p>Startbud: {auction.startBid} SEK</p>
+              {auction.currentBid && <p>Nuvarande bud: {auction.currentBid} SEK</p>}
+              <p>Slutar: </p>
+              <Timer objEndTime={auction.endTime} fontSize={15} showBorder={false} setBold={false} />
+            </div>
+          </Link>
+        </div>
       ))}
     </div>
   );
