@@ -77,5 +77,5 @@
   justify-content: center;
   align-content: center;
   flex-wrap: nowrap;
-
+  padding: 1vh 1vw;
 }

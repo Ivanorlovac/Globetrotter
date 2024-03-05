@@ -3,56 +3,59 @@
 @import url(./homepage.css);
 @import url(./biddingSite.css);
 
-#logo.rounded{
+#logo.rounded {
   width: 80px;
   border-radius: 50% !important;
 }
 
-#logo_header{
+#logo_header {
   font-family: "Playfair Display", serif;
-  font-size:xx-large;
+  font-size: xx-large;
 }
 
-#main-pic{
+#main-pic {
   background-image: url('https://st4.depositphotos.com/4640111/41072/i/450/depositphotos_410721236-stock-photo-planning-vacation-travel-plan-trip.jpg');
   background-repeat: none;
   background-size: 1920px 1080px;
   background-attachment: fixed;
 }
 
-#main-background{
+#main-background {
   background-color: rgba(77, 77, 77, 0.712);
 }
 
-#navbar-field{
+#navbar-field {
   background-color: #85a2c1 !important;
 }
 
-.offcanvas{
+.offcanvas {
   font-family: "Playfair Display", serif;
   background-color: #85a2c1;
 }
 
-.navlink{
+.navlink {
   font-family: "Playfair Display", serif;
   list-style-type: none;
   font-size: 20px;
 }
 
 #navlink-home {
-    color: antiquewhite !important;
+  color: antiquewhite !important;
   text-decoration: none;
 }
+
 #navlink-auction-form {
-    color: antiquewhite !important;
+  color: antiquewhite !important;
   text-decoration: none;
 }
+
 #navlink-register {
-    color: antiquewhite !important;
+  color: antiquewhite !important;
   text-decoration: none;
 }
-#navlink-login{
-    color: antiquewhite !important;
+
+#navlink-login {
+  color: antiquewhite !important;
   text-decoration: none;
 }
 
@@ -72,7 +75,7 @@
   color: black !important;
 }
 
-footer{
+footer {
   background-color: #85a2c1;
 }
 
@@ -112,6 +115,7 @@ footer{
     align-items: center;
     height: 100%;
     width: 100%;
+
     .slide {
       box-shadow: 0px 0px 7px #666;
       height: 100%;
