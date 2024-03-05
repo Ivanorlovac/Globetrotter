@@ -7,25 +7,24 @@ export default function Nav() {
   const { user, logout } = useContext(Globalcontext); // Använd logout-funktionen från din kontext
 
   console.log("Navbar: ", user)
-  console.log("User length: ", Object.keys(user))
   return (
     <>
       <br />
       <ul>
         <li className="navlink"><Link to="/" className="mr-4" id="navlink-home">Hem</Link></li>
-        {Object.keys(user) !== 0 && (
+        {Object.keys(user).length !== 0 ? (
           <>
             <li className="navlink"><Link to="/skapa-auktion" className="mr-4" id="navlink-auction-form">Skapa Auktion</Link></li>
             <li className="navlink" onClick={logout} id="navlink-logout">Logga ut</li> 
           </>
-        )}
-        {Object.keys(user) === 0 && (
+        ) : (
           <>
             <li className="navlink"><Link to="/register" className="mr-4" id="navlink-register">Registrera</Link></li>
             <li className="navlink"><Link to="/login" id="navlink-login">Logga in</Link></li>
           </>
-        )}
-      </ul>
+        ) }
+
+    </ul>
     </>
   );
 }
