@@ -14,7 +14,6 @@ const LoginForm = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("Logg in tryckt")
     setError(''); 
     try {
       const response = await fetch(`http://localhost:3000/users?username=${username}&password=${password}`);

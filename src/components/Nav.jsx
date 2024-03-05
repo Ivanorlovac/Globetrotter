@@ -6,7 +6,6 @@ import { Globalcontext } from "./GlobalContext"; // Justera sökvägen efter din
 export default function Nav() {
   const { user, logout } = useContext(Globalcontext); // Använd logout-funktionen från din kontext
 
-  console.log("Navbar: ", user)
   return (
     <>
       <br />
