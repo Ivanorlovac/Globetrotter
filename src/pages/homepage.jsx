@@ -16,20 +16,8 @@ export default function Homepage() {
       </div>
       <div id='homepage_search'>
         <div id='sec_one'>
-          <div>
-            <p>Sök efter en resa:</p>
-          </div>
             <div>
               <SearchBar/>
-          </div>
-        </div>
-        <div id='sec_two'>eller</div>
-        <div id='sec_three'>
-          <div>
-            <p>Sök efter ett datum:</p>
-          </div>
-          <div>
-            <div>Kalender</div>
           </div>
         </div>
       </div>

@@ -38,6 +38,17 @@
 #sec_one {
   display: flex;
   flex-direction: column;
+  width: 70%;
+  margin: 2vh 0 0 0;
+}
+
+#search_button {
+  border: 1px solid darkgray;
+  color: rgb(86, 86, 86);
+}
+
+#search_button:hover {
+  border: 1px solid rgb(65, 65, 65);
 }
 
 #sec_two {
@@ -59,6 +70,10 @@
   width: 10vw;
   border: 1px solid darkgray;
   color: rgb(86, 86, 86);
+}
+
+#shuffle_button:hover {
+  border: 1px solid rgb(65, 65, 65);
 }
 
 #homepage_second_section {
