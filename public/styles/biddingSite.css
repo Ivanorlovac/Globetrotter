@@ -66,11 +66,16 @@
         border-radius: 20px;
         display: flex;
         flex-direction: column;
-
+        
         h4 {
-          margin-left: 2rem;
+            margin-left: 2rem;
+            margin-top: 0.5rem;
+          }
+        
+          h4:first-child {
           margin-top: 2rem;
         }
+
 
         div {
           margin-left: 2rem;
@@ -80,9 +85,9 @@
           background-color: var(--information-background);
           border-radius: 10px;
           border: 1px solid rgb(177, 177, 177);
-          min-height: 100px;
           display: flex;
           justify-content: center;
+          align-items: center;
 
           p {
             margin-top: 5px;

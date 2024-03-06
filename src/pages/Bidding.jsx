@@ -76,23 +76,26 @@ export default function Bidding() {
         <div className="bidding-image">
           <Carousel objImages={auction.images} width={512} height={400}/>
           <div className="bidding-about">
-            <h4>About Auction</h4>
+            <h4>Om auktionen</h4>
             <div className="bidding-about-information">
               <p>{auction.description}</p>
             </div>
+            <h4>Kategori</h4>
+            <div className="bidding-about-category">
+              <p>{auction.category}</p>
+            </div>            
           </div>
         </div>
 
         <div className="bidding-information">
           <div className="bidding-title">
             <h2>{auction.title}</h2>
-            <p>Categoty: clocks</p>
             <div className="bidding-creator">
               <div className="creator-container">
                 <img src={auction.creatorImage} />
               </div>
               <div className="creator-text">
-                <p>Created by</p>
+                <p>Skapad av</p>
                 <p>{auction.creator}</p>
               </div>
             </div>
@@ -101,7 +104,7 @@ export default function Bidding() {
             <Container fluid style={{margin: "0px", padding: "0px"}}>
               <Row style={{margin: "0px"}}>
                 <Col className="column-bidding">
-                  <p>time left</p>
+                  <p>Tid kvar</p>
                   <Timer objEndTime={auction.endTime} fontSize={20} showBorder={true} setBold={true} />
                 </Col>
                 <Col className="align-items-center">
