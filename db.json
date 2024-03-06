@@ -647,7 +647,7 @@
       "username": "emil",
       "password": "abc123",
       "role": "user"
-    },    
+    },
     {
       "id": "8e40",
       "username": "ivanorlovac@gmail.com",
@@ -657,17 +657,17 @@
   ],
   "favorites": [
     {
-      "id": 1,
+      "id": "1",
       "user_id": 1,
       "auction_id": 2
     },
     {
-      "id": 2,
+      "id": "2",
       "user_id": 1,
       "auction_id": 2
     },
     {
-      "id": 3,
+      "id": "3",
       "user_id": 2,
       "auction_id": 1
     }
