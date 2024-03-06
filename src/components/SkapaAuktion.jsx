@@ -125,10 +125,7 @@ const SkapaAuktion = () => {
           <input type="text" className="form-control" id="creator" value={creator} onChange={e => setCreator(e.target.value)} />
         </div>
 
-        <div className="mb-3">
-          <label htmlFor="creator" className="form-label">Creator</label>
-          <input type="text" className="form-control" id="creator" value={creator} onChange={e => setCreator(e.target.value)} />
-        </div>
+    
 
         <div className="mb-3">
           <label htmlFor="creatorImage" className="form-label">Creator Image</label>
