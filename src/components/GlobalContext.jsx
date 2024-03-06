@@ -12,7 +12,7 @@ function GlobalProvider({ children }) {
 
   const login = (userData) => {
     setUser(userData);
-    setLoginMessage('Välkomen' + userData.username);
+    setLoginMessage('Välkommen' + userData.username);
   };
   const logout = () => {
     setUser({});
