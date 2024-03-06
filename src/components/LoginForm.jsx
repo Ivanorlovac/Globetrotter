@@ -26,7 +26,6 @@ const LoginForm = () => {
         navigate('/');
        
       } else {
-        console.log("here")
         setError('Felaktigt användarnamn eller lösenord.');
       }
     } catch (error) {
