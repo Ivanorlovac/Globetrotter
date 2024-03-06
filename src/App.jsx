@@ -11,6 +11,7 @@ import Homepage from './pages/homepage.jsx';
 import { GlobalProvider } from './components/GlobalContext.jsx';
 import Footer from './components/footer.jsx';
 import LoginPage from './pages/LoginPage.jsx';
+
 const App = () => {
   const [user, setUser] = useState(null);
 
