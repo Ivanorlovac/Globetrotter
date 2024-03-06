@@ -61,14 +61,11 @@ const SkapaAuktion = () => {
 
         <div className="mb-3">
           <label htmlFor="title" className="form-label">Titel</label>
-          <input type="text" className="form-control" id="title" value={title} onChange={e => setTitle(e.target.value)} />
+          <input type="text" className="form-control" id="title" value={title} onChange={e => {
+            setTitle(e.target.value)
+            setSlug(e.target.value.replace(" ", "-"))
+          }} />
         </div>
-
-        <div className="mb-3">
-          <label htmlFor="slug" className="form-label">Slug</label>
-          <input type="text" className="form-control" id="slug" value={slug} onChange={e => setSlug(e.target.value)} />
-        </div>
-
 
         <div className="mb-3">
           <label htmlFor="description" className="form-label">Beskrivning</label>
