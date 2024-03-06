@@ -23,7 +23,6 @@ const LoginForm = () => {
       const data = await response.json();
       if (data.length > 0) {
         setUser(data[0]); 
-       
         navigate('/');
        
       } else {

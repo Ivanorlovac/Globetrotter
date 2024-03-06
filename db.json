@@ -643,6 +643,12 @@
       "role": "user"
     },
     {
+      "id": "3",
+      "username": "emil",
+      "password": "abc123",
+      "role": "user"
+    },    
+    {
       "id": "8e40",
       "username": "ivanorlovac@gmail.com",
       "password": "123456",
