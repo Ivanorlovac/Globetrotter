@@ -11,12 +11,21 @@ export default function Favorites() {
   const [isFavorited, setIsFavorited] = useState(false);
   const { id } = useParams()
   
+
+  useEffect(() => {
+    if (favorites.some(obj => obj.auction_id === id)) {
+      setIsFavorited(true)
+    } else {
+      setIsFavorited(false)
+    }
+  },[])
+
   const toggleFavorite = () => {
     if (!favorites.some(obj => obj.auction_id === id)) {
       const favorite = { user_id: user.id, auction_id: id }
       saveToApi(favorite)
     } else {
-      
+      removeFromApi()
     }
   };
 
@@ -38,6 +47,25 @@ export default function Favorites() {
     } catch (error) {
       console.error("Error:", error);
     }    
+  }
+  async function removeFromApi() {
+    const userId = user.id
+    try {
+      const response = await fetch("/api/favorites?auction_id=" + id + "&user_id=" + userId, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      const updatedFavorites = favorites.filter(obj => obj.auction_id !== id);
+      setFavorites(updatedFavorites);
+      setIsFavorited(false)
+      const result = await response.json();
+     
+    } catch (error) {
+      console.error("Error:", error);
+    } 
+
   }
 
   console.log("Favorites: ", favorites)
