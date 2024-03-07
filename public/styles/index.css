@@ -31,7 +31,7 @@ body{
   padding-bottom: 3vh;
 }
 
-#navbar-field {
+#navbar-field  {
   background-color: #85a2c1 !important;
 }
 
@@ -139,6 +139,7 @@ footer {
     height: 100%;
     width: 100%;
 
+
     .slide {
       box-shadow: 0px 0px 7px #666;
       height: 100%;
@@ -175,4 +176,27 @@ footer {
 
   }
 
+}
+
+#fallback_section{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+#fallback_container {
+  font-family: "Playfair Display", serif;
+  background-color: #85a2c1a0;
+  color: antiquewhite;
+  width: 70%;
+  height: fit-content;
+  padding: 3vh;
+  border: 1px solid #c3c3c3;
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: nowrap;
+  min-height: 40%;
 }
