@@ -17,10 +17,11 @@ export default function Timer(props) {
   const styleTimer = {
     fontSize: props.fontSize,
     fontWeight: props.setBold ? "bold" : "normal",
-    border: props.showBorder ? "2px solid rgb(177, 177, 177)" : "none",
+    border: props.showBorder ? "1px solid rgb(177, 177, 177)" : "none",
     padding: "7px",
     borderRadius: "20px",
     width: "fit-content",
+    backgroundColor: "white"
   }
 
   const renderer = ({ days, hours, minutes, seconds }) => {

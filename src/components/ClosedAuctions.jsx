@@ -2,10 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 const BackgroundSyncClosedAuctions = () => {
 
-
-
   useEffect(() => {
-    
     const syncDataInBackground = async () => {
       try {
 
@@ -15,9 +12,6 @@ const BackgroundSyncClosedAuctions = () => {
           await moveClosedAuctions(newClosedAutions)          
         }
 
-
-
-
       } catch (error) {
         console.error('Background sync error:', error);
       }
@@ -25,7 +19,7 @@ const BackgroundSyncClosedAuctions = () => {
 
     const backgroundSyncInterval = setInterval(() => {
       syncDataInBackground();
-    }, 10000); // Execute every 15 minutes
+    }, 10000);
 
     return () => {
       clearInterval(backgroundSyncInterval);
@@ -70,8 +64,9 @@ const BackgroundSyncClosedAuctions = () => {
   async function moveClosedAuctions(auctions){
 
     const operations = auctions.map(async auction => {
-      await addAuction(auction)
+      
       await getAuctionWinner(auction)
+      await addAuction(auction)
       await deleteAuction(auction).then((data) => {
         console.log("Auction Deleted: ", data)
       })
@@ -97,8 +92,9 @@ const BackgroundSyncClosedAuctions = () => {
     }
 
     async function deleteAuction(auction) {
-      const response = await fetch(`http://localhost:3000/auctions/${auction.id}`, {
+      const response = await fetch("http://localhost:3000/auctions/" + auction.id, {
         method: "DELETE",
+        cache: "no-cache",
         headers: {
           "Content-Type": "application/json",
         },
@@ -128,8 +124,6 @@ const BackgroundSyncClosedAuctions = () => {
         return
       }
     }
-
-
 
     async function getAuctionBids(id) {
       const response = await fetch(`/api/bids?auctionId=${id}`)

@@ -43,11 +43,15 @@
   }
 
   .bidding-content {
-    width: 100%;
+    width: 90vw;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
     gap: 20px;
+    background-color: #c4d2e1c4;
+    border-radius: 20px;
+    padding: 20px;
+    margin: 10px;
 
     .bidding-image {
       width: 40rem;
@@ -114,6 +118,7 @@
 
         h2 {
           font-size: 250%;
+          font-weight: bold;
         }
 
         p {
@@ -156,7 +161,7 @@
         }
       }
 
-      .bidding-countdown {
+      .bidding-first {
         margin-top: 20px;
         background-color: var(--information-about);
         width: 100%;
@@ -164,24 +169,69 @@
         border-radius: 20px;
         display: flex;
         align-items: center;
-        div {
-            margin-left: 20px;
+        justify-content: space-evenly;
+
+        .column-center{
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
+        .column-header-text>p{
+            color: grey;
+            font-size: 0.7rem;
+            margin-bottom: 5px;
+            font-weight: bold;
           }
       }
-      .place-bid {
+      
+      .bidding-second {
         margin-top: 20px;
         background-color: var(--information-about);
         width: 100%;
         height: 150px;
         border-radius: 20px;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        .bid-section{
+        justify-content: space-evenly;
+
+        .show-bid{
           display: flex;
-          .show-bid{
-            display: flex;
-            gap: 5px;
+          justify-content: center;
+          gap: 5px;
+        }
+
+        form{
+          display: flex;
+          gap: 20px;
+
+          .button-place-bid{
+            border: none;
+            background-color: rgb(28, 74, 223);
+            width: 100px;
+            height: 45px;
+            color: white;
+            font-weight: bold;
+            border-radius: 10px;
+
           }
+          .button-place-bid:hover {
+            border: none;
+            background-color: rgb(18, 48, 148);
+          }
+          .input-place-bid{
+            width: 200px;
+            height: 45px;
+            border: none;
+            border-radius: 10px;
+            text-align: center;
+          }
+
+        }
+        .alert-position{
+          position: absolute;
+          width: 300px;
+          text-align: center;
         }
       }
     }

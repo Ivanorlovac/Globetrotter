@@ -48,12 +48,13 @@ export default function Bidding() {
     const styleValutationPrice = {
       fontSize: 20,
       fontWeight: "bold",
-      border: "2px solid rgb(177, 177, 177)",
+      border: "1px solid rgb(177, 177, 177)",
       padding: "7px",
       borderRadius: "20px",
       width: "fit-content",
       display: "flex",
       gap: "4px",
+      backgroundColor: "white"
     }
 
     return <>
@@ -100,25 +101,21 @@ export default function Bidding() {
               </div>
             </div>
           </div>
-          <div className="bidding-countdown">
-            <Container fluid style={{margin: "0px", padding: "0px"}}>
-              <Row style={{margin: "0px"}}>
-                <Col className="column-bidding">
+          <div className="bidding-first ">
+              <div className="column-timer column-center column-header-text">
                   <p>Tid kvar</p>
                   <Timer objEndTime={auction.endTime} fontSize={20} showBorder={true} setBold={true} />
-                </Col>
-                <Col className="align-items-center">
+                </div>
+                <div className="column-bids column-center column-header-text">
                   <p>Totalt antal bud</p>
                   <TotalBids fontSize={20} showBorder={true} setBold={true} />
-                </Col>
-                <Col className="column-bidding">
+                </div>
+                <div className="column-price column-center column-header-text">
                   <p>Värdering pris</p>
                   <ValuationPrice />
-                </Col>
-              </Row>
-            </Container>            
+                </div>
           </div>
-          <div className="place-bid">
+          <div className="bidding-second">
             {timeNow < timeEnd ? <PlaceBid /> : <BidsClosed/>}
           </div>
         </div>

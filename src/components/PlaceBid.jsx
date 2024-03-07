@@ -92,25 +92,22 @@ export default function PlaceBid() {
 
   const NoUser = () => {
     return <>
-      <p>Logga in för att lägga och se dina bud.</p>
+      <p style={{color: "gray", fontWeight:"bold", margin: "0px", fontSize: "120%"}}>Logga in för att lägga och se dina bud.</p>
     </>
   }
 
 
-  return <div className='bid-section'>
+  return <>
     {Object.keys(user).length === 0 ? <NoUser /> : <>
-      <div>
+      <div className='show-bid'>
+        {higestBid > 0 ? <p style={{color:"black", fontWeight: "400", fontSize: "90%"}}>Ditt högst lagda bud: <span style={{color: "black", fontSize: "160%", fontWeight: "bold"}}>{higestBid} kr</span></p> : <p>Lägg ett bud för att gå med i auktion</p>}
+      </div>          
         <form onSubmit={handleBidSubmit}>
-          <input type="submit" value="Lägg bud" />
-          <input type="number" placeholder='Ange summa' value={bidAmount} onChange={(e) => setBidAmount(e.target.value)} />
+        <input type="number" placeholder='Ange summa' value={bidAmount} className="input-place-bid" onChange={(e) => setBidAmount(e.target.value)} />
+        <input type="submit" value="Lägg bud" className='button-place-bid' />
         </form>
         {showAlert && (checkBid ? <ShowAlert type={'danger'} /> : bidPlaced ? <ShowAlert type={'success'} /> : <></>)}
-      </div>
-
-      <div className='show-bid'>
-        {higestBid > 0 ? <p>Ditt högst lagda bud: {higestBid} kr</p> : <p>Lägg ett bud för att gå med i auktion</p>}
-      </div>        
     </>}
-  </div>
+  </>
 
 }

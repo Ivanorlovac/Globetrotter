@@ -15,7 +15,7 @@ export default function ShowAlert(props) {
 
   return (
     <>
-      <Alert key={variant} variant={variant} >
+      <Alert key={variant} variant={variant} className='alert-position'>
         {message}
       </Alert>
     </>
