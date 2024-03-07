@@ -20,7 +20,7 @@ const SellersPage = () => {
 
   const fetchAuctions = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/auctions?creator=${user.username}`);
+      const response = await fetch(`http://localhost:3000/auctions?creator=${encodeURIComponent(user.creatorName)}`);
       if (!response.ok) throw new Error('Nätverksfel vid hämtning av auktioner');
       const data = await response.json();
       setAuctions(data);
