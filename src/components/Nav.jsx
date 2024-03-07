@@ -11,15 +11,13 @@ export default function Nav() {
       <br />
       <ul>
         <li className="navlink"><Link to="/" className="mr-4" id="navlink-home">Hem</Link></li>
-        {Object.keys(user).length !== 0 && (
+        {user.role === 'seller' && (
           <>
-            {user.role === "seller" && (
-              <li className="navlink"><Link to="/SellersPage" className="mr-4" id="navlink-sellers-page">Mina Auktioner</Link></li>
-            )}
             <li className="navlink"><Link to="/skapa-auktion" className="mr-4" id="navlink-auction-form">Skapa Auktion</Link></li>
-            <li className="navlink" onClick={logout} id="navlink-logout">Logga ut</li>
+            <li className="navlink"><Link to="/sellerspage" className="mr-4" id="navlink-my-auctions">Mina Auktioner</Link></li>
           </>
         )}
+        <li className="navlink" onClick={logout} id="navlink-logout">Logga ut</li>
         {Object.keys(user).length === 0 && (
           <>
             <li className="navlink"><Link to="/register" className="mr-4" id="navlink-register">Registrera</Link></li>
