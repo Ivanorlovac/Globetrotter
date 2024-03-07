@@ -38,7 +38,7 @@ const AuktionsLista = () => {
   return (
     <div className="container">
       {filteredAuctions.map(auction => (
-        <div key={auction.id}>
+        <div key={auction.id} className='auction_list_container'>
           <div className='carousel-container'>
             <Carousel objImages={auction.images}/>
           </div>
