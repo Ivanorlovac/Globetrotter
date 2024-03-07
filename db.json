@@ -643,10 +643,24 @@
       "role": "user"
     },
     {
+      "id": "3",
+      "username": "emil",
+      "password": "abc123",
+      "role": "user"
+    },
+    {
       "id": "8e40",
       "username": "ivanorlovac@gmail.com",
       "password": "123456",
       "role": "user"
+    },
+    {
+      "id": "533c",
+      "username": "horisont_resebyrå@gmail.com",
+      "password": "123456",
+      "role": "seller",
+      "creatorName": "Horisont Resebyrå",
+      "creatorImage": "https://www.logomoose.com/wp-content/uploads/2018/02/1150px-x-5683.png"
     }
   ],
   "favorites": [
