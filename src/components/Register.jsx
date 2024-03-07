@@ -5,27 +5,36 @@ const RegisterForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('user'); 
+  const [creatorName, setCreatorName] = useState('');
+  const [creatorImage, setCreatorImage] = useState('');
+
+
 
   const handleRegister = async (e) => {
     e.preventDefault();
+
+    const userData = {
+      username,
+      password,
+      role,
+      ...(role === 'seller' && { creatorName, creatorImage }) 
+    };
+
+
     try {
       const response = await fetch('http://localhost:3000/users', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          username,
-          password,
-          role
-        }),
+        body: JSON.stringify(userData),
       });
       if (!response.ok) {
         throw new Error('Registrering misslyckades');
       }
       const data = await response.json();
       console.log('Registrering lyckades', data);
-      // Hantera efter registrering, t.ex. omdirigering eller visa meddelande
+      
     } catch (error) {
       console.error('Registrering misslyckades', error);
     }
@@ -53,10 +62,16 @@ const RegisterForm = () => {
       required
       >
         <option value="user">User</option>
-        <option value="admin">Admin</option>
         <option value="seller">Seller</option>
       </select>
 
+      {role === 'seller' && (
+        <>
+          <input type="text" value={creatorName} onChange={(e) => setCreatorName(e.target.value)} placeholder="Creator Name" required={role === 'seller'} />
+          <input type="text" value={creatorImage} onChange={(e) => setCreatorImage(e.target.value)} placeholder="Creator Image URL" required={role === 'seller'} />
+        </>
+      )}
+      
       <button type="submit">Registrera</button>
     </form>
   );

@@ -655,10 +655,18 @@
       "role": "user"
     },
     {
-      "id": "2d8e",
-      "username": "Horisont Resebyrå",
-      "password": "0000",
+      "id": "6454",
+      "username": "horisont_resebyrå@gmail.com",
+      "password": "123456",
       "role": "seller"
+    },
+    {
+      "id": "533c",
+      "username": "horisont_resebyrå@gmail.com",
+      "password": "123456",
+      "role": "seller",
+      "creatorName": "Horisont Resebyrå",
+      "creatorImage": "https://www.logomoose.com/wp-content/uploads/2018/02/1150px-x-5683.png"
     }
   ],
   "favorites": [
