@@ -4,9 +4,7 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import Timer from "../components/Timer.jsx";
 import Carousel from "../components/Carousel.jsx";
 import Favorites from "../components/Favorites.jsx";
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+
 import PlaceBid from "../components/PlaceBid.jsx";
 import BidsClosed from "../components/BidsClosed.jsx";
 import TotalBids from "../components/TotalBids.jsx";
@@ -35,13 +33,6 @@ export default function Bidding() {
   
   let timeNow = new Date().toLocaleString('se-SE', { timeZone: 'cet' })
   let timeEnd = new Date(auction.endTime).toLocaleString('se-SE', { timeZone: 'cet' })
-
-
-  if (timeNow > timeEnd) {
-    console.log("Tiden har gått ut")
-  } else {
-    console.log("Auktionen är igång fortfarande")
-  }
 
   const ValuationPrice = () => {
     
@@ -99,6 +90,7 @@ export default function Bidding() {
                 <p>Skapad av</p>
                 <p>{auction.creator}</p>
               </div>
+              <Favorites />
             </div>
           </div>
           <div className="bidding-first ">

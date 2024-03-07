@@ -442,6 +442,20 @@
       "amount": "180",
       "userId": "2",
       "time": "2024-03-07 11:27:08"
+    },
+    {
+      "id": "0405",
+      "auctionId": "1",
+      "amount": "190",
+      "userId": "2",
+      "time": "2024-03-07 11:30:29"
+    },
+    {
+      "id": "4793",
+      "auctionId": "12",
+      "amount": "10",
+      "userId": "3",
+      "time": "2024-03-07 11:32:53"
     }
   ],
   "users": [
@@ -493,6 +507,11 @@
       "id": 3,
       "user_id": 2,
       "auction_id": 1
+    },
+    {
+      "id": "63da",
+      "user_id": "1",
+      "auction_id": "1"
     }
   ],
   "result_closed_auctions": [
