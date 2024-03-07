@@ -18,10 +18,13 @@
   background-repeat: none;
   background-size: 1920px 1080px;
   background-attachment: fixed;
+  min-height: 100vh;
 }
 
 #main-background {
   background-color: rgba(77, 77, 77, 0.712);
+  min-height: 100vh;
+  padding-bottom: 3vh;
 }
 
 #navbar-field {
@@ -77,6 +80,8 @@
 
 footer {
   background-color: #85a2c1;
+  position: relative;
+  bottom: 0;
 }
 
 .auction_list_container {
