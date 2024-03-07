@@ -653,6 +653,12 @@
       "username": "ivanorlovac@gmail.com",
       "password": "123456",
       "role": "user"
+    },
+    {
+      "id": "2d8e",
+      "username": "Horisont Resebyrå",
+      "password": "0000",
+      "role": "seller"
     }
   ],
   "favorites": [
