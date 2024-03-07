@@ -18,13 +18,11 @@ export default function Carousel(props) {
     setSlide(slide === 0 ? images.length - 1 : slide - 1);
   }
 
-  const sizeCarousel = {
-    width: width,
-    height: height
-  }
+
+
   return <>
     {images != null ?
-      <div className="image-container" style={sizeCarousel}>
+      <div className="image-container" style={{width:"100%", height:"100%"}}>
         <div className="carousel">
           {props.objImages.map((image, idx) => {
             return (
@@ -40,7 +38,7 @@ export default function Carousel(props) {
         <BsArrowLeftCircleFill className="arrow arrow-left" onClick={prevtSlide} />
         <BsArrowRightCircleFill className="arrow arrow-right" onClick={nextSlide} />
       </div >
-      : <div className="image-container" style={sizeCarousel}><p>No images found</p></div>
+      : <div className="image-container" style={{ width: "100%", height: "100%" }}><p>No images found</p></div>
     }
 
   </>

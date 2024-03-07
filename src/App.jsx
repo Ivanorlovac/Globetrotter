@@ -13,6 +13,7 @@ import Footer from './components/footer.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import Bidding from './pages/Bidding.jsx'
 
+import SellersPage from './pages/SellersPage.jsx';
 
 const App = () => {
   const [user, setUser] = useState(null);
