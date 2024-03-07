@@ -22,9 +22,12 @@ const LoginForm = () => {
       }
       const data = await response.json();
       if (data.length > 0) {
-        setUser(data[0]); 
-        navigate('/');
-       
+        setUser(data[0]);
+        if (data[0].role === 'seller') {
+          navigate('/SellersPage');
+        } else {
+          navigate('/');
+        }
       } else {
         setError('Felaktigt användarnamn eller lösenord.');
       }
