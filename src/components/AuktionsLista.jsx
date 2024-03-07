@@ -38,14 +38,20 @@ const AuktionsLista = () => {
   return (
     <div className="container">
       {filteredAuctions.map(auction => (
-        <div key={auction.id} className='auction_list_container'>
-          <Carousel objImages={auction.images} width={600} height={400} />
+        <div key={auction.id}>
+          <div className='carousel-container'>
+            <Carousel objImages={auction.images}/>
+          </div>
           <Link to={`/auction/${auction.id}/${auction.title}`} style={{ textDecoration: 'none', color: 'inherit' }}>
             <div className="auction-item mb-4">
               <h5>{auction.title}</h5>
               <p>{auction.description}</p>
               <p>Startbud: {auction.valuationPrice} SEK</p>
-              <p>Slutar: <Timer objEndTime={auction.endTime} fontSize={15} showBorder={false} setBold={false} /></p>
+              <div className='d-flex align-items-center'>
+                <p className='me-1 my-0'>Slutar: </p>
+                <Timer objEndTime={auction.endTime} fontSize={15} showBorder={false} setBold={false} />
+              </div>
+
             </div>
           </Link>
         </div>
