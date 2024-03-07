@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { Globalcontext } from '../components/GlobalContext.jsx';
 
 const SkapaAuktion = () => {
   const [title, setTitle] = useState('');
@@ -6,11 +7,10 @@ const SkapaAuktion = () => {
   const [description, setDescription] = useState('');
   const [valuationPrice, setValuationPrice] = useState('');
   const [priceRange, setPriceRange] = useState('');
-  const [category, setCategory] = useState('all-inclusive'); // Exempel på defaultvärde
-  const [creator, setCreator] = useState('');
+  const [category, setCategory] = useState('all-inclusive');
   const [endTime, setEndTime] = useState('');
   const [images, setImages] = useState([]);
-  const [creatorImage, setCretorImage] = useState('');
+  const { user } = useContext(Globalcontext);
 
   const handleAddImage = (imageUrl) => {
     setImages([...images, imageUrl]);
@@ -31,9 +31,9 @@ const SkapaAuktion = () => {
       priceRange: parseInt(priceRange),
       images,
       category,
-      creator,
       endTime,
-      creatorImage
+      creatorName: user.creatorName,
+      creatorImage:user.creatorImage,
     };
 
     try {
@@ -117,17 +117,7 @@ const SkapaAuktion = () => {
           </select>
         </div>
 
-        <div className="mb-3">
-          <label htmlFor="creator" className="form-label">Creator</label>
-          <input type="text" className="form-control" id="creator" value={creator} onChange={e => setCreator(e.target.value)} />
-        </div>
-
-    
-
-        <div className="mb-3">
-          <label htmlFor="creatorImage" className="form-label">Creator Image</label>
-          <input type="text" className="form-control" id="creatorImage" value={creatorImage} onChange={e => setCretorImage(e.target.value)} />
-        </div>
+      
 
         <button type="submit" className="btn btn-primary">Skapa Auktion</button>
       </form>
