@@ -36,6 +36,7 @@ const App = () => {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/SellersPage" element={<SellersPage />} />
           <Route path="/auction/:id" element={<AuktionsDetaljer />} />
+          
         </Routes>
         {user && <div>Välkommen, {user.username}!</div>}
         </Router>
