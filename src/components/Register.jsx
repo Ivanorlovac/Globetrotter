@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 const RegisterForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [role, setRole] = useState('user'); 
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -16,7 +17,7 @@ const RegisterForm = () => {
         body: JSON.stringify({
           username,
           password,
-          role: 'user' // Standardroll för nya användare
+          role
         }),
       });
       if (!response.ok) {
@@ -46,6 +47,16 @@ const RegisterForm = () => {
         placeholder="Lösenord"
         required
       />
+
+      <select value={role}
+      onChange={(e) => setRole(e.target.value)}
+      required
+      >
+        <option value="user">User</option>
+        <option value="admin">Admin</option>
+        <option value="seller">Seller</option>
+      </select>
+
       <button type="submit">Registrera</button>
     </form>
   );
@@ -60,7 +71,7 @@ const handleLogin = async (username, password) => {
     const users = await response.json();
     if (users.length > 0) {
       console.log('Inloggning lyckades', users[0]);
-      // Hantera inloggad användare, spara användarinfo i tillstånd eller localStorage för sessionhantering
+     
     } else {
       console.log('Inloggning misslyckades: användarnamn eller lösenord är felaktigt');
     }
