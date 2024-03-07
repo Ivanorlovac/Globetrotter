@@ -11,6 +11,7 @@ import Homepage from './pages/homepage.jsx';
 import { GlobalProvider } from './components/GlobalContext.jsx';
 import Footer from './components/footer.jsx';
 import LoginPage from './pages/LoginPage.jsx';
+import SellersPage from './pages/SellersPage.jsx';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -32,7 +33,9 @@ const App = () => {
           <Route path="/skapa-auktion" element={<SkapaAuktion />} />
           <Route path="/search" element={<SearchBar />} />
           <Route path="/register" element={<RegisterForm />} />
-          <Route path="/login" element={<LoginPage/>} />
+          <Route path="/login" element={<LoginPage />} />
+          <Route path="/SellersPage" element={<SellersPage />} />
+          <Route path="/auction/:id" element={<AuktionsDetaljer />} />
         </Routes>
         {user && <div>Välkommen, {user.username}!</div>}
         </Router>

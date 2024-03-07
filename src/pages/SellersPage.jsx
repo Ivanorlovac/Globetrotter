@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Globalcontext } from './GlobalContext.jsx';
+import { Globalcontext } from '../components/GlobalContext.jsx';
 import { useNavigate } from 'react-router-dom';
 
 const SellersPage = () => {
@@ -35,7 +35,13 @@ const SellersPage = () => {
       {auctions.length > 0 ? (
         <ul>
           {auctions.map((auction) => (
-            <li key={auction.id}>{auction.title}</li>
+            <div key={auction.id} style={{ border: "1px solid #ddd", padding: "10px", marginBottom: "10px" }}>
+              <h2>{auction.title}</h2>
+              <p>{auction.description}</p>
+              <p>Startbud: {auction.valuationPrice} SEK</p>
+              <p>Slutar: {new Date(auction.endTime).toLocaleString()}</p>
+              
+            </div>
           ))}
         </ul>
       ) : (
