@@ -37,32 +37,52 @@ function getData() {
 
 const AuktionsLista = () => {
 
-  const filteredAuctions = getData()
+  const getParams = new URLSearchParams(document.location.search);
+
+  const paramsData = [getParams.get("search")];
+
+  let filteredAuctions = getData()
+
+  if (paramsData[0] !== null) {
+    let params = paramsData[0].split(' ')
+
+    filteredAuctions = filteredAuctions.filter(auction =>
+      params.some(term =>
+        auction.title.toLowerCase().includes(term) ||
+        auction.description.toLowerCase().includes(term) ||
+        (auction.valuationPrice?.toString() || '').includes(term))
+    );
+  }
+
+  console.log("Aukioner: ", filteredAuctions)
 
   return (
     <div className="container">
-      {filteredAuctions.filter(auction => {
-        let timeNow = new Date().toLocaleString('se-SE', { timeZone: 'cet' })
-        let timeEnd = new Date(auction.endTime).toLocaleString('se-SE', { timeZone: 'cet' }) 
-        return timeNow < timeEnd
-      }).map(auction => (
-        <div key={auction.id} className='auction_list_container'>
-          <div className='carousel-container'>
-            <Carousel objImages={auction.images}/>
-          </div>
-          <Link to={`/auction/${auction.id}/${auction.title}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-            <div className="auction-item mb-4">
-              <h5>{auction.title}</h5>
-              <p>{auction.description}</p>
-              <p>Startbud: {auction.valuationPrice} SEK</p>
-              <div className='d-flex align-items-center'>
-                <p className='me-1 my-0'>Slutar: </p>
-                <Timer objEndTime={auction.endTime} fontSize={15} showBorder={false} setBold={false} />
-              </div>
+      {filteredAuctions.length !== 0 ?
+        filteredAuctions.filter(auction => {
+          let timeNow = new Date().toLocaleString('se-SE', { timeZone: 'cet' })
+          let timeEnd = new Date(auction.endTime).toLocaleString('se-SE', { timeZone: 'cet' })
+          return timeNow < timeEnd
+        }).map(auction => (
+          <div key={auction.id} className='auction_list_container'>
+            <div className='carousel-container'>
+              <Carousel objImages={auction.images} />
             </div>
-          </Link>
-        </div>
-      ))}
+            <Link to={`/auction/${auction.id}/${auction.title}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <div className="auction-item mb-4">
+                <h5>{auction.title}</h5>
+                <p>{auction.description}</p>
+                <p>Startbud: {auction.valuationPrice} SEK</p>
+                <div className='d-flex align-items-center'>
+                  <p className='me-1 my-0'>Slutar: </p>
+                  <Timer objEndTime={auction.endTime} fontSize={15} showBorder={false} setBold={false} />
+                </div>
+              </div>
+            </Link>
+          </div>
+        ))
+        : <p>Finns inget resultat</p>}
+
     </div>
   );
 };
@@ -99,4 +119,4 @@ const AuktionsLista_Homepage = () => {
   );
 };
 
-export {AuktionsLista_Homepage, AuktionsLista};
+export { AuktionsLista_Homepage, AuktionsLista };

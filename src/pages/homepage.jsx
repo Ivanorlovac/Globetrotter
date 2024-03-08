@@ -36,9 +36,6 @@ export default function Homepage() {
         <AuktionsLista_Homepage />
       </div>
   </div>
-
-
-
   </>
 
 }
