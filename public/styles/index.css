@@ -3,8 +3,19 @@
 @import url(./homepage.css);
 @import url(./biddingSite.css);
 
-#logo {
+body {
+  background-color: #85a2c1;
+  font-family: "Playfair Display", serif;
+}
+
+#logo.rounded {
   width: 80px;
+  border-radius: 50% !important;
+}
+
+#logo_header {
+  font-family: "Playfair Display", serif;
+  font-size: xx-large;
 }
 
 #main-pic {
@@ -12,10 +23,13 @@
   background-repeat: none;
   background-size: 1920px 1080px;
   background-attachment: fixed;
+  min-height: 100vh;
 }
 
 #main-background {
   background-color: rgba(77, 77, 77, 0.712);
+  min-height: 100vh;
+  padding-bottom: 3vh;
 }
 
 #navbar-field {
@@ -23,28 +37,81 @@
 }
 
 .offcanvas {
+  font-family: "Playfair Display", serif;
   background-color: #85a2c1;
 }
 
 .navlink {
-  font-family: 'Courier New', Courier, monospace;
+  font-family: "Playfair Display", serif;
   list-style-type: none;
+  font-size: 20px;
 }
 
-#navlink {
+#navlink-home {
   color: antiquewhite !important;
   text-decoration: none;
 }
 
-#navlink:hover {
+#navlink-auction-form {
+  color: antiquewhite !important;
+  text-decoration: none;
+}
+
+#navlink-register {
+  color: antiquewhite !important;
+  text-decoration: none;
+}
+
+#navlink-login {
+  color: antiquewhite !important;
+  text-decoration: none;
+}
+
+#navlink-see-all {
+  color: antiquewhite !important;
+  text-decoration: none;
+}
+
+#navlink-see-all:hover {
   color: black !important;
 }
 
+#navlink-home:hover {
+  color: black !important;
+}
 
+#navlink-auction-form:hover {
+  color: black !important;
+}
+
+#navlink-register:hover {
+  color: black !important;
+}
+
+#navlink-login:hover {
+  color: black !important;
+}
 
 footer {
   background-color: #85a2c1;
+  position: relative;
+  bottom: 0;
 }
+
+/* Runt ett objekt */
+.auction_list_container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: 1vw;
+}
+
+.container {
+  color: antiquewhite;
+}
+
 
 .carousel-container {
   width: 600px;
@@ -64,7 +131,7 @@ footer {
     position: absolute;
     width: 2rem;
     height: 2rem;
-    color: white;
+    color: rgba(255, 255, 255, 0.587);
     filter: drop-shadow(0px 0px 10px #555);
   }
 
@@ -87,6 +154,7 @@ footer {
     align-items: center;
     height: 100%;
     width: 100%;
+
 
     .slide {
       box-shadow: 0px 0px 7px #666;
@@ -126,7 +194,7 @@ footer {
 
 }
 
-#fallback_section{
+#fallback_section {
   display: flex;
   align-content: center;
   justify-content: center;
@@ -147,4 +215,14 @@ footer {
   align-content: center;
   flex-wrap: nowrap;
   min-height: 40%;
+}
+
+#see_all_auctions {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.timer>span {
+  text-wrap: nowrap;
 }

@@ -4,22 +4,22 @@ import Col from 'react-bootstrap/Col';
 
 export default function Footer() {
   return <footer>
-    <Container>
-      <Row>
-        <Col>
+    <div>
+      <div>
+        <div>
           <p>Kontakt</p>
           <p>FAQ</p>
-        </Col>
-        <Col>
+        </div>
+        <div>
           <p>Jobba hos oss</p>
           <p>Om oss</p>
-        </Col>
-      </Row>
-      <Row>
-        <Col>
+        </div>
+      </div>
+      <div>
+        <div>
           <p>&#169; Copyright</p>
-        </Col>
-      </Row>
-    </Container>
+        </div>
+      </div>
+    </div>
   </footer>
 }

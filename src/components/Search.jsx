@@ -16,7 +16,7 @@ const SearchBar = ({ onSearch }) => {
 
   return (
     <div> 
-      <form onSubmit={handleSearch}>
+      <form className='d-flex align-items-start gap-1' onSubmit={handleSearch}>
         <input
           type="text"
           className="form-control mb-3"
@@ -24,7 +24,7 @@ const SearchBar = ({ onSearch }) => {
           value={searchTerm}
           onChange={handleChange}
         />
-        <input type="submit" value="Sök" />
+        <input id='search_button' type='submit' value='Sök' />
       </form>
     </div>
   );
