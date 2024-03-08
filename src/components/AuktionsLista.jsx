@@ -107,7 +107,7 @@ const AuktionsLista_Homepage = () => {
           <div className='carousel-container_Homepage'>
             <Carousel objImages={auction.images} />
           </div>
-          <Link to={`/auction/${auction.id}/${auction.title}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+          <Link to={`/auction/${auction.id}/${auction.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
             <div className="auction-item mb-4">
               <h7>{auction.title}</h7>
               <p>Startbud: {auction.valuationPrice} SEK</p>

@@ -1,5 +1,6 @@
 import { AuktionsLista_Homepage } from '../components/AuktionsLista';
 import SearchBar from '../components/Search';
+import ShuffleAuction from '../components/ShuffleAuction.jsx';
 
 export default function Homepage() {
   return <>
@@ -23,7 +24,7 @@ export default function Homepage() {
             <h3>Eller slumpa fram en resa</h3>
           </div>
           <div className='center'>
-            <button id='shuffle_button'><span className="material-symbols-outlined">shuffle</span><br />SLUMPA</button>
+            <ShuffleAuction/>
           </div>
       </div>
 

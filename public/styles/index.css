@@ -108,7 +108,7 @@ footer {
   padding: 1vw;
 }
 
-.container{
+.container {
   color: antiquewhite;
 }
 
@@ -131,7 +131,7 @@ footer {
     position: absolute;
     width: 2rem;
     height: 2rem;
-    color: white;
+    color: rgba(255, 255, 255, 0.587);
     filter: drop-shadow(0px 0px 10px #555);
   }
 
@@ -221,4 +221,8 @@ footer {
   display: flex;
   align-content: center;
   justify-content: center;
+}
+
+.timer>span {
+  text-wrap: nowrap;
 }

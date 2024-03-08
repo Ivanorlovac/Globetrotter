@@ -16,7 +16,7 @@ const SearchBar = ({ onSearch }) => {
 
   return (
     <div> 
-      <form onSubmit={handleSearch}>
+      <form className='d-flex align-items-start gap-1' onSubmit={handleSearch}>
         <input
           type="text"
           className="form-control mb-3"

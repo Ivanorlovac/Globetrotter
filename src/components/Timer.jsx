@@ -39,7 +39,7 @@ export default function Timer(props) {
   };
 
   return <>
-    {time != null ? <div style={styleTimer}><Countdown date={Date.parse(new Date(time).toLocaleString('se-SE', { timeZone: 'cet' }))} onComplete={Completionist} renderer={renderer}></Countdown></div>
+    {time != null ? <div className="timer" style={styleTimer}><Countdown date={Date.parse(new Date(time).toLocaleString('se-SE', { timeZone: 'cet' }))} renderer={renderer}></Countdown></div>
       : <p>00:00:00:00</p>}
   </>
 
