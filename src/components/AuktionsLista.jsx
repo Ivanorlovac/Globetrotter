@@ -35,9 +35,14 @@ const AuktionsLista = () => {
     setFilteredAuctions(filtered);
   };
 
+
   return (
     <div className="container">
-      {filteredAuctions.map(auction => (
+      {filteredAuctions.filter(auction => {
+        let timeNow = new Date().toLocaleString('se-SE', { timeZone: 'cet' })
+        let timeEnd = new Date(auction.endTime).toLocaleString('se-SE', { timeZone: 'cet' }) 
+        return timeNow < timeEnd
+      }).map(auction => (
         <div key={auction.id} className='auction_list_container'>
           <div className='carousel-container'>
             <Carousel objImages={auction.images}/>
@@ -51,7 +56,6 @@ const AuktionsLista = () => {
                 <p className='me-1 my-0'>Slutar: </p>
                 <Timer objEndTime={auction.endTime} fontSize={15} showBorder={false} setBold={false} />
               </div>
-
             </div>
           </Link>
         </div>
@@ -94,7 +98,11 @@ const AuktionsLista_Homepage = () => {
 
   return (
     <div className="container_Homepage">
-      {filteredAuctions.map(auction => (
+      {filteredAuctions.filter(auction => {
+        let timeNow = new Date().toLocaleString('se-SE', { timeZone: 'cet' })
+        let timeEnd = new Date(auction.endTime).toLocaleString('se-SE', { timeZone: 'cet' })
+        return timeNow < timeEnd
+      }).map(auction => (
         <div key={auction.id} className='auction_list_container_Homepage'>
           <div className='carousel-container_Homepage'>
             <Carousel objImages={auction.images} />

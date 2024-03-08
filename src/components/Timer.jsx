@@ -23,16 +23,20 @@ export default function Timer(props) {
     width: "fit-content",
   }
 
-  const renderer = ({ days, hours, minutes, seconds }) => {
-    return (
-      <span>
-        {days}D {hours}H {minutes}M {seconds}S
-      </span>
-    );
+  const renderer = ({ days, hours, minutes, seconds, completed }) => {
+    if (completed) {
+      return <span>Auktion avslutad</span>;
+    } else {
+      if (days > 0) {
+        return <span>{days}D {hours}H {minutes}M {seconds}S</span>;
+      } else {
+        return <span>{hours}H {minutes}M {seconds}S</span>;
+      }
+    }
   };
 
   return <>
-    {timeCloseAution ? <p style={styleClosed}>Auktion avslutad</p> : time != null ? <div style={styleTimer}><Countdown date={Date.parse(new Date(time).toLocaleString('se-SE', { timeZone: 'cet' }))} onComplete={Completionist} renderer={renderer}></Countdown></div>
+    {time != null ? <div style={styleTimer}><Countdown date={Date.parse(new Date(time).toLocaleString('se-SE', { timeZone: 'cet' }))} renderer={renderer}></Countdown></div>
       : <p>00:00:00:00</p>}
   </>
 
