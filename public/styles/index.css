@@ -3,7 +3,7 @@
 @import url(./homepage.css);
 @import url(./biddingSite.css);
 
-body{
+body {
   background-color: #85a2c1;
   font-family: "Playfair Display", serif;
 }
@@ -32,7 +32,7 @@ body{
   padding-bottom: 3vh;
 }
 
-#navbar-field  {
+#navbar-field {
   background-color: #85a2c1 !important;
 }
 
@@ -67,6 +67,15 @@ body{
   text-decoration: none;
 }
 
+#navlink-see-all {
+  color: antiquewhite !important;
+  text-decoration: none;
+}
+
+#navlink-see-all:hover {
+  color: black !important;
+}
+
 #navlink-home:hover {
   color: black !important;
 }
@@ -89,14 +98,20 @@ footer {
   bottom: 0;
 }
 
+/* Runt ett objekt */
 .auction_list_container {
   display: flex;
-  flex-wrap: wrap;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  flex-wrap: nowrap;
+  position: relative;
+  padding: 1vw;
 }
+
+.container{
+  color: antiquewhite;
+}
+
 
 .carousel-container {
   width: 600px;
@@ -179,7 +194,7 @@ footer {
 
 }
 
-#fallback_section{
+#fallback_section {
   display: flex;
   align-content: center;
   justify-content: center;
@@ -200,4 +215,10 @@ footer {
   align-content: center;
   flex-wrap: nowrap;
   min-height: 40%;
+}
+
+#see_all_auctions {
+  display: flex;
+  align-content: center;
+  justify-content: center;
 }

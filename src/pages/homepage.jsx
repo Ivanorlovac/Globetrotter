@@ -1,7 +1,4 @@
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import AuktionsLista from '../components/AuktionsLista';
+import { AuktionsLista_Homepage } from '../components/AuktionsLista';
 import SearchBar from '../components/Search';
 
 export default function Homepage() {
@@ -35,7 +32,7 @@ export default function Homepage() {
 
     <div id='homepage_second_section'>
       <div className='blue_box_centered'>
-        <AuktionsLista />
+        <AuktionsLista_Homepage />
       </div>
   </div>
 

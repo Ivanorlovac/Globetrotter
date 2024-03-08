@@ -83,15 +83,51 @@
   justify-content: center;
 }
 
+
+/* Runt container */
 .blue_box_centered {
   background-color: #85A2C1;
   width: 70%;
   border: 1px solid #c3c3c3;
   display: flex;
-  flex-wrap: wrap;
-  flex-direction: column;
   justify-content: center;
   align-content: center;
-  flex-wrap: nowrap;
   padding: 1vh 1vw;
+  height: 45vh;
+}
+
+/* Runt alla objekt */
+.container_Homepage {
+  display: flex;
+  align-items: flex-start;
+  flex-direction: row;
+  overflow-x: scroll;
+  height: 100%;
+  overflow-y: hidden;
+}
+
+/* Runt ett objekt */
+.auction_list_container_Homepage {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  width: 15vw;
+  position: relative;
+  padding: 1vw;
+  height: 100%;
+  top: 0;
+}
+
+.auction_list_container_Homepage p{
+  font-size: 11px;
+}
+
+.auction_list_container_Homepage:hover {
+  background-color: #a9b7c7;
+}
+
+.carousel-container_Homepage {
+  width: 150px;
+  height: 100px;
 }
