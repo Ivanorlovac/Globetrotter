@@ -61,7 +61,10 @@
       flex-direction: column;
       gap: 30px;
 
-
+      .carousel-size{
+        width: 80%;
+        height: 400px;
+      }
 
       .bidding-about {
         width: 80%;

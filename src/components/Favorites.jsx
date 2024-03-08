@@ -21,17 +21,18 @@ export default function Favorites() {
   },[])
 
   const toggleFavorite = () => {
-    if (!favorites.some(obj => obj.auction_id === id)) {
-      const favorite = { user_id: user.id, auction_id: id }
-      saveToApi(favorite)
+    const existingFavorite = favorites.find(obj => obj.auction_id === id);
+    if (!existingFavorite) {
+      const favorite = { user_id: user.id, auction_id: id };
+      saveToApi(favorite);
     } else {
-      removeFromApi()
+      removeFromApi(existingFavorite);
     }
   };
 
   async function saveToApi(data) {
     try {
-      const response = await fetch("http://localhost:3000/favorites", {
+      const response = await fetch("/api/favorites", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -40,28 +41,38 @@ export default function Favorites() {
       });
 
       const result = await response.json();
-      const newFavorites = [...favorites, result];
-      setFavorites(newFavorites);
-      setIsFavorited(true)    
-      console.log("Success ADD to favorites:", result);
+
+      if (response.ok) {
+        const newFavorites = [...favorites, result];
+        setFavorites(newFavorites);
+        setIsFavorited(true)
+        console.log("Success ADD to favorites:", result);        
+      }
+
     } catch (error) {
       console.error("Error:", error);
     }    
   }
-  async function removeFromApi() {
+
+  async function removeFromApi(obj) {
+    console.log(obj)
     const userId = user.id
     try {
-      const response = await fetch("/api/favorites?auction_id=" + id + "&user_id=" + userId, {
+      const response = await fetch("/api/favorites?user_id=" + userId, {
         method: "DELETE",
         headers: {
           "Content-Type": "application/json",
         },
+        body: JSON.stringify(obj)
       });
-      const updatedFavorites = favorites.filter(obj => obj.auction_id !== id);
-      setFavorites(updatedFavorites);
-      setIsFavorited(false)
-      const result = await response.json();
-     
+
+      if (response.ok) {
+        const updatedFavorites = favorites.filter(obj => obj.auction_id !== id);
+        setFavorites(updatedFavorites);
+        setIsFavorited(false)        
+      }
+      return await response.json();
+
     } catch (error) {
       console.error("Error:", error);
     } 

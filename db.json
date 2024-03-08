@@ -518,19 +518,19 @@
       "auction_id": "1"
     },
     {
-      "id": "63da",
-      "user_id": "1",
-      "auction_id": "1"
-    },
-    {
-      "id": "46d7",
-      "user_id": "1",
-      "auction_id": "1"
-    },
-    {
       "id": "4b1e",
       "user_id": "1",
       "auction_id": "13"
+    },
+    {
+      "id": "7c5b",
+      "user_id": "1",
+      "auction_id": "1"
+    },
+    {
+      "id": "db5f",
+      "user_id": "1",
+      "auction_id": "3"
     }
   ],
   "result_closed_auctions": [
