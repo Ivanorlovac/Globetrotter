@@ -29,14 +29,17 @@ export default function Timer(props) {
     } else {
       if (days > 0) {
         return <span>{days}D {hours}H {minutes}M {seconds}S</span>;
-      } else {
+      } else if (days === 0) {
+        if (hours === 0) {
+          return <span>{minutes}M {seconds}S</span>;
+        }
         return <span>{hours}H {minutes}M {seconds}S</span>;
       }
     }
   };
 
   return <>
-    {time != null ? <div style={styleTimer}><Countdown date={Date.parse(new Date(time).toLocaleString('se-SE', { timeZone: 'cet' }))} renderer={renderer}></Countdown></div>
+    {time != null ? <div style={styleTimer}><Countdown date={Date.parse(new Date(time).toLocaleString('se-SE', { timeZone: 'cet' }))} onComplete={Completionist} renderer={renderer}></Countdown></div>
       : <p>00:00:00:00</p>}
   </>
 
