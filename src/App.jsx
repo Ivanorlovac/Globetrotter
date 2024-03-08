@@ -1,11 +1,9 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import AuktionsLista from './components/AuktionsLista';
 import AuktionsDetaljer from './components/AuktionsDetaljer';
 import SkapaAuktion from './components/SkapaAuktion';
 import SearchBar from './components/Search.jsx';
 import RegisterForm from './components/Register.jsx';
-import LoginForm from './components/LoginForm.jsx';
 import NavbarOffcanvas from './components/Navbar.jsx';
 import Homepage from './pages/homepage.jsx';
 import { GlobalProvider } from './components/GlobalContext.jsx';
@@ -14,6 +12,8 @@ import LoginPage from './pages/LoginPage.jsx';
 import Bidding from './pages/Bidding.jsx'
 
 import SellersPage from './pages/SellersPage.jsx';
+import NotFound from './pages/Fallback.jsx';
+import { AuktionsLista } from './components/AuktionsLista.jsx';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -23,25 +23,30 @@ const App = () => {
   };
 
   return <>
-    <GlobalProvider>
-      <Router>
-        <main id="main-pic">
-          <div id="main-background">
+    <main id="main-pic">
+      <div id="main-background">
+        <GlobalProvider>
+          <Router>
             <NavbarOffcanvas />
             <Routes>
               <Route path="/" element={<Homepage />} />
-              <Route path="/auction/:id/:slug" element={<Bidding />} />
+              <Route path="/auction/:id/:slug" element={<Bidding/>} />
               <Route path="/skapa-auktion" element={<SkapaAuktion />} />
               <Route path="/search" element={<SearchBar />} />
               <Route path="/register" element={<RegisterForm />} />
               <Route path="/login" element={<LoginPage />} />
+              <Route path="/SellersPage" element={<SellersPage />} />
+              <Route path="/auction/:id" element={<AuktionsDetaljer />} />
+              <Route path="/alla-auktioner" element={<AuktionsLista />} />
+              <Route path='*' element={<NotFound />} />
             </Routes>
             {user && <div>Välkommen, {user.username}!</div>}
-          </div>
-        </main>
-        <Footer />
-      </Router>
-    </GlobalProvider>
+          </Router>
+
+        </GlobalProvider>
+      </div>
+    </main>
+    <Footer />
   </>
 
 };

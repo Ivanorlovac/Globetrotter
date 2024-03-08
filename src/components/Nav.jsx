@@ -11,6 +11,7 @@ export default function Nav() {
       <br />
       <ul>
         <li className="navlink"><Link to="/" className="mr-4" id="navlink-home">Hem</Link></li>
+        <li className="navlink"><Link to="/alla-auktioner" id="navlink-see-all">Se alla auktioner</Link></li>
         {user.role === 'seller' && (
           <>
             <li className="navlink"><Link to="/skapa-auktion" className="mr-4" id="navlink-auction-form">Skapa Auktion</Link></li>
@@ -22,7 +23,7 @@ export default function Nav() {
         ) : (
           <>
             <li className="navlink"><Link to="/register" className="mr-4" id="navlink-register">Registrera</Link></li>
-            <li className="navlink"><Link to="/login" id="navlink-login">Logga in</Link></li>
+              <li className="navlink"><Link to="/login" id="navlink-login">Logga in</Link></li>
           </>
         )}
       </ul>
