@@ -512,6 +512,13 @@
       "amount": "140",
       "userId": "2",
       "time": "2024-03-11 09:15:12"
+    },
+    {
+      "id": "aeb5",
+      "auctionId": "4",
+      "amount": "120",
+      "userId": "3",
+      "time": "2024-03-11 10:09:34"
     }
   ],
   "users": [
@@ -582,6 +589,11 @@
       "id": "0b7a",
       "user_id": "2",
       "auction_id": "18"
+    },
+    {
+      "id": "5ab3",
+      "user_id": "3",
+      "auction_id": "9"
     }
   ],
   "result_closed_auctions": [

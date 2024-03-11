@@ -32,6 +32,7 @@ function GlobalProvider({ children }) {
     setLoginMessage('Välkommen' + userData.username);
   };
   const logout = () => {
+    setFavorites([])
     setUser({});
     setLoginMessage('');
   };
