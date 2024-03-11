@@ -594,6 +594,11 @@
       "id": "5ab3",
       "user_id": "3",
       "auction_id": "9"
+    },
+    {
+      "id": "f44c",
+      "user_id": "3",
+      "auction_id": "4"
     }
   ],
   "result_closed_auctions": [
