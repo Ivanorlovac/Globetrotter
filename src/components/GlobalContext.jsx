@@ -37,8 +37,31 @@ function GlobalProvider({ children }) {
     setLoginMessage('');
   };
 
+  const updateUser = async (updatedUser) => {
+    setUser(updatedUser); 
+
+    try {
+      const response = await fetch(`http://localhost:3000/users/${updatedUser.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updatedUser),
+      });
+
+      if (!response.ok) throw new Error('Failed to update user profile');
+
+      
+      const refreshedUser = await response.json();
+      setUser(refreshedUser);
+      console.log('Profile updated successfully');
+    } catch (error) {
+      console.error('Error updating user profile:', error);
+    }
+  };
+
+
   return <Globalcontext.Provider value={{
     user,
+    updateUser,
     login,
     logout,
     setUser,
