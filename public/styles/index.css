@@ -253,4 +253,30 @@ footer {
     width: 300px;
     height: 200px;
   }
+
+  #shuffle_button {
+    width: 100px;
+  }
+
+  #hompage_box {
+    width: 80%;
+  }
+
+  .blue_box_centered {
+    width: 80%;
+  }
+}
+
+@media (max-width: 450px) {
+  #blue_background_box {
+    min-width: 310px;
+  }
+
+  #hompage_box {
+    width: 100%;
+  }
+
+  .blue_box_centered {
+    width: 100%;
+  }
 }
