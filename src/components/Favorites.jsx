@@ -11,6 +11,10 @@ export default function Favorites() {
   const [isFavorited, setIsFavorited] = useState(false);
   const { id } = useParams()
   
+  if (Object.keys(user).length === 0) {
+    return
+  }
+
 
   useEffect(() => {
     if (favorites.some(obj => obj.auction_id === id)) {
@@ -24,13 +28,13 @@ export default function Favorites() {
     const existingFavorite = favorites.find(obj => obj.auction_id === id);
     if (!existingFavorite) {
       const favorite = { user_id: user.id, auction_id: id };
-      saveToApi(favorite);
+      saveFavorite(favorite);
     } else {
-      removeFromApi(existingFavorite);
+      deleteFavorite(existingFavorite);
     }
   };
 
-  async function saveToApi(data) {
+  async function saveFavorite(data) {
     try {
       const response = await fetch("/api/favorites", {
         method: "POST",
@@ -46,7 +50,6 @@ export default function Favorites() {
         const newFavorites = [...favorites, result];
         setFavorites(newFavorites);
         setIsFavorited(true)
-        console.log("Success ADD to favorites:", result);        
       }
 
     } catch (error) {
@@ -54,38 +57,22 @@ export default function Favorites() {
     }    
   }
 
-  async function removeFromApi(obj) {
-    console.log(obj)
-    const userId = user.id
-    try {
-      const response = await fetch("/api/favorites?user_id=" + userId, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(obj)
-      });
+  const deleteFavorite = favoriteObj => {
 
-      if (response.ok) {
+    fetch(`/api/favorites/${favoriteObj.id}`, {
+      method: "DELETE",
+    })
+      .then(response => response.json())
+      .then(() => {
         const updatedFavorites = favorites.filter(obj => obj.auction_id !== id);
         setFavorites(updatedFavorites);
-        setIsFavorited(false)        
-      }
-      return await response.json();
-
-    } catch (error) {
-      console.error("Error:", error);
-    } 
-
+        setIsFavorited(false) 
+      })
   }
 
-  console.log("Favorites: ", favorites)
-
   return <>
-
-    <Button variant="link" onClick={toggleFavorite}>
-      {isFavorited ? <FaStar color="yellow" /> : <FaRegStar />}
+    <Button variant="link" onClick={toggleFavorite} className="d-flex" style={{height:"100%", width: "auto"}}>
+      {isFavorited ? <FaStar color="yellow" style={{ fontSize: "25px" }} /> : <FaRegStar className="align-items-end" style={{ color: "#212529", fontSize: "25px"}}/>}
     </Button>
-
   </>
 }

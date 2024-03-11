@@ -395,7 +395,6 @@
       "creator": "Horisont Resebyrå",
       "creatorImage": "https://www.logomoose.com/wp-content/uploads/2018/02/1150px-x-5683.png"
     }
-    
   ],
   "categories": [
     {
@@ -506,6 +505,13 @@
       "amount": "150",
       "userId": "1",
       "time": "2024-03-07 13:46:03"
+    },
+    {
+      "id": "a0fb",
+      "auctionId": "18",
+      "amount": "140",
+      "userId": "2",
+      "time": "2024-03-11 09:15:12"
     }
   ],
   "users": [
@@ -567,11 +573,15 @@
       "id": "db5f",
       "user_id": "1",
       "auction_id": "3"
+    },
+    {
+      "id": "bbf9",
+      "auction_id": "18"
     }
   ],
   "result_closed_auctions": [
     {
-      "id": 1,
+      "id": "1",
       "winner_user_id": 2,
       "auction_id": 1,
       "time": "2024-03-01 14:29:21",
