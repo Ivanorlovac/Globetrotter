@@ -38,6 +38,7 @@ const App = () => {
               <Route path="/SellersPage" element={<SellersPage />} />
               <Route path="/auction/:id" element={<AuktionsDetaljer />} />
               <Route path="/alla-auktioner" element={<AuktionsLista />} />
+              <Route path="/mina-sidor" element={<p>Mina sidor</p>}/>
               <Route path='*' element={<NotFound />} />
             </Routes>
             {user && <div>Välkommen, {user.username}!</div>}

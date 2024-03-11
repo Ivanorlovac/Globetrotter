@@ -62,6 +62,16 @@ body {
   text-decoration: none;
 }
 
+#navlink-my-page {
+  color: antiquewhite !important;
+  text-decoration: none;
+}
+
+#navlink-register {
+  color: antiquewhite !important;
+  text-decoration: none;
+}
+
 #navlink-login {
   color: antiquewhite !important;
   text-decoration: none;
@@ -85,6 +95,10 @@ body {
 }
 
 #navlink-register:hover {
+  color: black !important;
+}
+
+#navlink-my-page:hover {
   color: black !important;
 }
 

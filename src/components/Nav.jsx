@@ -19,7 +19,10 @@ export default function Nav() {
           </>
         )}
         {Object.keys(user).length !== 0 ? (
-          <li className="navlink" onClick={logout} id="navlink-logout">Logga ut</li>
+          <>
+            <li className="navlink"><Link to="/mina-sidor" className="mr-4" id="navlink-my-page">Mina sidor</Link></li>
+            <li className="navlink" onClick={logout} id="navlink-logout">Logga ut</li>
+          </>
         ) : (
           <>
             <li className="navlink"><Link to="/register" className="mr-4" id="navlink-register">Registrera</Link></li>
