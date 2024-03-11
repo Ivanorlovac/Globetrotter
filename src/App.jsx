@@ -11,7 +11,7 @@ import Footer from './components/footer.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import SellersPage from './pages/SellersPage.jsx';
 import NotFound from './pages/Fallback.jsx';
-import { AuktionsLista } from './components/AuktionsLista.jsx';
+import SeeAll from './pages/SeeAllAuctions.jsx';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -36,7 +36,7 @@ const App = () => {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/SellersPage" element={<SellersPage />} />
               <Route path="/auction/:id" element={<AuktionsDetaljer />} />
-              <Route path="/alla-auktioner" element={<AuktionsLista />} />
+              <Route path="/alla-auktioner" element={<SeeAll />} />
               <Route path='*' element={<NotFound />} />
             </Routes>
             {user && <div>Välkommen, {user.username}!</div>}
