@@ -13,7 +13,7 @@ const SellerProfile = () => {
     const updatedUser = {
       ...user,
       username,
-      password, // Be cautious with updating passwords like this
+      password, 
       creatorImage: userImage,
     };
 
