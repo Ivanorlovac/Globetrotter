@@ -32,7 +32,7 @@ const SkapaAuktion = () => {
       images,
       category,
       endTime,
-      creatorName: user.creatorName,
+      creator:user.creator,
       creatorImage:user.creatorImage,
     };
 
