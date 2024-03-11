@@ -1,7 +1,8 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import ShowAlert from './ShowAlert.jsx';
 import { Globalcontext } from './GlobalContext.jsx';
+
 
 export default function PlaceBid() {
   
@@ -92,7 +93,7 @@ export default function PlaceBid() {
 
   const NoUser = () => {
     return <>
-      <p style={{color: "gray", fontWeight:"bold", margin: "0px", fontSize: "120%"}}>Logga in för att lägga och se dina bud.</p>
+      <p style={{ fontWeight: "bold", margin: "0px", fontSize: "120%" }}><Link to="/login" style={{textDecoration: "none", color: "gray"}}>Logga in för att lägga och se dina bud</Link></p>
     </>
   }
 
