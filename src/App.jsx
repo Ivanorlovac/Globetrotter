@@ -14,6 +14,7 @@ import Bidding from './pages/Bidding.jsx'
 import SellersPage from './pages/SellersPage.jsx';
 import NotFound from './pages/Fallback.jsx';
 import { AuktionsLista } from './components/AuktionsLista.jsx';
+import MyPage from './pages/MyPage.jsx';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -38,7 +39,7 @@ const App = () => {
               <Route path="/SellersPage" element={<SellersPage />} />
               <Route path="/auction/:id" element={<AuktionsDetaljer />} />
               <Route path="/alla-auktioner" element={<AuktionsLista />} />
-              <Route path="/mina-sidor" element={<p>Mina sidor</p>}/>
+              <Route path="/mina-sidor" element={<MyPage/>}/>
               <Route path='*' element={<NotFound />} />
             </Routes>
             {user && <div>Välkommen, {user.username}!</div>}
