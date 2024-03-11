@@ -3,6 +3,10 @@
 @import url(./homepage.css);
 @import url(./biddingSite.css);
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: #85a2c1;
   font-family: "Playfair Display", serif;
@@ -108,7 +112,7 @@ footer {
   padding: 1vw;
 }
 
-.auction_list_container:hover{
+.auction_list_container:hover {
   color: #222222;
   background-color: rgba(240, 248, 255, 0.161);
   border-radius: 20px;
@@ -120,9 +124,8 @@ footer {
 
 
 .carousel-container {
-  max-width: 600px;
-  max-height: 400px;
-  
+  width: 600px;
+  height: 400px;
 }
 
 .image-container {
@@ -221,7 +224,7 @@ footer {
   justify-content: center;
   align-content: center;
   flex-wrap: nowrap;
-  min-height: 40%;
+  min-height: 60%;
 }
 
 #see_all_auctions {
@@ -242,4 +245,12 @@ footer {
   justify-content: center;
   align-content: center;
   padding: 1vh 1vw;
+}
+
+
+@media (max-width: 888px) {
+  .carousel-container {
+    width: 300px;
+    height: 200px;
+  }
 }
