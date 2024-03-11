@@ -108,6 +108,12 @@ footer {
   padding: 1vw;
 }
 
+.auction_list_container:hover{
+  color: #222222;
+  background-color: rgba(240, 248, 255, 0.161);
+  border-radius: 20px;
+}
+
 .container {
   color: antiquewhite;
 }

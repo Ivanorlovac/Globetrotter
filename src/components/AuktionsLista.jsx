@@ -47,10 +47,10 @@ const AuktionsLista = () => {
         return timeNow < timeEnd
       }).map(auction => (
         <div key={auction.id} className='auction_list_container'>
+          <Link to={`/auction/${auction.id}/${auction.title}`} style={{ textDecoration: 'none', color: 'inherit' }}>
           <div className='carousel-container'>
             <Carousel objImages={auction.images}/>
           </div>
-          <Link to={`/auction/${auction.id}/${auction.title}`} style={{ textDecoration: 'none', color: 'inherit' }}>
             <div className="auction-item mb-4">
               <h5>{auction.title}</h5>
               <p>{auction.description}</p>
@@ -79,10 +79,10 @@ const AuktionsLista_Homepage = () => {
         return timeNow < timeEnd
       }).map(auction => (
         <div key={auction.id} className='auction_list_container_Homepage'>
+          <Link to={`/auction/${auction.id}/${auction.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
           <div className='carousel-container_Homepage'>
             <Carousel objImages={auction.images} />
           </div>
-          <Link to={`/auction/${auction.id}/${auction.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
             <div className="auction-item mb-4">
               <h6>{auction.title}</h6>
               <p>Startbud: {auction.valuationPrice} SEK</p>
