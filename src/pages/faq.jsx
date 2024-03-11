@@ -52,9 +52,7 @@ function Faq() {
     <Container fluid className="faqContainer">
       <Row className ="faqRow">
         <Col>
-          
-            <h3 className="titleExtra">FAQs</h3>
-          
+           <h3 className="titleExtra">FAQs</h3>
         </Col>
       </Row>
       <Row className="faqRow">
@@ -73,14 +71,11 @@ function Faq() {
                       {selectedQuestion === index && <p className="faqAnswer"> {item.answer}</p>}
                     </li>
                   ))}
-                  
-                    
             </ul>
            </div>
           </Col>
         </Row>
       </Container>
-        
   );
 };
 
