@@ -12,7 +12,8 @@ import TotalBids from "../components/TotalBids.jsx";
 export default function Bidding() {
 
   const [auction, setAuction] = useState({})
-  const [category, setCategory] = useState({})
+  const [auctionClosed, setAuctionClosed] = useState(false)
+
   const { id } = useParams()
   const navigate = useNavigate();
 
@@ -26,14 +27,32 @@ export default function Bidding() {
     load()
   }, [])
 
+  useEffect(() => {
+
+    if (!auction.endTime) return;
+    
+    let timeNow = new Date().toLocaleString('se-SE', { timeZone: 'cet' })
+    let timeEnd = new Date(auction.endTime).toLocaleString('se-SE', { timeZone: 'cet' })
+    const timeLeft = Date.parse(timeEnd) - Date.parse(timeNow)
+    
+    if (timeLeft > 0) {
+      const timer = setTimeout(() => {
+        setAuctionClosed(true)
+      }, timeLeft)
+
+      return () => clearTimeout(timer)
+    } else {
+      setAuctionClosed(true)
+    }
+
+  },[auction])
+
 
   const goToHomepage = () => {
     navigate("/");
   };
   
-  let timeNow = new Date().toLocaleString('se-SE', { timeZone: 'cet' })
-  let timeEnd = new Date(auction.endTime).toLocaleString('se-SE', { timeZone: 'cet' })
-
+ 
   const ValuationPrice = () => {
     
     const styleValutationPrice = {
@@ -110,7 +129,7 @@ export default function Bidding() {
                 </div>
           </div>
           <div className="bidding-second">
-            {timeNow < timeEnd ? <PlaceBid /> : <BidsClosed/>}
+            {!auctionClosed ? <PlaceBid /> : <BidsClosed/>}
           </div>
         </div>
       </div>

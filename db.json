@@ -354,7 +354,7 @@
         "https://i.postimg.cc/rmXydYwc/chamex02-1-412x309.jpg",
         "https://i.postimg.cc/xC3YFvKS/nedladdning.jpg"
       ],
-      "endTime": "2024-03-13T14:00:00",
+      "endTime": "2024-03-11T09:49:00",
       "category": "adventure",
       "creator": "Horisont Resebyrå",
       "creatorImage": "https://www.logomoose.com/wp-content/uploads/2018/02/1150px-x-5683.png"
@@ -576,6 +576,11 @@
     },
     {
       "id": "bbf9",
+      "auction_id": "18"
+    },
+    {
+      "id": "0b7a",
+      "user_id": "2",
       "auction_id": "18"
     }
   ],
