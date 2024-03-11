@@ -13,9 +13,11 @@ export default function Nav() {
         <li className="navlink"><Link to="/" className="mr-4" id="navlink-home">Hem</Link></li>
         <li className="navlink"><Link to="/alla-auktioner" id="navlink-see-all">Se alla auktioner</Link></li>
         {user.role === 'seller' && (
+        
           <>
             <li className="navlink"><Link to="/skapa-auktion" className="mr-4" id="navlink-auction-form">Skapa Auktion</Link></li>
             <li className="navlink"><Link to="/sellerspage" className="mr-4" id="navlink-my-auctions">Mina Auktioner</Link></li>
+            <li className="navlink"><Link to="/seller-profile" id="navlink-seller-profile">Seller Profile</Link></li>
           </>
         )}
         {Object.keys(user).length !== 0 ? (

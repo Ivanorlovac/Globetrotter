@@ -11,9 +11,15 @@ export default function ShuffleAuction() {
     
     async function getAuctions() {
       const response = await fetch('/api/auctions')
-      const data = await response.json()
-      setAuctions(data)
+      let data = await response.json()
 
+      data = data.filter(auction => {
+        let timeNow = new Date().toLocaleString('se-SE', { timeZone: 'cet' })
+        let timeEnd = new Date(auction.endTime).toLocaleString('se-SE', { timeZone: 'cet' })
+        return timeNow < timeEnd
+      })
+      
+      setAuctions(data)
     }
     getAuctions()
   },[])
