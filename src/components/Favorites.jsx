@@ -11,9 +11,6 @@ export default function Favorites() {
   const [isFavorited, setIsFavorited] = useState(false);
   const { id } = useParams()
   
-  if (Object.keys(user).length === 0) {
-    return
-  }
 
 
   useEffect(() => {
@@ -71,8 +68,9 @@ export default function Favorites() {
   }
 
   return <>
-    <Button variant="link" onClick={toggleFavorite} className="d-flex" style={{height:"100%", width: "auto"}}>
-      {isFavorited ? <FaStar color="yellow" style={{ fontSize: "25px" }} /> : <FaRegStar className="align-items-end" style={{ color: "#212529", fontSize: "25px"}}/>}
-    </Button>
+    {Object.keys(user).length !== 0 ? <Button variant="link" onClick={toggleFavorite} className="d-flex" style={{ height: "100%", width: "auto" }}>
+      {isFavorited ? <FaStar color="yellow" style={{ fontSize: "25px" }} /> : <FaRegStar className="align-items-end" style={{ color: "#212529", fontSize: "25px" }} />}
+    </Button> : <></>}
+
   </>
 }
