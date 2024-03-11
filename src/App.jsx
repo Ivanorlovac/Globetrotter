@@ -9,6 +9,8 @@ import Homepage from './pages/homepage.jsx';
 import { GlobalProvider } from './components/GlobalContext.jsx';
 import Footer from './components/footer.jsx';
 import LoginPage from './pages/LoginPage.jsx';
+import Bidding from './pages/Bidding.jsx'
+
 import SellersPage from './pages/SellersPage.jsx';
 import NotFound from './pages/Fallback.jsx';
 import SeeAll from './pages/SeeAllAuctions.jsx';
@@ -18,7 +20,6 @@ const App = () => {
 
   const handleLoginSuccess = (userData) => {
     setUser(userData);
-
   };
 
   return <>
@@ -29,7 +30,7 @@ const App = () => {
             <NavbarOffcanvas />
             <Routes>
               <Route path="/" element={<Homepage />} />
-              <Route path="/auction/:id/:slug" element={<p>Bidding page</p>} />
+              <Route path="/auction/:id/:slug" element={<Bidding/>} />
               <Route path="/skapa-auktion" element={<SkapaAuktion />} />
               <Route path="/search" element={<SearchBar />} />
               <Route path="/register" element={<RegisterForm />} />
