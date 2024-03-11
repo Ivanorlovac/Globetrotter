@@ -7,6 +7,17 @@ const SellersPage = () => {
   const navigate = useNavigate();
   const [auctions, setAuctions] = useState([]);
 
+  const handleDeleteAuktion = async (auktionId) => {
+    try {
+      const response = await fetch(`http://localhost:3000/auctions/${auktionId}`, {
+        method: 'DELETE',
+      });
+      if (!response.ok) throw new Error('Nätverksfel vid radering av auktion');
+      alert('Auktion raderad');
+    } catch (error) {
+      console.error('Fel:', error);
+    }
+  };
   
   useEffect(() => {
     
@@ -20,7 +31,7 @@ const SellersPage = () => {
 
   const fetchAuctions = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/auctions?creator=${encodeURIComponent(user.creatorName)}`);
+      const response = await fetch(`http://localhost:3000/auctions?creator=${encodeURIComponent(user.creator)}`);
       if (!response.ok) throw new Error('Nätverksfel vid hämtning av auktioner');
       const data = await response.json();
       setAuctions(data);
@@ -40,6 +51,9 @@ const SellersPage = () => {
               <p>{auction.description}</p>
               <p>Startbud: {auction.valuationPrice} SEK</p>
               <p>Slutar: {new Date(auction.endTime).toLocaleString()}</p>
+              {user.role === 'seller' && (
+                <button onClick={() => handleDeleteAuktion(auction.id)}>Radera auktion</button>
+              )}
               
             </div>
           ))}

@@ -360,7 +360,6 @@
       "creator": "Horisont Resebyrå",
       "creatorImage": "https://www.logomoose.com/wp-content/uploads/2018/02/1150px-x-5683.png"
     }
-    
   ],
   "categories": [
     {
@@ -660,23 +659,23 @@
       "username": "horisont_resebyrå@gmail.com",
       "password": "123456",
       "role": "seller",
-      "creatorName": "Horisont Resebyrå",
+      "creator": "Horisont Resebyrå",
       "creatorImage": "https://www.logomoose.com/wp-content/uploads/2018/02/1150px-x-5683.png"
     }
   ],
   "favorites": [
     {
-      "id": 1,
+      "id": "1",
       "user_id": 1,
       "auction_id": 2
     },
     {
-      "id": 2,
+      "id": "2",
       "user_id": 1,
       "auction_id": 2
     },
     {
-      "id": 3,
+      "id": "3",
       "user_id": 2,
       "auction_id": 1
     }
