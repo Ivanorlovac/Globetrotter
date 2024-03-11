@@ -6,7 +6,7 @@ const SearchBar = () => {
   const navigate = useNavigate()
 
   const settingsParam = {
-    search: searchTerm
+    search: searchTerm,
   }
 
   const params = new URLSearchParams(settingsParam);
