@@ -4,19 +4,29 @@ const SearchBar = ({ onSearch }) => {
   const [searchTerm, setSearchTerm] = useState('');
 
   const handleChange = (event) => {
-    const term = event.target.value;
-    setSearchTerm(term);
-    onSearch(term);
+    setSearchTerm(event.target.value);
+    
+  };
+  const handleSearch = (event) => {
+    event.preventDefault();
+    onSearch(searchTerm);
   };
 
+ 
+
   return (
-    <input
-      type="text"
-      className="form-control mb-3"
-      placeholder="Sök efter titel, beskrivning eller pris..."
-      value={searchTerm}
-      onChange={handleChange}
-    />
+    <div> 
+      <form className='d-flex align-items-start gap-1' onSubmit={handleSearch}>
+        <input
+          type="text"
+          className="form-control mb-3"
+          placeholder="Sök efter titel, beskrivning eller pris..."
+          value={searchTerm}
+          onChange={handleChange}
+        />
+        <input id='search_button' type='submit' value='Sök' />
+      </form>
+    </div>
   );
 };
 
