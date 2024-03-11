@@ -1,15 +1,12 @@
-import { Container, Row, Col, Button} from 'react-bootstrap';
-
-
-
-
+import {Container, Row, Col, Button} from 'react-bootstrap';
+import { MdEmail, MdPhone, MdLocationOn } from 'react-icons/md';
 
 function Contact() {
   return (
     <Container>
       <Row>
-        <Col>
-          <h1 className="header">Kontakta oss</h1>
+        <Col className="form-container">
+          <h1 className="header">LET'S CHAT</h1>
           <form>
             <div className="form-group">
               <label htmlFor="firstName">Förnamn</label>
@@ -35,12 +32,12 @@ function Contact() {
           </form>    
         </Col>
 
-        <Col>
+        <Col className="contact-container">
           <div className="contact-info">
             <h2 className="title">Kontaktinformation</h2>
-            <p>E-post: travelauction.globetrotter@gmail.com</p>
-            <p>Address: Propellergatan 1, 211 15 Malmö</p>
-            <p>Telefon: 076 057 788 2</p>
+            <p><MdEmail/>E-post: travelauction.globetrotter@gmail.com</p>
+            <p><MdLocationOn/>Address: Propellergatan 1, 211 15 Malmö</p>
+            <p><MdPhone/>Telefon: 076 057 788 2</p>
           </div>
         </Col>
       </Row>
