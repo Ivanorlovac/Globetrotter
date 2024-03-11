@@ -48,8 +48,8 @@ export default function Bidding() {
   },[auction])
 
 
-  const goToHomepage = () => {
-    navigate("/");
+  const goBack = () => {
+    history.back()
   };
   
  
@@ -78,9 +78,9 @@ export default function Bidding() {
   return <>
     <div className="bidding-main">
       <div className="bidding-back">
-        <button type="button" className="go-back" onClick={goToHomepage}>
+        <button type="button" className="go-back" onClick={goBack}>
           <IoIosArrowRoundBack />
-          <p>Go back</p>
+          <p>Tillbaka</p>
         </button>
       </div>
       <div className="bidding-content">
