@@ -55,7 +55,7 @@ export default function PlaceBid() {
       return
     }
 
-    if (bidAmount < higestBid ) {
+    if (bidAmount <= higestBid ) {
       setCheckBid(true)
       return
     }
