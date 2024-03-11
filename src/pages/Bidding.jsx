@@ -80,7 +80,7 @@ export default function Bidding() {
       <div className="bidding-back">
         <button type="button" className="go-back" onClick={goToHomepage}>
           <IoIosArrowRoundBack />
-          <p>Go back</p>
+          <p>Tillbaka</p>
         </button>
       </div>
       <div className="bidding-content">

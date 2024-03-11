@@ -39,7 +39,7 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={handleLogin}>
-      <div>
+      <div id='left_login'>
         <label>Användarnamn:</label>
         <input
           type="text"
@@ -47,8 +47,6 @@ const LoginForm = () => {
           onChange={(e) => setUsername(e.target.value)}
           required
         />
-      </div>
-      <div>
         <label>Lösenord:</label>
         <input
           type="password"
@@ -58,7 +56,9 @@ const LoginForm = () => {
         />
       </div>
       {error && <p>{error}</p>}
-     <button type="submit">Logga in</button>
+      <div id='right_login'>
+        <button className='button_smooth' type="submit">Logga in</button>
+      </div>
     </form>
   );
 };
