@@ -5,7 +5,7 @@ const RegisterForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState('user'); 
-  const [creatorName, setCreatorName] = useState('');
+  const [creator, setCreator] = useState('');
   const [creatorImage, setCreatorImage] = useState('');
 
 
@@ -17,7 +17,7 @@ const RegisterForm = () => {
       username,
       password,
       role,
-      ...(role === 'seller' && { creatorName, creatorImage }) 
+      ...(role === 'seller' && { creator, creatorImage }) 
     };
 
 
@@ -67,7 +67,7 @@ const RegisterForm = () => {
 
       {role === 'seller' && (
         <>
-          <input type="text" value={creatorName} onChange={(e) => setCreatorName(e.target.value)} placeholder="Creator Name" required={role === 'seller'} />
+          <input type="text" value={creator} onChange={(e) => setCreator(e.target.value)} placeholder="Creator Name" required={role === 'seller'} />
           <input type="text" value={creatorImage} onChange={(e) => setCreatorImage(e.target.value)} placeholder="Creator Image URL" required={role === 'seller'} />
         </>
       )}
