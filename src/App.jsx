@@ -13,6 +13,7 @@ import Bidding from './pages/Bidding.jsx'
 
 import SellersPage from './pages/SellersPage.jsx';
 import NotFound from './pages/Fallback.jsx';
+import SeeAll from './pages/SeeAllAuctions.jsx';
 import { AuktionsLista } from './components/AuktionsLista.jsx';
 import SellerProfile from './pages/SellersPageInfo.jsx';
 
@@ -38,7 +39,8 @@ const App = () => {
               <Route path="/login" element={<LoginPage />} />
               <Route path="/SellersPage" element={<SellersPage />} />
               <Route path="/auction/:id" element={<AuktionsDetaljer />} />
-              <Route path="/alla-auktioner" element={<AuktionsLista />} />
+              <Route path="/alla-auktioner" element={<SeeAll />} />
+              <Route path="/alla-auktioner/:search" element={<SeeAll />}/>
               <Route path='*' element={<NotFound />} />
               <Route path="/seller-profile" element={<SellerProfile/>} />
             </Routes>
