@@ -2,6 +2,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&display=swap');
 @import url(./homepage.css);
 @import url(./biddingSite.css);
+@import url(./mypage.css);
 
 body {
   background-color: #85a2c1;
