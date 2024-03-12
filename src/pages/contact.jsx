@@ -1,31 +1,69 @@
+import { useState } from 'react';
 import {Container, Row, Col, Button} from 'react-bootstrap';
 import { MdEmail, MdPhone, MdLocationOn } from 'react-icons/md';
 
 function Contact() {
+
+  const [surname, setSurname] = useState('')
+  const [email, setEmail] = useState('')
+  const [tel, setTel] = useState('')
+  const [message, setMessage] = useState('')
+ 
+
+
+  const createContact = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch('http://localhost:3000/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          surname,
+          email,
+          tel,
+          message
+        }),
+      });
+      if (!response.ok) {
+        throw new Error('Registrering misslyckades');
+      }
+      const data = await response.json();
+      console.log('Registrering lyckades', data);
+      
+    } catch (error) {
+      console.error('Registrering misslyckades', error);
+    }    
+
+  }
+
+
   return (
     <Container>
       <Row>
         <Col className="form-container">
           <h1 className="header">LET'S CHAT</h1>
-          <form>
+          <form onSubmit={createContact}>
             <div className="form-group">
               <label htmlFor="firstName">Förnamn</label>
-              <input className="custom-input" type="text" id="firstName"/>
+              <input className="custom-input" type="text" id="firstName" value={surname} onChange={(e)=>setSurname(e.target.value)} />
             </div>
 
             <div className="form-group">
               <label htmlFor="email">E-post</label>
-              <input className="custom-input" type="email"  id="email"/>
+              <input className="custom-input" type="email"  id="email" value={email} onChange={(e)=>setEmail(e.target.value)}/>
             </div>
 
             <div className="form-group">
               <label htmlFor="phone">Telefonnummer</label>
-               <input className="custom-input" type="tel" id="phone"/>
+               <input className="custom-input" type="tel" id="phone" value={tel} onChange={(e)=>setTel(e.target.value)}/>
             </div>
 
             <div className="form-group">
               <label htmlFor="message">Meddelande</label>
-              <textarea className="custom-input" id="message" rows={10}></textarea>
+              <textarea className="custom-input" id="message" rows={10} value={message} onChange={(e)=>setMessage(e.target.value)}></textarea>
             </div>
               
             <Button className="button" variant="primary" type="submit">Skicka</Button>
