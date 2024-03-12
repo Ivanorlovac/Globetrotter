@@ -77,7 +77,7 @@ function Contact() {
               <textarea className="custom-input" id="message" rows={10} value={message} onChange={(e)=>setMessage(e.target.value)}></textarea>
             </div>
               <Button className="button" variant="primary" type="submit">Skicka</Button>
-            </form>   
+            </form>
         </Col>
 
         <Col className="contact-container">
