@@ -606,5 +606,14 @@
       "price": 150
     }
   ],
-  "closed_auctions": []
+  "closed_auctions": [],
+  "contact": [
+    {
+      "id": "6bde",
+      "surname": "luna",
+      "email": "luna@gmail.com",
+      "tel": "39298625",
+      "message": "ola "
+    }
+  ]
 }

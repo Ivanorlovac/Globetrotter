@@ -15,7 +15,7 @@ function Contact() {
     e.preventDefault();
 
     try {
-      const response = await fetch('http://localhost:3000/contact', {
+      const response = await fetch('http://localhost:3000/contact', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -26,21 +26,19 @@ function Contact() {
           tel,
           message
         }),
-      });
+       });
       if (!response.ok) {
-        throw new Error('Registrering misslyckades');
-      }
-      const data = await response.json();
-      console.log('Registrering lyckades', data);
-      
+        throw new Error('Något gick fel. Försök igen.');
+      } 
+      alert('Tack för ditt meddelande!');
     } catch (error) {
-      console.error('Registrering misslyckades', error);
-    }    
+      console.error('Något gick fel. Försök igen.')
+     }
+    };
 
-  }
 
-
-  return (
+    
+    return (
     <Container>
       <Row>
         <Col className="form-container">
