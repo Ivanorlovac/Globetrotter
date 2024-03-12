@@ -11,7 +11,7 @@ function NavbarOffcanvas() {
       {[false].map((expand) => (
         <Navbar key={expand} expand={expand} className="bg-body-tertiary mb-3" id="navbar-field">
           <Container fluid>
-            <Navbar.Brand href="/" id="logo_header"><Image src="../logo5.png" rounded id="logo" />Globetrotter</Navbar.Brand>
+            <Navbar.Brand href="/" id="logo_header"><Image src="../src/assets/images/logo5.png" rounded id="logo" />Globetrotter</Navbar.Brand>
             <Navbar.Toggle aria-controls={`offcanvasNavbar-expand-${expand}`} />
             <Navbar.Offcanvas id={`offcanvasNavbar-expand-${expand}`} aria-labelledby={`offcanvasNavbarLabel-expand-${expand}`} placement="end">
               <Offcanvas.Header closeButton>
