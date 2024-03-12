@@ -8,11 +8,16 @@ function Contact() {
   const [email, setEmail] = useState('')
   const [tel, setTel] = useState('')
   const [message, setMessage] = useState('')
- 
+  const [showAlert, setShowAlert] = useState(false);
 
 
   const createContact = async (e) => {
     e.preventDefault();
+
+    if (!surname || !email || !tel || !message) {
+      alert('Fyll i alla fält!');
+      return;
+    }
 
     try {
       const response = await fetch('http://localhost:3000/contact', { 
@@ -26,7 +31,8 @@ function Contact() {
           tel,
           message
         }),
-       });
+      });
+      
       if (!response.ok) {
         throw new Error('Något gick fel. Försök igen.');
       } 
@@ -63,9 +69,8 @@ function Contact() {
               <label htmlFor="message">Meddelande</label>
               <textarea className="custom-input" id="message" rows={10} value={message} onChange={(e)=>setMessage(e.target.value)}></textarea>
             </div>
-              
-            <Button className="button" variant="primary" type="submit">Skicka</Button>
-          </form>    
+              <Button className="button" variant="primary" type="submit">Skicka</Button>
+            </form>   
         </Col>
 
         <Col className="contact-container">
