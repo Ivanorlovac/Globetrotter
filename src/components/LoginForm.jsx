@@ -23,10 +23,12 @@ const LoginForm = () => {
       const data = await response.json();
       if (data.length > 0) {
         setUser(data[0]);
+        localStorage.setItem('user', JSON.stringify(data[0]));
+        setLoginMessage('Välkommen ' + data[0].username);
         if (data[0].role === 'seller') {
           navigate('/SellersPage');
         } else {
-          history.back()
+          navigate('/');
         }
       } else {
         setError('Felaktigt användarnamn eller lösenord.');
