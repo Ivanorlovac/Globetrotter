@@ -379,3 +379,8 @@ align-items: flex-end;
   display: flex;
   flex-direction: column;
 }
+
+#my_page_update_button{
+  margin-top: 1vh;
+  width: fit-content;
+}

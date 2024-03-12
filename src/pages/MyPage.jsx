@@ -229,7 +229,7 @@ export default function MyPage() {
             Nytt lösenord: <br/>
             <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
           </label>
-          <button className="button_smooth" type="submit">Uppdatera profil</button>
+          <button id="my_page_update_button" className="button_smooth" type="submit">Uppdatera profil</button>
         </form>
       </section>
       <section className="section-information">
