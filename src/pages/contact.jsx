@@ -10,6 +10,13 @@ function Contact() {
   const [message, setMessage] = useState('')
   const [showAlert, setShowAlert] = useState(false);
 
+  const resetForm = () => {
+    setSurname('');
+    setEmail('');
+    setTel('');
+    setMessage('');
+  };
+
 
   const createContact = async (e) => {
     e.preventDefault();
@@ -37,6 +44,7 @@ function Contact() {
         throw new Error('Något gick fel. Försök igen.');
       } 
       alert('Tack för ditt meddelande!');
+      resetForm();
     } catch (error) {
       console.error('Något gick fel. Försök igen.')
      }
