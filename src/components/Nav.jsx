@@ -2,7 +2,6 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Globalcontext } from "./GlobalContext"; // Justera sökvägen efter din mappstruktur
 
-
 export default function Nav() {
   const { user, logout } = useContext(Globalcontext); // Använd logout-funktionen från din kontext
 

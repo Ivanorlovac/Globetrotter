@@ -4,7 +4,6 @@ import { IoIosArrowRoundBack } from "react-icons/io";
 import Timer from "../components/Timer.jsx";
 import Carousel from "../components/Carousel.jsx";
 import Favorites from "../components/Favorites.jsx";
-
 import PlaceBid from "../components/PlaceBid.jsx";
 import BidsClosed from "../components/BidsClosed.jsx";
 import TotalBids from "../components/TotalBids.jsx";

@@ -591,12 +591,17 @@
       "auction_id": "18"
     },
     {
-      "id": "5ab3",
+      "id": "e920",
+      "user_id": "3",
+      "auction_id": "15"
+    },
+    {
+      "id": "6ba0",
       "user_id": "3",
       "auction_id": "9"
     },
     {
-      "id": "f44c",
+      "id": "fbf8",
       "user_id": "3",
       "auction_id": "4"
     }
@@ -610,5 +615,7 @@
       "price": 150
     }
   ],
-  "closed_auctions": []
+  "closed_auctions": [
+ 
+  ]
 }
