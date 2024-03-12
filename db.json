@@ -599,11 +599,6 @@
       "id": "6ba0",
       "user_id": "3",
       "auction_id": "9"
-    },
-    {
-      "id": "fbf8",
-      "user_id": "3",
-      "auction_id": "4"
     }
   ],
   "result_closed_auctions": [
@@ -615,7 +610,5 @@
       "price": 150
     }
   ],
-  "closed_auctions": [
- 
-  ]
+  "closed_auctions": []
 }
