@@ -1,23 +1,33 @@
-import React, { useState } from 'react';
+import React, { useState , useContext } from 'react';
+import { Globalcontext } from './GlobalContext.jsx';
+import { useNavigate } from 'react-router-dom';
 
 
-const LoginForm = ({ onLoginSuccess }) => {
+const LoginForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const { setUser, setLoginMessage } = useContext(Globalcontext);
   const [error, setError] = useState('');
+  const navigate = useNavigate();
+  
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
+    setError(''); 
     try {
-      // Använder fetch för att göra en GET-begäran
       const response = await fetch(`http://localhost:3000/users?username=${username}&password=${password}`);
       if (!response.ok) {
         throw new Error('Nätverksfel vid inloggning');
       }
       const data = await response.json();
       if (data.length > 0) {
-        // Anropa onLoginSuccess med användardata
-        onLoginSuccess(data[0]);
+        setUser(data[0]);
+        if (data[0].role === 'seller') {
+          navigate('/SellersPage');
+        } else {
+          history.back()
+        }
       } else {
         setError('Felaktigt användarnamn eller lösenord.');
       }
@@ -48,7 +58,7 @@ const LoginForm = ({ onLoginSuccess }) => {
         />
       </div>
       {error && <p>{error}</p>}
-      <button type="submit">Logga in</button>
+     <button type="submit">Logga in</button>
     </form>
   );
 };

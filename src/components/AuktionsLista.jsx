@@ -1,14 +1,12 @@
 import React, { useEffect, useState } from 'react';
-
+import Carousel from './Carousel.jsx';
 import SearchBar from './Search'; // Antag att detta är sökfältets komponent
 import { Link } from 'react-router-dom';
 import Timer from './Timer.jsx';
 
-const AuktionsLista = () => {
-  const [auctions, setAuctions] = useState([]);
+function getData() {
   const [filteredAuctions, setFilteredAuctions] = useState([]);
 
-  // Lägger till useEffect här för att hämta auktionsdata när komponenten laddas
   useEffect(() => {
     fetch('http://localhost:3000/auctions')
       .then(response => {
@@ -18,44 +16,107 @@ const AuktionsLista = () => {
         return response.json();
       })
       .then(data => {
-        setAuctions(data);
-        setFilteredAuctions(data); // Initialt är filtrerade auktioner samma som alla auktioner
+
+        data = data.filter(auction => {
+          let timeNow = new Date().toLocaleString('se-SE', { timeZone: 'cet' })
+          let timeEnd = new Date(auction.endTime).toLocaleString('se-SE', { timeZone: 'cet' })
+          return timeNow < timeEnd
+        })
+
+        data = data.sort((a, b) => {
+          return new Date(a.endTime) - new Date(b.endTime)
+        })
+
+        setFilteredAuctions(data);
       })
       .catch(error => console.error('Fel:', error));
   }, []);
 
-  const handleSearch = (searchTerm) => {
-    const term = searchTerm.toLowerCase();
-    const filtered = auctions.filter(auction =>
-      auction.title.toLowerCase().includes(term) ||
-      auction.description.toLowerCase().includes(term) ||
-      auction.startBid.toString().includes(searchTerm) ||
-      (auction.currentBid && auction.currentBid.toString().includes(searchTerm))
-    );
-    setFilteredAuctions(filtered);
-  };
+  return filteredAuctions
+}
 
-  // Endast en return-sats ska användas här
+const AuktionsLista = () => {
+
+  const getParams = new URLSearchParams(document.location.search);
+
+  const paramsData = [getParams.get("search")];
+
+  let filteredAuctions = getData()
+
+  if (paramsData[0] !== null) {
+    let params = paramsData[0].split(' ')
+
+    filteredAuctions = filteredAuctions.filter(auction =>
+      params.some(term =>
+        auction.title.toLowerCase().includes(term) ||
+        auction.description.toLowerCase().includes(term) ||
+        (auction.valuationPrice?.toString() || '').includes(term))
+    );
+  }
+
+  console.log("Aukioner: ", filteredAuctions)
+
   return (
     <div className="container">
-      <SearchBar  />
-      {filteredAuctions.map(auction => (
-        <Link to={`/auction/${auction.id}/${auction.title}`} key={auction.id} style={{ textDecoration: 'none', color: 'inherit' }}>
-          <div className="auction-item mb-4">
-
-            {auction.images.map(image =>
-              <img src={image} alt={auction.title} style={{ width: '100%', height: 'auto', maxWidth: '600px' }} className="mb-3" />)}
-            <h5>{auction.title}</h5>
-            <p>{auction.description}</p>
-            <p>Startbud: {auction.startBid} SEK</p>
-            {auction.currentBid && <p>Nuvarande bud: {auction.currentBid} SEK</p>}
-            <p>Slutar: </p>
-            <Timer objEndTime={auction.endTime} fontSize={15} showBorder={false} setBold={false} />
+      {filteredAuctions.length !== 0 ?
+        filteredAuctions.filter(auction => {
+          let timeNow = new Date().toLocaleString('se-SE', { timeZone: 'cet' })
+          let timeEnd = new Date(auction.endTime).toLocaleString('se-SE', { timeZone: 'cet' })
+          return timeNow < timeEnd
+        }).map(auction => (
+          <div key={auction.id} className='auction_list_container'>
+            <div className='carousel-container'>
+              <Carousel objImages={auction.images} />
+            </div>
+            <Link to={`/auction/${auction.id}/${auction.title}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+              <div className="auction-item mb-4">
+                <h5>{auction.title}</h5>
+                <p>{auction.description}</p>
+                <p>Startbud: {auction.valuationPrice} SEK</p>
+                <div className='d-flex align-items-center'>
+                  <p className='me-1 my-0'>Slutar: </p>
+                  <Timer objEndTime={auction.endTime} fontSize={15} showBorder={false} setBold={false} />
+                </div>
+              </div>
+            </Link>
           </div>
-        </Link>
+        ))
+        : <p>Finns inget resultat</p>}
+
+    </div>
+  );
+};
+
+const AuktionsLista_Homepage = () => {
+
+  const filteredAuctions = getData()
+
+  return (
+    <div className="container_Homepage">
+      {filteredAuctions.filter(auction => {
+        let timeNow = new Date().toLocaleString('se-SE', { timeZone: 'cet' })
+        let timeEnd = new Date(auction.endTime).toLocaleString('se-SE', { timeZone: 'cet' })
+        return timeNow < timeEnd
+      }).map(auction => (
+        <div key={auction.id} className='auction_list_container_Homepage'>
+          <div className='carousel-container_Homepage'>
+            <Carousel objImages={auction.images} />
+          </div>
+          <Link to={`/auction/${auction.id}/${auction.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+            <div className="auction-item mb-4">
+              <h6>{auction.title}</h6>
+              <p>Startbud: {auction.valuationPrice} SEK</p>
+              <div className='d-flex align-items-center'>
+                <p className='me-1 my-0'>Slutar: </p>
+                <Timer objEndTime={auction.endTime} fontSize={12} showBorder={false} setBold={false} />
+              </div>
+
+            </div>
+          </Link>
+        </div>
       ))}
     </div>
   );
 };
 
-export default AuktionsLista;
+export { AuktionsLista_Homepage, AuktionsLista };

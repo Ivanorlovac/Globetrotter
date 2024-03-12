@@ -1,23 +1,29 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
-const SearchBar = ({ onSearch }) => {
+const SearchBar = () => {
   const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate()
 
-  const handleChange = (event) => {
-    const term = event.target.value;
-    setSearchTerm(term);
-    ;
-  };
-
-  function handleSearch(event) {
-    onSearch(event.target.value)
-    event.preventDefault()
-
+  const settingsParam = {
+    search: searchTerm,
   }
 
+  const params = new URLSearchParams(settingsParam);
+
+  const handleChange = (event) => {
+    setSearchTerm(event.target.value);
+    
+  };
+  const handleSearch = (event) => {
+    event.preventDefault();
+
+    navigate(`/alla-auktioner/?${params}`)
+  }; 
+
   return (
-    <search>
-      <form onSubmit={handleSearch}>
+    <div> 
+      <form className='d-flex align-items-start gap-1' onSubmit={handleSearch}>
         <input
           type="text"
           className="form-control mb-3"
@@ -25,10 +31,9 @@ const SearchBar = ({ onSearch }) => {
           value={searchTerm}
           onChange={handleChange}
         />
-        <input type='submit' value='Sök'></input>
+        <input id='search_button' type='submit' value='Sök' />
       </form>
-    </search>
-
+    </div>
   );
 };
 
