@@ -10,8 +10,9 @@ export default function SeeAll() {
 
   useEffect(() => {
     const onScroll = () => {
-      const scrolledTo = window.scrollY + window.innerHeight + 500;
-
+      const scrolledTo = window.scrollY + window.innerHeight + 9000;
+      console.log('Scrolled to: ', scrolledTo);
+      console.log('Scroll Height: ', document.body.scrollHeight);
       if (document.body.scrollHeight < scrolledTo) {
         setScrollUp(true)
       } else {

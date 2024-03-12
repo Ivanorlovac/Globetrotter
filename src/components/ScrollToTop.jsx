@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
 
-  // Visa eller dölj knappen beroende på skrollpositionen
   const handleScroll = () => {
     const yOffset = window.scrollY;
 
@@ -14,7 +13,6 @@ const ScrollToTopButton = () => {
     }
   };
 
-  // Lägg till en händelselyssnare för att övervaka skrollpositionen
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => {
