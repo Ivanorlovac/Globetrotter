@@ -142,7 +142,7 @@ export default function MyPage() {
             <div className="favorite-information">
               <h3>{favorite.title}</h3>
               <p>Kategori: {favorite.category}</p>
-              <p>Värdering pris: {favorite.valuationPrice}</p>
+              <p>Värderingspris: {favorite.valuationPrice}</p>
               <div>
                 <p>Sluttid: </p>
                 <Timer objEndTime={favorite.endTime} fontSize={10} showBorder={false} setBold={true} />
@@ -187,7 +187,7 @@ export default function MyPage() {
             <div className="favorite-information">
               <h3>{auction.title}</h3>
               <p>Kategori: {auction.category}</p>
-              <p>Värdering pris: {auction.valuationPrice}</p>
+              <p>Värderingspris: {auction.valuationPrice}</p>
               <div>
                 <p>Sluttid: </p>
                 <Timer objEndTime={auction.endTime} fontSize={10} showBorder={false} setBold={true} />
@@ -217,17 +217,19 @@ export default function MyPage() {
   return <>
 
     <div className="my-page-main">
-      <section>
+      <section id="my_page_first_section">
+        <h2>Välkommen {user.username} till Mina sidor!</h2>
+        <h3>Konto:</h3>
         <form onSubmit={handleSubmit}>
           <label>
-            Användarnamn:
+            Användarnamn: <br/>
             <input type="text" value={newUsername} onChange={(e) => setNewUsername(e.target.value)} />
           </label>
           <label>
-            Nytt lösenord:
+            Nytt lösenord: <br/>
             <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
           </label>
-          <button type="submit">Uppdatera profil</button>
+          <button className="button_smooth" type="submit">Uppdatera profil</button>
         </form>
       </section>
       <section className="section-information">

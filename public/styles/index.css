@@ -241,3 +241,16 @@ footer {
 .timer>span {
   text-wrap: nowrap;
 }
+
+#my_page_first_section{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 3vw;
+  height: fit-content;
+}
+
+#my_page_first_section >form{
+  display: flex;
+  flex-direction: column;
+}
