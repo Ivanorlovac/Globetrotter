@@ -32,14 +32,23 @@ function GlobalProvider({ children }) {
     }
   }, [user])
 
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      setUser(JSON.parse(storedUser));
+    }
+  }, []);
+
   const login = (userData) => {
     setUser(userData);
-    setLoginMessage('Välkommen' + userData.username);
+    localStorage.setItem('user', JSON.stringify(userData)); // Spara användardata i localStorage
+    setLoginMessage('Välkommen ' + userData.username);
   };
   const logout = () => {
-    setFavorites([])
+    setFavorites([]);
     setUser({});
     setLoginMessage('');
+    localStorage.removeItem('user'); // Rensa användardata från localStorage
   };
 
   const updateUser = async (updatedUser) => {

@@ -237,6 +237,7 @@
     {
       "id": "13",
       "title": "Rixos, Dubrovnik",
+      "slug": "rixos-dubrovnik",
       "description": "Rixos Premium Dubrovnik är beläget på en utskjutande klippa vid havet och nästan överallt har du fantastisk panoramavy mot Adriatiska havet. Precis nedanför poolområdet hittar du badplattformar och bara 20 minuters promenad från hotellet ligger Dubrovniks medeltida stadskärna.",
       "valuationPrice": 40000,
       "priceRange": 10000,
@@ -591,13 +592,29 @@
     }
   ],
   "result_closed_auctions": [
-    {
-      "id": "1",
-      "winner_user_id": 2,
-      "auction_id": 1,
-      "time": "2024-03-01 14:29:21",
-      "price": 150
-    }
+    
   ],
-  "closed_auctions": []
+  "closed_auctions": [
+    {
+      "id": "12",
+      "title": "Clutadella, Budapest",
+      "slug": "clutadella-budapest",
+      "description": "Clutadella är ett modernt inrett hotell i centrala Budapest. Från hotellet kan du promenera till sevärdheter som St Stefans Basilikan, parkområdet Erzsébet tér och Stadsoperan. Vill du ta en tur med kanalbåt på Donau tar det ca 10 min att promenera till floden.",
+      "valuationPrice": 60000,
+      "priceRange": 7000,
+      "images": [
+        "https://i.postimg.cc/T1qkJB9x/181748a-hb-a-006.avif",
+        "https://i.postimg.cc/1XJGtSB8/181748a-hb-a-054.avif",
+        "https://i.postimg.cc/N0qHQLtN/181748a-hb-l-024.avif",
+        "https://i.postimg.cc/5tS613n0/181748a-hb-ro-023.avif"
+      ],
+      "endTime": "2024-03-10T21:00:00Z",
+      "category": "city",
+      "creator": "Utflykts Resor",
+      "creatorImage": "https://www.creativefabrica.com/wp-content/uploads/2020/02/10/Travel-Logo-Graphics-1-36-580x386.jpg",
+      "winner_user_id": 2,
+      "winner_amount": 63000
+      
+    }
+  ]
 }

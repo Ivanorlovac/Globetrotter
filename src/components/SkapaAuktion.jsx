@@ -63,7 +63,8 @@ const SkapaAuktion = () => {
           <label htmlFor="title" className="form-label">Titel</label>
           <input type="text" className="form-control" id="title" value={title} onChange={e => {
             setTitle(e.target.value)
-            setSlug(e.target.value.replace(" ", "-"))
+            let slugText = e.target.value.replace(/ /g, "-")
+            setSlug(slugText.toLowerCase())
           }} />
         </div>
 
