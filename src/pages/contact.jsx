@@ -8,7 +8,6 @@ function Contact() {
   const [email, setEmail] = useState('')
   const [tel, setTel] = useState('')
   const [message, setMessage] = useState('')
-  const [showAlert, setShowAlert] = useState(false);
 
   const resetForm = () => {
     setSurname('');
