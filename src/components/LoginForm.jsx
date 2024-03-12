@@ -28,7 +28,7 @@ const LoginForm = () => {
         if (data[0].role === 'seller') {
           navigate('/SellersPage');
         } else {
-          navigate('/');
+          history.back();
         }
       } else {
         setError('Felaktigt användarnamn eller lösenord.');
