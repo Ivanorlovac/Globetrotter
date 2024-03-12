@@ -531,7 +531,7 @@
     {
       "id": "2",
       "username": "user",
-      "password": "user",
+      "password": "1234567",
       "role": "user"
     },
     {
@@ -615,7 +615,5 @@
       "price": 150
     }
   ],
-  "closed_auctions": [
- 
-  ]
+  "closed_auctions": []
 }

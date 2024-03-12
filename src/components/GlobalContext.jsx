@@ -7,10 +7,7 @@ export const useAuth = () => useContext(Globalcontext);
 function GlobalProvider({ children }) {
 
   const [user, setUser] = useState({
-    "id": "3",
-    "username": "emil",
-    "password": "abc123",
-    "role": "user"
+   
   })
   const [search, setSearch] = useState('')
   const [loginMessage, setLoginMessage] = useState('');

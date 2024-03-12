@@ -11,10 +11,25 @@ import { IoIosArrowForward } from "react-icons/io";
 
 export default function MyPage() {
 
-  const { favorites, setFavorites } = useContext(Globalcontext)
+  const { favorites, setFavorites, user, updateUser } = useContext(Globalcontext)
   const [showFavorites, setShowFavorites] = useState(true);
   const [showAuctions, setShowAuctions] = useState(true);
   const [showEndedAuctions, setShowEndedAuctions] = useState(true);
+  const [newUsername, setNewUsername] = useState(user.username);
+  const [newPassword, setNewPassword] = useState(user.password);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  const isConfirmed = window.confirm('Är du säker på att du vill uppdatera din profil?');
+    if (isConfirmed) {
+      updateUser({ ...user, username: newUsername, password: newPassword });
+      alert('Profil uppdaterad!');
+    } else {
+
+      return;
+    } 
+  };
+
 
 
   const [filteredFavoriteAuctions, setFilteredFavoriteAuctions] = useState([]);
@@ -145,7 +160,17 @@ export default function MyPage() {
 
     <div className="my-page-main">
       <section>
-
+        <form onSubmit={handleSubmit}>
+          <label>
+            Användarnamn:
+            <input type="text" value={newUsername} onChange={(e) => setNewUsername(e.target.value)} />
+          </label>
+          <label>
+            Nytt lösenord:
+            <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+          </label>
+          <button type="submit">Uppdatera profil</button>
+        </form>
       </section>
       <section className="section-information">
         <div className="favorite-section" onClick={favoritesPopdown}>
