@@ -50,25 +50,24 @@ export default function MyPage() {
       }
 
       const dataBids = await getMyBids()
+      setMybids(dataBids)
       const dataAuctions = await getAuctions()
 
       if (dataBids && dataAuctions) {
 
         let myAuctionsData = dataAuctions.filter(auction => {
-          return dataBids.some(bid => {
-            return bid.auctionId === auction.id
-          })
-        })
-
-        setMyAuctions(myAuctionsData)
-
-        let data = dataAuctions.filter(auction => {
           let timeNow = new Date().toLocaleString('se-SE', { timeZone: 'cet' })
           let timeEnd = new Date(auction.endTime).toLocaleString('se-SE', { timeZone: 'cet' })
           return timeNow < timeEnd
         })
 
-        data = data.sort((a, b) => {
+        let myAuctionsDataFiltered = myAuctionsData.filter(auction => {
+          return dataBids.some(bid => {
+            return bid.auctionId === auction.id
+          })
+        })
+
+        let data = myAuctionsData.sort((a, b) => {
           return new Date(a.endTime) - new Date(b.endTime)
         })
 
@@ -77,7 +76,7 @@ export default function MyPage() {
             return favorite.auction_id === auction.id
           })
         })
-
+        setMyAuctions(myAuctionsDataFiltered)
         setFilteredFavoriteAuctions(data);           
 
       }
@@ -87,6 +86,8 @@ export default function MyPage() {
 
 
   }, [])
+
+  console.log("Favorites: ", favorites)
 
   const favoritesPopdown = () => {
     if (showFavorites) {
@@ -160,6 +161,21 @@ export default function MyPage() {
     </>
   }
 
+  const getBid = (id) => {
+
+    console.log("Mybids: ", myBids)
+    
+    const listBidsForauction = myBids.filter(bid => {
+      return bid.auctionId === id
+    })
+      
+    console.log("listBidsForauction: ", listBidsForauction)
+
+    const bid = Math.max(...listBidsForauction.map(item => item.amount))
+
+    return bid
+  }
+
   const ShowAuctions = () => {
     return <>
       {
@@ -179,7 +195,7 @@ export default function MyPage() {
             </div>
             <div className="favorite-star">
               <h3>Mitt bud: </h3>
-              <p>200</p>
+              <p>{getBid(auction.id)}</p>
             </div>
             <div className="favorite-go-to-page">
               <Link to={`/auction/${auction.id}/${auction.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>

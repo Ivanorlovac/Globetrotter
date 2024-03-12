@@ -44,6 +44,7 @@
       border: 1px solid gray;
       border-radius: 15px;
       padding: 10px;
+      min-height: 250px;
 
 
       .favorite-information {
@@ -82,7 +83,7 @@
     }
 
     .favorite-article>div:first-child {
-    width: 500px;
+    max-width: 300px;
     }
     
 

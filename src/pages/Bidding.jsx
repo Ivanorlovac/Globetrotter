@@ -33,7 +33,7 @@ export default function Bidding() {
     let timeNow = new Date().toLocaleString('se-SE', { timeZone: 'cet' })
     let timeEnd = new Date(auction.endTime).toLocaleString('se-SE', { timeZone: 'cet' })
     const timeLeft = Date.parse(timeEnd) - Date.parse(timeNow)
-    
+
     if (timeLeft > 0) {
       const timer = setTimeout(() => {
         setAuctionClosed(true)
