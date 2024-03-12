@@ -63,31 +63,31 @@ const SellersPage = () => {
         body: JSON.stringify(editingAuction),
       });
       if (!response.ok) {
-        throw new Error('Failed to update auction');
+        throw new Error('Misslyckades att uppdatera auktion');
       }
       alert('Auktion uppdaterad');
       setEditingAuction(null); 
       fetchAuctions(); 
     } catch (error) {
-      console.error('Error updating auction:', error);
+      console.error('Error med uppdatering av auktion:', error);
     }
   };
 
   return (
     <div>
-      <h1>Mina Auktioner</h1>
+      <h2>Mina Auktioner</h2>
       {auctions.length > 0 ? (
         <ul>
           {auctions.map((auction) => (
-            <div key={auction.id} style={{ border: "1px solid #ddd", padding: "10px", marginBottom: "10px" }}>
+            <div id='sellers_page' key={auction.id}>
               <h2>{auction.title}</h2>
               <p>{auction.description}</p>
               <p>Startbud: {auction.valuationPrice} SEK</p>
               <p>Slutar: {new Date(auction.endTime).toLocaleString()}</p>
               {user.role === 'seller' && (
                 <>
-                  <button onClick={() => handleDeleteAuktion(auction.id)}>Radera auktion</button>
-                  <button onClick={() => handleEdit(auction)}>Edit</button>
+                  <button className='button_smooth' onClick={() => handleDeleteAuktion(auction.id)}>Radera auktion</button>
+                  <button className='button_smooth' onClick={() => handleEdit(auction)}>Ändra</button>
                 </>
               )}
             </div>
@@ -109,7 +109,7 @@ const SellersPage = () => {
             />
           </div>
           <div>
-            <label htmlFor="description">Description:</label>
+            <label htmlFor="description">Beskrivning:</label>
             <textarea
               id="description"
               name="description"
@@ -118,7 +118,7 @@ const SellersPage = () => {
             />
           </div>
           <div>
-            <label htmlFor="valuationPrice">Valuation Price:</label>
+            <label htmlFor="valuationPrice">Värdering:</label>
             <input
               type="number"
               id="valuationPrice"
@@ -128,7 +128,7 @@ const SellersPage = () => {
             />
           </div>
           <div>
-            <label htmlFor="endTime">End Time:</label>
+            <label htmlFor="endTime">Sluttid:</label>
             <input
               type="datetime-local"
               id="endTime"
@@ -138,7 +138,7 @@ const SellersPage = () => {
             />
           </div>
           <div>
-            <label htmlFor="priceRange">Price Range:</label>
+            <label htmlFor="priceRange">Lägst godkända pris:</label>
             <input
               type="number"
               id="priceRange"
@@ -148,7 +148,7 @@ const SellersPage = () => {
             />
           </div>
         
-          <button type="submit">Save Changes</button>
+          <button type="submit">Spara ändringar</button>
           <button onClick={() => setEditingAuction(null)}>Cancel</button>
         </form>
       )}
