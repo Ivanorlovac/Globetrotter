@@ -75,7 +75,7 @@ const AuktionsLista = () => {
                 <p>Startbud: {auction.valuationPrice} SEK</p>
                 <div className='d-flex align-items-center'>
                   <p className='me-1 my-0'>Slutar: </p>
-                  <Timer objEndTime={auction.endTime} fontSize={15} showBorder={false} setBold={false} />
+                  <Timer objEndTime={auction.endTime} fontSize={15} showBorder={false} setBold={false} background={false} />
                 </div>
               </div>
             </Link>
@@ -95,9 +95,7 @@ const AuktionsLista_Homepage = () => {
     let timeNow = new Date().toLocaleString('se-SE', { timeZone: 'cet' })
     let timeEnd = new Date(auction.endTime).toLocaleString('se-SE', { timeZone: 'cet' })
     return timeNow < timeEnd
-  })
-
-  filteredAuctions = filteredAuctions.splice(0, 10)
+  }).splice(0, 10)
   
   return (
     <div className="container_Homepage">
@@ -112,9 +110,8 @@ const AuktionsLista_Homepage = () => {
               <p>Startbud: {auction.valuationPrice} SEK</p>
               <div className='d-flex align-items-center'>
                 <p className='me-1 my-0'>Slutar: </p>
-                <Timer objEndTime={auction.endTime} fontSize={12} showBorder={false} setBold={false} />
+                <Timer objEndTime={auction.endTime} fontSize={12} showBorder={false} setBold={false} background={true} />
               </div>
-
             </div>
           </Link>
         </div>
