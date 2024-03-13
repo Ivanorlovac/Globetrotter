@@ -15,9 +15,13 @@ export default function Footer() {
       <Row>
         <Col>
           <p>&#169; Copyright</p>
-          <p><Link to ="/aboutUs">Om oss </Link></p>
+          <p><Link to="/aboutUs">Om oss </Link></p>
+          <p><Link to ="/faq">FAQ </Link></p>
+
         </Col>
       </Row>
+
+
 
     </Container>
     

@@ -16,6 +16,7 @@ import NotFound from './pages/Fallback.jsx';
 import SeeAll from './pages/SeeAllAuctions.jsx';
 import { AuktionsLista } from './components/AuktionsLista.jsx';
 import SellerProfile from './pages/SellersPageInfo.jsx';
+import Faq from './pages/Faq.jsx';
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -44,7 +45,8 @@ const App = () => {
               <Route path="/alla-auktioner/:search" element={<SeeAll />}/>
               <Route path='*' element={<NotFound />} />
               <Route path="/seller-profile" element={<SellerProfile/>} />
-             <Route path="/contact" element={<Contact />} />
+              <Route path="/contact" element={<Contact />} />
+              <Route path="/faq" element={<Faq />} />
             </Routes>
             {user && <div>Välkommen, {user.username}!</div>}
       </div>
