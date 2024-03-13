@@ -7,7 +7,7 @@
 @import url(./faq.css);
 @import url(./job.css);
 @import url(./aboutus.css);
-
+@import url(./mypage.css);
 
 * {
   box-sizing: border-box;
@@ -72,6 +72,16 @@ body {
   text-decoration: none;
 }
 
+#navlink-my-page {
+  color: antiquewhite !important;
+  text-decoration: none;
+}
+
+#navlink-register {
+  color: antiquewhite !important;
+  text-decoration: none;
+}
+
 #navlink-login {
   color: antiquewhite !important;
   text-decoration: none;
@@ -95,6 +105,10 @@ body {
 }
 
 #navlink-register:hover {
+  color: black !important;
+}
+
+#navlink-my-page:hover {
   color: black !important;
 }
 
@@ -429,4 +443,21 @@ footer {
   .blue_box_centered {
     width: 100%;
   }
+}
+#my_page_first_section{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 3vw;
+  height: fit-content;
+}
+
+#my_page_first_section >form{
+  display: flex;
+  flex-direction: column;
+}
+
+#my_page_update_button{
+  margin-top: 1vh;
+  width: fit-content;
 }
