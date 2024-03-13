@@ -101,13 +101,12 @@ body {
 
 footer {
   background-color: #85a2c1;
-<<<<<<< HEAD
-}
-
-=======
   position: relative;
   bottom: 0;
-}
+  }
+
+
+
 
 /* Runt ett objekt */
 .auction_list_container {
