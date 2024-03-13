@@ -17,6 +17,8 @@ import SeeAll from './pages/SeeAllAuctions.jsx';
 import { AuktionsLista } from './components/AuktionsLista.jsx';
 import SellerProfile from './pages/SellersPageInfo.jsx';
 import Faq from './pages/Faq.jsx';
+import Job from './pages/Job.jsx';
+
 
 const App = () => {
   const [user, setUser] = useState(null);
@@ -47,6 +49,7 @@ const App = () => {
               <Route path="/seller-profile" element={<SellerProfile/>} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/faq" element={<Faq />} />
+              <Route path="/job" element={<Job />} />
             </Routes>
             {user && <div>Välkommen, {user.username}!</div>}
       </div>

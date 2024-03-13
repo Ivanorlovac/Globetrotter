@@ -16,7 +16,8 @@ export default function Footer() {
         <Col>
           <p>&#169; Copyright</p>
           <p><Link to="/aboutUs">Om oss </Link></p>
-          <p><Link to ="/faq">FAQ </Link></p>
+          <p><Link to="/faq">FAQ </Link></p>
+          <p><Link to ="/job">Jobba hos oss </Link></p>
 
         </Col>
       </Row>
