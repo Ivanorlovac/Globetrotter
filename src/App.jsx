@@ -48,7 +48,6 @@ const App = () => {
             </Routes>
             {user && <div>Välkommen, {user.username}!</div>}
           </Router>
-
         </GlobalProvider>
       </div>
     </main>

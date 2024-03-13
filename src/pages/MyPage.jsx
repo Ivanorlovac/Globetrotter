@@ -13,6 +13,7 @@ export default function MyPage() {
 
   const [myAuctions, setMyAuctions] = useState([])
   const [myEndedAuctions, setMyEndedAuctions] = useState([])
+  const [myWonAuctions, setMyWonAuctions] = useState([])
   const [myBids, setMybids] = useState([])
   const { favorites, setFavorites, user, updateUser, updateFavorites, setUpdateFavorites } = useContext(Globalcontext)
   const [showFavorites, setShowFavorites] = useState(true);
@@ -94,11 +95,18 @@ export default function MyPage() {
         console.log("My id: ", user.id)
         const id = user.id
         const myEndedAuctions = dataEndedAuctions.filter(auction => {
-          return auction.winner_user_id === id
+          return dataBids.some(bid => {
+            return bid.auctionId === auction.id
+          })          
         })
         console.log("myEndedAuctions: ", myEndedAuctions)
+        setMyEndedAuctions(myEndedAuctions)
+
+        const myWonEndedAuctions = myEndedAuctions.filter(auction => auction.winner_user_id === id)
+        console.log("myWonEndedAuctions: ", myWonEndedAuctions)
+        setMyWonAuctions(myWonEndedAuctions)
+
       }
-      
     }
     load()
 
@@ -128,7 +136,6 @@ export default function MyPage() {
     }
   };  
 
-
   const toggleFavorite = (articleObj) => {
     const existingFavorite = favorites.find(obj => obj.auction_id === articleObj.id);
     if (existingFavorite) {
@@ -149,6 +156,16 @@ export default function MyPage() {
       .then(() => {
         setUpdateFavorites(updateFavorites + 1)
       })
+  }
+
+  const CheckForResult = (params) => {
+    const id = params.auctionID
+    const won = myWonAuctions.filter(auction => auction.id === id)
+    if (won.length > 0) {
+      return <p style={{color:"green"}}>Vunnit</p>
+    } else {
+      return <p style={{ color: "red" }}>Förlorat</p>
+    }
   }
 
 
@@ -213,9 +230,9 @@ export default function MyPage() {
                 <Timer objEndTime={auction.endTime} fontSize={10} showBorder={false} setBold={true} />
               </div>
             </div>
-            <div className="favorite-star">
-              <h3>Mitt bud: </h3>
-              <p>{getBid(auction.id)}</p>
+            <div className="auctions-my-bid">
+              <h5>Mitt bud: </h5>
+              <p>{getBid(auction.id)} kr</p>
             </div>
             <div className="favorite-go-to-page">
               <Link to={`/auction/${auction.id}/${auction.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
@@ -230,7 +247,25 @@ export default function MyPage() {
 
   const ShowEndedAuctions = () => {
     return <>
-      <p>Hej hopp</p>
+      {
+        myEndedAuctions.map(auction => (
+          <article className="ended-auction-article">
+            <div className="ended-auction-picture">
+              <Carousel objImages={auction.images} />
+            </div>
+            <div className="ended-auction-information">
+              <h3>{auction.title}</h3>
+              <p>Kategori: {auction.category}</p>
+              <p>Värderingspris: {auction.valuationPrice} kr</p>
+              <p>Slutpris: {auction.winner_amount} kr</p>
+
+            </div>
+            <div className="ended-auction-result">
+              <CheckForResult auctionID={auction.id} />
+            </div>
+          </article>
+        ))
+      }
     </>
   }
 
