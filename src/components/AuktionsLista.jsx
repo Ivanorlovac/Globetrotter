@@ -89,15 +89,19 @@ const AuktionsLista = () => {
 
 const AuktionsLista_Homepage = () => {
 
-  const filteredAuctions = getData()
+  let filteredAuctions = getData()
 
+  filteredAuctions = filteredAuctions.filter(auction => {
+    let timeNow = new Date().toLocaleString('se-SE', { timeZone: 'cet' })
+    let timeEnd = new Date(auction.endTime).toLocaleString('se-SE', { timeZone: 'cet' })
+    return timeNow < timeEnd
+  })
+
+  filteredAuctions = filteredAuctions.splice(0, 10)
+  
   return (
     <div className="container_Homepage">
-      {filteredAuctions.filter(auction => {
-        let timeNow = new Date().toLocaleString('se-SE', { timeZone: 'cet' })
-        let timeEnd = new Date(auction.endTime).toLocaleString('se-SE', { timeZone: 'cet' })
-        return timeNow < timeEnd
-      }).map(auction => (
+      {filteredAuctions.map(auction => (
         <div key={auction.id} className='auction_list_container_Homepage'>
           <div className='carousel-container_Homepage'>
             <Carousel objImages={auction.images} />
