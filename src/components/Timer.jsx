@@ -21,7 +21,7 @@ export default function Timer(props) {
     padding: "7px",
     borderRadius: "20px",
     width: "fit-content",
-    backgroundColor: "white"
+    backgroundColor: props.background ? "white" : "transparent"
   }
 
   const renderer = ({ days, hours, minutes, seconds, completed }) => {

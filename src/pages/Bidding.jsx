@@ -116,7 +116,7 @@ export default function Bidding() {
           <div className="bidding-first ">
               <div className="column-timer column-center column-header-text">
                   <p>Tid kvar</p>
-                  <Timer objEndTime={auction.endTime} fontSize={20} showBorder={true} setBold={true} />
+              <Timer objEndTime={auction.endTime} fontSize={20} showBorder={true} setBold={true} background={true} />
                 </div>
                 <div className="column-bids column-center column-header-text">
                   <p>Totalt antal bud</p>
