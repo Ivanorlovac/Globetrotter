@@ -18,7 +18,7 @@ export default function Footer() {
           <p><Link to="/aboutUs">Om oss </Link></p>
           <p><Link to="/faq">FAQ </Link></p>
           <p><Link to ="/job">Jobba hos oss </Link></p>
-
+           <p><Link to ="/aboutus">Om oss </Link></p>
         </Col>
       </Row>
 

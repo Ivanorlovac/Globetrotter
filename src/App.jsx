@@ -18,6 +18,7 @@ import { AuktionsLista } from './components/AuktionsLista.jsx';
 import SellerProfile from './pages/SellersPageInfo.jsx';
 import Faq from './pages/Faq.jsx';
 import Job from './pages/Job.jsx';
+import AboutUs from './pages/Aboutus.jsx';
 
 
 const App = () => {
@@ -50,6 +51,7 @@ const App = () => {
               <Route path="/contact" element={<Contact />} />
               <Route path="/faq" element={<Faq />} />
               <Route path="/job" element={<Job />} />
+              <Route path="/aboutus" element={<AboutUs />} />
             </Routes>
             {user && <div>Välkommen, {user.username}!</div>}
       </div>
