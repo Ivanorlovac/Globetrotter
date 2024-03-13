@@ -42,8 +42,6 @@ const AuktionsDetaljer = () => {
         return response.json();
       })
       .then(data => {
-        console.log('Bid successfully placed:', data);
-        // Du kan här välja att uppdatera UI:t eller ge användaren feedback
       })
       .catch(error => console.error('Failed to place bid:', error));
   };
@@ -53,7 +51,6 @@ const AuktionsDetaljer = () => {
   return (
     <div className="container mt-4">
       <h2 className="mb-4">{auction.title}</h2>
-      {/* Auktionsdetaljer här */}
       <form onSubmit={handleBidSubmit}>
         <div className="mb-3">
           <label htmlFor="bidAmount" className="form-label">Ditt bud</label>

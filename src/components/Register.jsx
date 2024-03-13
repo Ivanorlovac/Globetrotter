@@ -33,7 +33,6 @@ const RegisterForm = () => {
         throw new Error('Registrering misslyckades');
       }
       const data = await response.json();
-      console.log('Registrering lyckades', data);
 
     } catch (error) {
       console.error('Registrering misslyckades', error);
@@ -91,7 +90,7 @@ const handleLogin = async (username, password) => {
     }
     const users = await response.json();
     if (users.length > 0) {
-      console.log('Inloggning lyckades', users[0]);
+      console.log('Inloggning lyckades');
 
     } else {
       console.log('Inloggning misslyckades: användarnamn eller lösenord är felaktigt');

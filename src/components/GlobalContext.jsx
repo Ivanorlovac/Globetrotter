@@ -37,14 +37,14 @@ function GlobalProvider({ children }) {
 
   const login = (userData) => {
     setUser(userData);
-    localStorage.setItem('user', JSON.stringify(userData)); // Spara användardata i localStorage
+    localStorage.setItem('user', JSON.stringify(userData));
     setLoginMessage('Välkommen ' + userData.username);
   };
   const logout = () => {
     setFavorites([]);
     setUser({});
     setLoginMessage('');
-    localStorage.removeItem('user'); // Rensa användardata från localStorage
+    localStorage.removeItem('user');
   };
 
   const updateUser = async (updatedUser) => {

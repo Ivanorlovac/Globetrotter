@@ -50,7 +50,6 @@ export default function PlaceBid() {
   const handleBidSubmit = (e) => {
 
     e.preventDefault();
-/*     setBidPlaced(false) */
 
     if (bidAmount <= 0) {
       return
@@ -82,7 +81,6 @@ export default function PlaceBid() {
         return response.json();
       })
       .then(data => {
-        console.log('Bid successfully placed:', data);
         setBidPlaced(true)
         setUpdate(update+1)
       })

@@ -20,6 +20,7 @@ const SellersPage = () => {
         });
         if (!response.ok) throw new Error('Nätverksfel vid radering av auktion');
         alert('Auktion raderad');
+        fetchAuctions()
       } catch (error) {
         console.error('Fel:', error);
       }

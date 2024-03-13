@@ -6,9 +6,6 @@ export default function Carousel(props) {
   const [slide, setSlide] = useState(0);
 
   let images = props.objImages
-  const width = props.width
-  const height = props.height
-
 
   const nextSlide = () => {
     setSlide(slide === images.length - 1 ? 0 : slide + 1);

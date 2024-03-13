@@ -50,10 +50,6 @@ const SkapaAuktion = () => {
   };
 
 
-
-
-
-
   return (
     <div className="container mt-4">
       <h2>Skapa Ny Auktion</h2>

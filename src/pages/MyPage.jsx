@@ -91,19 +91,15 @@ export default function MyPage() {
       }
 
       if (dataEndedAuctions) {
-        console.log("dataEndedAuctions: ", dataEndedAuctions)
-        console.log("My id: ", user.id)
         const id = user.id
         const myEndedAuctions = dataEndedAuctions.filter(auction => {
           return dataBids.some(bid => {
             return bid.auctionId === auction.id
           })          
         })
-        console.log("myEndedAuctions: ", myEndedAuctions)
         setMyEndedAuctions(myEndedAuctions)
 
         const myWonEndedAuctions = myEndedAuctions.filter(auction => auction.winner_user_id === id)
-        console.log("myWonEndedAuctions: ", myWonEndedAuctions)
         setMyWonAuctions(myWonEndedAuctions)
 
       }
@@ -200,14 +196,11 @@ export default function MyPage() {
 
   const getBid = (id) => {
 
-    console.log("Mybids: ", myBids)
     
     const listBidsForauction = myBids.filter(bid => {
       return bid.auctionId === id
     })
       
-    console.log("listBidsForauction: ", listBidsForauction)
-
     const bid = Math.max(...listBidsForauction.map(item => item.amount))
 
     return bid
