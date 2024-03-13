@@ -23,11 +23,7 @@ import AboutUs from './pages/Aboutus.jsx';
 
 
 const App = () => {
-  const [user, setUser] = useState(null);
-
-  const handleLoginSuccess = (userData) => {
-    setUser(userData);
-  };
+  const [user] = useState(null);
 
   return <>
 

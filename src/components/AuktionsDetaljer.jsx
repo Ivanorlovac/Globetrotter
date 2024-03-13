@@ -42,8 +42,6 @@ const AuktionsDetaljer = () => {
         return response.json();
       })
       .then(data => {
-        console.log('Bid successfully placed:', data);
-        // Du kan här välja att uppdatera UI:t eller ge användaren feedback
       })
       .catch(error => console.error('Failed to place bid:', error));
   };

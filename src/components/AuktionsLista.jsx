@@ -54,7 +54,6 @@ const AuktionsLista = () => {
     );
   }
 
-  console.log("Aukioner: ", filteredAuctions)
 
   return (
     <div className="container">
