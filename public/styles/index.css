@@ -92,6 +92,34 @@ body {
   text-decoration: none;
 }
 
+#navlink-logout {
+  color: antiquewhite !important;
+  text-decoration: none;
+}
+
+#navlink-seller-profile {
+  color: antiquewhite !important;
+  text-decoration: none;
+}
+
+#navlink-my-auctions {
+  color: antiquewhite !important;
+  text-decoration: none;
+}
+
+#navlink-my-auctions:hover {
+  color: black !important;
+}
+
+#navlink-seller-profile:hover {
+  color: black !important;
+}
+
+#navlink-logout:hover {
+  color: black !important;
+  cursor: pointer;
+}
+
 #navlink-see-all:hover {
   color: black !important;
 }
@@ -445,7 +473,8 @@ footer {
     width: 100%;
   }
 }
-#my_page_first_section{
+
+#my_page_first_section {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
@@ -453,12 +482,12 @@ footer {
   height: fit-content;
 }
 
-#my_page_first_section >form{
+#my_page_first_section>form {
   display: flex;
   flex-direction: column;
 }
 
-#my_page_update_button{
+#my_page_update_button {
   margin-top: 1vh;
   width: fit-content;
 }

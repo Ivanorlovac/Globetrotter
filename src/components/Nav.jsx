@@ -1,9 +1,16 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { Globalcontext } from "./GlobalContext"; // Justera sökvägen efter din mappstruktur
+import { Globalcontext } from "./GlobalContext"; 
+import { useNavigate } from "react-router-dom";
 
 export default function Nav() {
-  const { user, logout } = useContext(Globalcontext); // Använd logout-funktionen från din kontext
+  const { user, logout } = useContext(Globalcontext);
+  const navigate = useNavigate()
+
+  const logoutClicked = () => {
+    logout()
+    navigate("/")
+  }
 
   return (
     <>
@@ -22,7 +29,7 @@ export default function Nav() {
         {Object.keys(user).length !== 0 ? (
           <>
             <li className="navlink"><Link to="/mina-sidor" className="mr-4" id="navlink-my-page">Mina sidor</Link></li>
-            <li className="navlink" onClick={logout} id="navlink-logout">Logga ut</li>
+            <li className="navlink" onClick={logoutClicked} id="navlink-logout">Logga ut</li>
           </>
         ) : (
           <>
