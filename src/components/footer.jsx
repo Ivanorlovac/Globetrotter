@@ -5,26 +5,24 @@ import { Link } from 'react-router-dom';
 
 export default function Footer() {
   return <footer>
-    <Container>
-      <Row>
-        <Col>
-          <p><Link to ="/contact">Kontakt</Link></p>
+    <div id='footer_first_section'>
+      <div id='footer_left'>
+        <ul>
+          <li className="footlink"><Link id='link_contact' to="/contact">Kontakt</Link></li>
+          <li className="footlink"><Link id='link_faq' to="/faq">FAQ </Link></li>
+        </ul>
+      </div>
 
-        </Col>
-      </Row>
-      <Row>
-        <Col>
-          <p>&#169; Copyright</p>
-          <p><Link to="/aboutUs">Om oss </Link></p>
-          <p><Link to="/faq">FAQ </Link></p>
-          <p><Link to ="/job">Jobba hos oss </Link></p>
-           <p><Link to ="/aboutus">Om oss </Link></p>
-        </Col>
-      </Row>
+      <div id='footer_right'>
+        <ul>
+          <li className="footlink"><Link id='link_job' to="/job">Jobba hos oss </Link></li>
+          <li className="footlink"><Link id='link_about' to="/aboutus">Om oss </Link></li>
+        </ul>
+      </div>
+    </div>
 
-
-
-    </Container>
-    
+    <div id='footer_last_section'>
+      <p>&#169; Copyright 2024</p>
+    </div>
   </footer>
 }
