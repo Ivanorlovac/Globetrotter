@@ -106,7 +106,7 @@ footer {
   background-color: #85a2c1;
   position: relative;
   bottom: 0;
-  }
+}
 
 
 
@@ -263,24 +263,24 @@ footer {
   margin-bottom: 10px;
 }
 
-.button_smooth{
-    border: 1px solid darkgray;
-      color: rgb(86, 86, 86);
-      height: 36px;
-      border-radius: 0.375rem;
+.button_smooth {
+  border: 1px solid darkgray;
+  color: rgb(86, 86, 86);
+  height: 36px;
+  border-radius: 0.375rem;
 }
 
-.button_smooth:hover{
-    border: 1px solid rgb(65, 65, 65);
+.button_smooth:hover {
+  border: 1px solid rgb(65, 65, 65);
 }
 
-.center_the_blue_login_box{
+.center_the_blue_login_box {
   display: flex;
   align-content: center;
   justify-content: center;
 }
 
-.blue_box_centered_login{
+.blue_box_centered_login {
   background-color: #85A2C1;
   color: antiquewhite;
   width: 60%;
@@ -292,31 +292,31 @@ footer {
   align-content: space-around;
 }
 
-.blue_box_centered_login form{
+.blue_box_centered_login form {
   display: flex;
   flex-direction: row;
 }
 
-#left_login{
+#left_login {
   display: flex;
   align-content: flex-end;
   flex-direction: column;
   padding: 0 2px;
 }
 
-#right_login{
-display: flex;
-align-items: flex-end;
+#right_login {
+  display: flex;
+  align-items: flex-end;
 }
 
-#new_user{
+#new_user {
   display: flex;
   flex-direction: column;
   align-content: space-around;
   flex-wrap: wrap;
 }
 
-#new_user button{
+#new_user button {
   width: 100px;
 }
 
@@ -326,6 +326,76 @@ align-items: flex-end;
   bottom: 20px;
   right: 20px;
   z-index: 999;
+}
+
+footer {
+  padding-top: 2vh;
+  color: antiquewhite;
+}
+
+#footer_first_section {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-content: center;
+  flex-wrap: wrap;
+}
+
+#footer_left {
+  display: flex;
+  flex-direction: column;
+}
+
+#footer_right {
+  display: flex;
+  flex-direction: column;
+}
+
+#footer_last_section {
+  display: flex;
+  justify-content: center;
+  align-content: center;
+}
+
+.footlink {
+  font-family: "Playfair Display", serif;
+  list-style-type: none;
+}
+
+#link_contact {
+  color: antiquewhite !important;
+  text-decoration: none;
+}
+
+#link_contact:hover {
+  color: black !important;
+}
+
+#link_faq {
+  color: antiquewhite !important;
+  text-decoration: none;
+}
+
+#link_faq:hover {
+  color: black !important;
+}
+
+#link_job {
+  color: antiquewhite !important;
+  text-decoration: none;
+}
+
+#link_job:hover {
+  color: black !important;
+}
+
+#link_about {
+  color: antiquewhite !important;
+  text-decoration: none;
+}
+
+#link_about:hover {
+  color: black !important;
 }
 
 @media (max-width: 888px) {
