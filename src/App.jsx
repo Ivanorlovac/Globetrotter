@@ -8,9 +8,9 @@ import NavbarOffcanvas from './components/Navbar.jsx';
 import Homepage from './pages/homepage.jsx';
 import { GlobalProvider } from './components/GlobalContext.jsx';
 import Footer from './components/footer.jsx';
+import Contact from './pages/contact.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import Bidding from './pages/Bidding.jsx'
-
 import SellersPage from './pages/SellersPage.jsx';
 import NotFound from './pages/Fallback.jsx';
 import SeeAll from './pages/SeeAllAuctions.jsx';
@@ -25,10 +25,11 @@ const App = () => {
   };
 
   return <>
-    <main id="main-pic">
-      <div id="main-background">
+
         <GlobalProvider>
-          <Router>
+      <Router>
+              <main id="main-pic">
+        <div id="main-background">
             <NavbarOffcanvas />
             <Routes>
               <Route path="/" element={<Homepage />} />
@@ -43,14 +44,17 @@ const App = () => {
               <Route path="/alla-auktioner/:search" element={<SeeAll />}/>
               <Route path='*' element={<NotFound />} />
               <Route path="/seller-profile" element={<SellerProfile/>} />
+             <Route path="/contact" element={<Contact />} />
             </Routes>
             {user && <div>Välkommen, {user.username}!</div>}
-          </Router>
-
-        </GlobalProvider>
       </div>
     </main>
     <Footer />
+          </Router>
+
+        </GlobalProvider>
+
+
   </>
 
 };

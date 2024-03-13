@@ -622,5 +622,14 @@
       "winner_amount": 63000
       
     }
+  ],
+  "contact": [
+    {
+      "id": "8f0c",
+      "surname": "Franz",
+      "email": "Mueller@gmail.com",
+      "tel": "7650381976",
+      "message": "Ich war hier."
+    }
   ]
 }
