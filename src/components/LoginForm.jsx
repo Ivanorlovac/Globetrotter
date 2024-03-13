@@ -23,10 +23,12 @@ const LoginForm = () => {
       const data = await response.json();
       if (data.length > 0) {
         setUser(data[0]);
+        localStorage.setItem('user', JSON.stringify(data[0]));
+        setLoginMessage('Välkommen ' + data[0].username);
         if (data[0].role === 'seller') {
           navigate('/SellersPage');
         } else {
-          history.back()
+          history.back();
         }
       } else {
         setError('Felaktigt användarnamn eller lösenord.');
@@ -39,7 +41,7 @@ const LoginForm = () => {
 
   return (
     <form onSubmit={handleLogin}>
-      <div>
+      <div id='left_login'>
         <label>Användarnamn:</label>
         <input
           type="text"
@@ -47,8 +49,6 @@ const LoginForm = () => {
           onChange={(e) => setUsername(e.target.value)}
           required
         />
-      </div>
-      <div>
         <label>Lösenord:</label>
         <input
           type="password"
@@ -58,7 +58,9 @@ const LoginForm = () => {
         />
       </div>
       {error && <p>{error}</p>}
-     <button type="submit">Logga in</button>
+      <div id='right_login'>
+        <button className='button_smooth' type="submit">Logga in</button>
+      </div>
     </form>
   );
 };
