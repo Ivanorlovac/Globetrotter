@@ -23,18 +23,20 @@ export default function Nav() {
           <>
             <li className="navlink"><Link to="/skapa-auktion" className="mr-4" id="navlink-auction-form">Skapa Auktion</Link></li>
             <li className="navlink"><Link to="/sellerspage" className="mr-4" id="navlink-my-auctions">Mina Auktioner</Link></li>
-            <li className="navlink"><Link to="/seller-profile" id="navlink-seller-profile">Seller Profile</Link></li>
+            <li className="navlink"><Link to="/seller-profile" id="navlink-seller-profile">Profil Säljare</Link></li>
+            <li className="navlink" onClick={logoutClicked} id="navlink-logout">Logga ut</li>
           </>
         )}
-        {Object.keys(user).length !== 0 ? (
+        {user.role === 'user' && (
           <>
             <li className="navlink"><Link to="/mina-sidor" className="mr-4" id="navlink-my-page">Mina sidor</Link></li>
             <li className="navlink" onClick={logoutClicked} id="navlink-logout">Logga ut</li>
           </>
-        ) : (
+        )}
+        {Object.keys(user).length === 0 && (
           <>
             <li className="navlink"><Link to="/register" className="mr-4" id="navlink-register">Registrera</Link></li>
-              <li className="navlink"><Link to="/login" id="navlink-login">Logga in</Link></li>
+            <li className="navlink"><Link to="/login" id="navlink-login">Logga in</Link></li>
           </>
         )}
       </ul>
