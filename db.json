@@ -584,16 +584,9 @@
       "id": "e920",
       "user_id": "3",
       "auction_id": "15"
-    },
-    {
-      "id": "6ba0",
-      "user_id": "3",
-      "auction_id": "9"
     }
   ],
-  "result_closed_auctions": [
-    
-  ],
+  "result_closed_auctions": [],
   "closed_auctions": [
     {
       "id": "12",
@@ -614,7 +607,6 @@
       "creatorImage": "https://www.creativefabrica.com/wp-content/uploads/2020/02/10/Travel-Logo-Graphics-1-36-580x386.jpg",
       "winner_user_id": 2,
       "winner_amount": 63000
-      
     }
   ]
 }

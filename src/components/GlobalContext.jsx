@@ -15,6 +15,7 @@ function GlobalProvider({ children }) {
   const [search, setSearch] = useState('')
   const [loginMessage, setLoginMessage] = useState('');
   const [favorites, setFavorites] = useState([])
+  const [updateFavorites, setUpdateFavorites] = useState(0)
 
   useEffect(() => {
     if (Object.keys(user).length !== 0) {
@@ -30,7 +31,7 @@ function GlobalProvider({ children }) {
     } else {
       setFavorites([])
     }
-  }, [user])
+  }, [user, updateFavorites])
 
   useEffect(() => {
     const storedUser = localStorage.getItem('user');
@@ -84,7 +85,8 @@ function GlobalProvider({ children }) {
     loginMessage,
     setLoginMessage,
     favorites,
-    setFavorites
+    setFavorites,
+    setUpdateFavorites
   }}>
     {children}
   </Globalcontext.Provider>

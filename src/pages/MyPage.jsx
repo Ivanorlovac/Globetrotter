@@ -13,7 +13,7 @@ export default function MyPage() {
 
   const [myAuctions, setMyAuctions] = useState([])
   const [myBids, setMybids] = useState([])
-  const { favorites, setFavorites, user, updateUser } = useContext(Globalcontext)
+  const { favorites, setFavorites, user, updateUser, updateFavorites, setUpdateFavorites } = useContext(Globalcontext)
   const [showFavorites, setShowFavorites] = useState(true);
   const [showAuctions, setShowAuctions] = useState(true);
   const [showEndedAuctions, setShowEndedAuctions] = useState(true);
@@ -53,7 +53,7 @@ export default function MyPage() {
       setMybids(dataBids)
       const dataAuctions = await getAuctions()
 
-      if (dataBids && dataAuctions) {
+      if (dataBids && dataAuctions ) {
 
         let myAuctionsData = dataAuctions.filter(auction => {
           let timeNow = new Date().toLocaleString('se-SE', { timeZone: 'cet' })
@@ -76,6 +76,7 @@ export default function MyPage() {
             return favorite.auction_id === auction.id
           })
         })
+
         setMyAuctions(myAuctionsDataFiltered)
         setFilteredFavoriteAuctions(data);           
 
@@ -85,9 +86,8 @@ export default function MyPage() {
     load()
 
 
-  }, [])
+  }, [favorites])
 
-  console.log("Favorites: ", favorites)
 
   const favoritesPopdown = () => {
     if (showFavorites) {
@@ -116,6 +116,10 @@ export default function MyPage() {
     const existingFavorite = favorites.find(obj => obj.auction_id === articleObj.id);
     if (existingFavorite) {
       deleteFavorite(existingFavorite);
+      const removedFavoriteObject = filteredFavoriteAuctions.filter(auction => {
+        return auction.id !== articleObj.id
+      })
+      setFilteredFavoriteAuctions(removedFavoriteObject)  
     }
   };
 
@@ -126,8 +130,7 @@ export default function MyPage() {
     })
       .then(response => response.json())
       .then(() => {
-        const updatedFavorites = favorites.filter(obj => obj.auction_id !== existingFavorite.id);
-        setFavorites(updatedFavorites);
+        setUpdateFavorites(updateFavorites + 1)
       })
   }
 
