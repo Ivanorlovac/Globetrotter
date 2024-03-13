@@ -12,6 +12,7 @@ import { IoIosArrowForward } from "react-icons/io";
 export default function MyPage() {
 
   const [myAuctions, setMyAuctions] = useState([])
+  const [myEndedAuctions, setMyEndedAuctions] = useState([])
   const [myBids, setMybids] = useState([])
   const { favorites, setFavorites, user, updateUser, updateFavorites, setUpdateFavorites } = useContext(Globalcontext)
   const [showFavorites, setShowFavorites] = useState(true);
@@ -33,7 +34,6 @@ export default function MyPage() {
     } 
   };
 
-
   useEffect(() => {
     async function load() {
       const id = user.id
@@ -49,9 +49,16 @@ export default function MyPage() {
         return data 
       }
 
+      async function getEndedAuctions() {
+        const response = await fetch('/api/closed_auctions')
+        const data = await response.json()
+        return data
+      }
+
       const dataBids = await getMyBids()
       setMybids(dataBids)
       const dataAuctions = await getAuctions()
+      const dataEndedAuctions = await getEndedAuctions()
 
       if (dataBids && dataAuctions ) {
 
@@ -80,6 +87,16 @@ export default function MyPage() {
         setMyAuctions(myAuctionsDataFiltered)
         setFilteredFavoriteAuctions(data);           
 
+      }
+
+      if (dataEndedAuctions) {
+        console.log("dataEndedAuctions: ", dataEndedAuctions)
+        console.log("My id: ", user.id)
+        const id = user.id
+        const myEndedAuctions = dataEndedAuctions.filter(auction => {
+          return auction.winner_user_id === id
+        })
+        console.log("myEndedAuctions: ", myEndedAuctions)
       }
       
     }
@@ -243,13 +260,13 @@ export default function MyPage() {
         {!showFavorites && <ShowFavorites />}
 
         <div className="auctions-section" onClick={auctionsPopdown}>
-          <h3 className="auctions-drop-button" >Aktiva auktioner</h3>
+          <h3 className="auctions-drop-button" >Mina aktiva bud</h3>
           {showAuctions ? <IoMdArrowDropdown style={{ fontSize: "30px" }} /> : <IoMdArrowDropup style={{ fontSize: "30px" }} />}
         </div>
         {!showAuctions && <ShowAuctions />}
         
         <div className="ended-auctions-section" onClick={endedAuctionsPopdown}>
-          <h3 className="ended-auctions-drop-button" >Avslutade auktioner</h3>
+          <h3 className="ended-auctions-drop-button" >Mina avslutade bud</h3>
           {showEndedAuctions ? <IoMdArrowDropdown style={{ fontSize: "30px" }} /> : <IoMdArrowDropup style={{ fontSize: "30px" }} />}
         </div>
         {!showEndedAuctions && <ShowEndedAuctions />}        
