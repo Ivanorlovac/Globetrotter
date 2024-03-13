@@ -9,16 +9,23 @@ const SellersPage = () => {
   const [editingAuction, setEditingAuction] = useState(null);
 
   const handleDeleteAuktion = async (auktionId) => {
-    try {
-      const response = await fetch(`http://localhost:3000/auctions/${auktionId}`, {
-        method: 'DELETE',
-      });
-      if (!response.ok) throw new Error('Nätverksfel vid radering av auktion');
-      alert('Auktion raderad');
-    } catch (error) {
-      console.error('Fel:', error);
+    
+    const isConfirmed = window.confirm('Är du säker på att du vill radera auktionen?');
+
+    
+    if (isConfirmed) {
+      try {
+        const response = await fetch(`http://localhost:3000/auctions/${auktionId}`, {
+          method: 'DELETE',
+        });
+        if (!response.ok) throw new Error('Nätverksfel vid radering av auktion');
+        alert('Auktion raderad');
+      } catch (error) {
+        console.error('Fel:', error);
+      }
     }
   };
+
   
   useEffect(() => {
     
