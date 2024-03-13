@@ -3,7 +3,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0');
 @import url(./homepage.css);
 @import url(./biddingSite.css);
+<<<<<<< HEAD
 @import url(./mypage.css);
+=======
+@import url(./contact.css);
+@import url(./faq.css);
+@import url(./job.css);
+@import url(./aboutus.css);
+
+>>>>>>> main
 
 * {
   box-sizing: border-box;
@@ -116,7 +124,10 @@ footer {
   background-color: #85a2c1;
   position: relative;
   bottom: 0;
-}
+  }
+
+
+
 
 /* Runt ett objekt */
 .auction_list_container {
