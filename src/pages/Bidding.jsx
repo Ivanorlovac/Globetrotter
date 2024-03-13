@@ -19,7 +19,7 @@ export default function Bidding() {
   useEffect(() => {
     async function load() {
       const response = await fetch("/api/auctions/" + id)
-      
+
       const dataAuction = await response.json()
       setAuction(dataAuction)
     }
@@ -29,7 +29,7 @@ export default function Bidding() {
   useEffect(() => {
 
     if (!auction.endTime) return;
-    
+
     let timeNow = new Date().toLocaleString('se-SE', { timeZone: 'cet' })
     let timeEnd = new Date(auction.endTime).toLocaleString('se-SE', { timeZone: 'cet' })
     const timeLeft = Date.parse(timeEnd) - Date.parse(timeNow)
@@ -44,16 +44,16 @@ export default function Bidding() {
       setAuctionClosed(true)
     }
 
-  },[auction])
+  }, [auction])
 
 
   const goBack = () => {
     history.back()
   };
-  
- 
+
+
   const ValuationPrice = () => {
-    
+
     const styleValutationPrice = {
       fontSize: 20,
       fontWeight: "bold",
@@ -95,7 +95,7 @@ export default function Bidding() {
             <h4>Kategori</h4>
             <div className="bidding-about-category">
               <p>{auction.category}</p>
-            </div>            
+            </div>
           </div>
         </div>
 
@@ -114,21 +114,21 @@ export default function Bidding() {
             </div>
           </div>
           <div className="bidding-first ">
-              <div className="column-timer column-center column-header-text">
-                  <p>Tid kvar</p>
+            <div className="column-timer column-center column-header-text">
+              <p>Tid kvar</p>
               <Timer objEndTime={auction.endTime} fontSize={20} showBorder={true} setBold={true} background={true} />
-                </div>
-                <div className="column-bids column-center column-header-text">
-                  <p>Totalt antal bud</p>
-                  <TotalBids fontSize={20} showBorder={true} setBold={true} />
-                </div>
-                <div className="column-price column-center column-header-text">
-                  <p>Värdering pris</p>
-                  <ValuationPrice />
-                </div>
+            </div>
+            <div className="column-bids column-center column-header-text">
+              <p>Totalt antal bud</p>
+              <TotalBids fontSize={20} showBorder={true} setBold={true} />
+            </div>
+            <div className="column-price column-center column-header-text">
+              <p>Värdering pris</p>
+              <ValuationPrice />
+            </div>
           </div>
           <div className="bidding-second">
-            {!auctionClosed ? <PlaceBid /> : <BidsClosed/>}
+            {!auctionClosed ? <PlaceBid /> : <BidsClosed />}
           </div>
         </div>
       </div>

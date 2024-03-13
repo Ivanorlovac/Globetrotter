@@ -3,6 +3,6 @@ export default function NotFound() {
     <section id="fallback_container">
       <h2>Sidan kunde inte hittas!</h2>
     </section>
-    </div>
-  
+  </div>
+
 }
