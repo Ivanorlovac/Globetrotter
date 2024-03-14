@@ -91,13 +91,14 @@ export default function PlaceBid() {
 
   const NoUser = () => {
     return <>
-      <p style={{ fontWeight: "bold", margin: "0px", fontSize: "120%" }}><Link to="/login" style={{textDecoration: "none", color: "gray"}}>Logga in för att lägga och se dina bud</Link></p>
+      {user.role === 'seller' ? <p style={{ fontWeight: "bold", margin: "0px", fontSize: "120%" }}>Logga in som en användare för att kunna lägga bud</p>
+        : <p style={{ fontWeight: "bold", margin: "0px", fontSize: "120%" }}><Link to="/login" style={{ textDecoration: "none", color: "gray" }}>Logga in för att lägga och se dina bud</Link></p>}
     </>
   }
 
 
   return <>
-    {Object.keys(user).length === 0 ? <NoUser /> : <>
+    {user.role !== 'user' ? <NoUser /> : <>
       <div className='show-bid'>
         {higestBid > 0 ? <p style={{color:"black", fontWeight: "400", fontSize: "90%"}}>Ditt högst lagda bud: <span style={{color: "black", fontSize: "160%", fontWeight: "bold"}}>{higestBid} kr</span></p> : <p>Lägg ett bud för att gå med i auktion</p>}
       </div>          
