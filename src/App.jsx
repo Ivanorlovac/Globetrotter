@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import AuktionsDetaljer from './components/AuktionsDetaljer';
 import SkapaAuktion from './components/SkapaAuktion';
 import SearchBar from './components/Search.jsx';
 import RegisterForm from './components/Register.jsx';
@@ -40,7 +39,6 @@ const App = () => {
               <Route path="/register" element={<RegisterForm />} />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/SellersPage" element={<SellersPage />} />
-              <Route path="/auction/:id" element={<AuktionsDetaljer />} />
               <Route path="/alla-auktioner" element={<SeeAll />} />
               <Route path="/alla-auktioner/:search" element={<SeeAll />} />
               <Route path="/mina-sidor" element={<MyPage />} />
