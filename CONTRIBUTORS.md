@@ -8,7 +8,7 @@
 
 ## Ivan Orlovac
 - Namn: Ivanorlovac
-- Email:
+- Email: ivanorlovac@gmail.com
 
 ## Vanessa Radogoshi
 - Namn: VanessaRadogoshi
