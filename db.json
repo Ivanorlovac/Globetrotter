@@ -342,6 +342,24 @@
       "category": "adventure",
       "creator": "Horisont Resebyrå",
       "creatorImage": "https://www.logomoose.com/wp-content/uploads/2018/02/1150px-x-5683.png"
+    },
+    {
+      "id": "38e6",
+      "title": "MJ's Malmö",
+      "slug": "mj's-malmö",
+      "description": "Fira påsken i Malmö på Sveriges bästa boutiqe-hotell. Med denna deal spenderar du fyra nätter med frukost inkluderat på MJ's i Malmö. Ankomst 28/3. Utcheckning 1/4.",
+      "valuationPrice": 10000,
+      "priceRange": 2000,
+      "images": [
+        "https://www.chainels.com/file/c9863d61-8656-4cc6-bad3-7084bf2e8f26",
+        "https://mjs.life/wp-content/uploads/2018/06/4-conference-at-mjs-malmo-sweden.jpg",
+        "https://thatsup.se/content/img/place/m/j/mj-s-1.jpg",
+        "https://www.hundvanligahotell.se/wp-content/uploads/2021/07/mj.jpg"
+      ],
+      "category": "city-break",
+      "endTime": "2024-03-21T12:17",
+      "creator": "Horisont Resebyrå",
+      "creatorImage": "https://www.logomoose.com/wp-content/uploads/2018/02/1150px-x-5683.png"
     }
   ],
   "categories": [
@@ -495,6 +513,13 @@
       "amount": "160",
       "userId": "3",
       "time": "2024-03-13 10:59:11"
+    },
+    {
+      "id": "2424",
+      "auctionId": "15",
+      "amount": "200",
+      "userId": "3",
+      "time": "2024-03-14 11:13:50"
     }
   ],
   "users": [
@@ -565,11 +590,6 @@
       "id": "0b7a",
       "user_id": "2",
       "auction_id": "18"
-    },
-    {
-      "id": "e920",
-      "user_id": "3",
-      "auction_id": "15"
     },
     {
       "id": "90d4",
@@ -645,6 +665,13 @@
       "email": "Mueller@gmail.com",
       "tel": "7650381976",
       "message": "Ich war hier."
+    },
+    {
+      "id": "2de2",
+      "surname": "Julia",
+      "email": "juliakronmarker@gmail.com",
+      "tel": "+46709666195",
+      "message": "Hej Hej..."
     }
   ]
 }

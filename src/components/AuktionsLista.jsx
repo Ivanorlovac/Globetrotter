@@ -71,7 +71,7 @@ const AuktionsLista = () => {
               <div className="auction-item mb-4">
                 <h5>{auction.title}</h5>
                 <p>{auction.description}</p>
-                <p>Startbud: {auction.valuationPrice} SEK</p>
+                <p>Värderingspris: {auction.valuationPrice} SEK</p>
                 <div className='d-flex align-items-center'>
                   <p className='me-1 my-0'>Slutar: </p>
                   <Timer objEndTime={auction.endTime} fontSize={15} showBorder={false} setBold={false} background={false} />
@@ -106,7 +106,7 @@ const AuktionsLista_Homepage = () => {
           <Link to={`/auction/${auction.id}/${auction.slug}`} style={{ textDecoration: 'none', color: 'inherit' }}>
             <div className="auction-item mb-4">
               <h6>{auction.title}</h6>
-              <p>Startbud: {auction.valuationPrice} SEK</p>
+              <p>Värderingspris: {auction.valuationPrice} SEK</p>
               <div className='d-flex align-items-center'>
                 <p className='me-1 my-0'>Slutar: </p>
                 <Timer objEndTime={auction.endTime} fontSize={12} showBorder={false} setBold={false} background={true} />
