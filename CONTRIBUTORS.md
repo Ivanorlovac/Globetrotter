@@ -15,5 +15,5 @@
 - Email: 149571534+VanessaRadogoshi@users.noreply.github.com
 
 ## Hejazi Majed
-- Namn: 
-- Email:
+- Namn: Majad-hejazi1997
+- Email: majedhejazi9710@gmail.com
