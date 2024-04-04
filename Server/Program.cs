@@ -1,7 +1,8 @@
 using Server;
 using MySql.Data.MySqlClient;
+using ServerFavorites;
 
-State state = new State(new("server=localhost;uid=root;pwd=Dunder123!1;database=MockBids;port=3306"));
+State state = new State(new("server=localhost;uid=root;pwd=mypassword;database=Globetrotter;port=3306"));
 
 try
 {
@@ -23,6 +24,9 @@ app.MapGet("/auctions", Auctions.All);
 
 app.MapGet("/bids", Bids.GetAllBids);
 app.MapGet("/bids/{user}", Bids.GetAllBidsUser);
+
+app.MapGet("/favorites", Favorites.GetAllFavorites);
+app.MapGet("/favorites/{user}", Favorites.GetAllFavoritesUser);
 
 app.Run();
 public record State(MySqlConnection DB);
