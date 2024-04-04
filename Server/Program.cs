@@ -1,5 +1,6 @@
 using Server;
 using MySql.Data.MySqlClient;
+using Microsoft.AspNetCore.Mvc;
 
 State state = new State(new("server=localhost;uid=root;pwd=Dunder123!1;database=MockBids;port=3306"));
 
@@ -20,9 +21,15 @@ builder.Services.AddSingleton(state);
 var app = builder.Build();
 
 app.MapGet("/auctions", Auctions.All);
-
 app.MapGet("/bids", Bids.GetAllBids);
-app.MapGet("/bids/{user}", Bids.GetAllBidsUser);
+app.MapGet("/bids/user/{user}", Bids.GetAllBidsUser);
+app.MapGet("/bids/auction/{auction}", Bids.GetAllBidsAuction);
+app.MapGet("/bids/auction/{auction}/user/{user}", Bids.GetAllBidsUserAuction);
+
+
+
+
 
 app.Run();
 public record State(MySqlConnection DB);
+
