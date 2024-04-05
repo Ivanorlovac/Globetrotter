@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 
 
-State state = new State(new("server=localhost;uid=root;pwd=mypassword;database=Globetrotter;port=3306"));
+State state = new State(new("server=localhost;uid=root;pwd=Dunder123!1;database=Globetrotter;port=3306"));
 
 try
 {
@@ -64,8 +64,18 @@ app.MapGet("/bids", Bids.GetAllBids);
 app.MapGet("/bids/user/{user}", Bids.GetAllBidsUser);
 app.MapGet("/bids/auction/{auction}", Bids.GetAllBidsAuction);
 app.MapGet("/bids/auction/{auction}/user/{user}", Bids.GetAllBidsUserAuction);
-
-
+app.MapPost("/bids", (State state, Bids.Bid newBid) =>
+{
+  var success = Bids.CreateBid(state, newBid);
+  if (success)
+  {
+    return Results.Created($"/bids/{newBid.id}", newBid);
+  }
+  else
+  {
+    return Results.BadRequest("Failed to create the bid.");
+  }
+});
 
 
 
