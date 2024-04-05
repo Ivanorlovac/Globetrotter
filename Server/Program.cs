@@ -1,7 +1,7 @@
 using Server;
 using MySql.Data.MySqlClient;
 
-State state = new State(new("server=localhost;uid=root;pwd=Dunder123!1;database=MockBids;port=3306"));
+State state = new State(new("server=localhost;uid=root;pwd=mypassword;database=Globetrotter;"));
 
 try
 {
@@ -14,7 +14,7 @@ catch (Exception e)
 }
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddAuthentication().AddCookie("opa23.teachers.foodcourt");
+builder.Services.AddAuthentication().AddCookie("opa23.group5.globetrotter");
 builder.Services.AddAuthorizationBuilder().AddPolicy("admin_route", policy => policy.RequireRole("admin"));
 builder.Services.AddSingleton(state);
 var app = builder.Build();
