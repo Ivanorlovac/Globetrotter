@@ -113,9 +113,6 @@ const SkapaAuktion = () => {
             <option value="spa">Spa</option>
           </select>
         </div>
-
-      
-
         <button type="submit" className="btn btn-primary">Skapa Auktion</button>
       </form>
     </div>
