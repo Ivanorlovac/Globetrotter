@@ -78,8 +78,6 @@ app.MapPost("/bids", (State state, Bids.Bid newBid) =>
   }
 });
 
-
-
 app.MapGet("/favorites", Favorites.GetAllFavorites);
 app.MapGet("/favorites/{user}", Favorites.GetAllFavoritesUser);
 app.MapDelete("/favorites/{favoriteId}", (int favoriteId, State state) =>
