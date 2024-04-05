@@ -1,10 +1,11 @@
 using Server;
 using MySql.Data.MySqlClient;
+using Microsoft.AspNetCore.Mvc;
 using ServerFavorites;
 
 
 
-State state = new State(new("server=localhost;uid=root;pwd=mypassword;database=Globetrotter;port=3306"));
+State state = new State(new("server=localhost;uid=root;pwd=mypassword!1;database=Globetrotter;port=3306"));
 
 try
 {
@@ -60,13 +61,24 @@ app.MapPost("/auctions", (State state, Auctions.Auction newAuction) =>
   }
 });
 
-
-
-
-
-
 app.MapGet("/bids", Bids.GetAllBids);
-app.MapGet("/bids/{user}", Bids.GetAllBidsUser);
+app.MapGet("/bids/user/{user}", Bids.GetAllBidsUser);
+app.MapGet("/bids/auction/{auction}", Bids.GetAllBidsAuction);
+app.MapGet("/bids/auction/{auction}/user/{user}", Bids.GetAllBidsUserAuction);
+app.MapPost("/bids", (State state, Bids.Bid newBid) =>
+{
+  var success = Bids.CreateBid(state, newBid);
+  if (success)
+  {
+    return Results.Created($"/bids/{newBid.id}", newBid);
+  }
+  else
+  {
+    return Results.BadRequest("Failed to create the bid.");
+  }
+});
+
+
 
 app.MapGet("/favorites", Favorites.GetAllFavorites);
 app.MapGet("/favorites/{user}", Favorites.GetAllFavoritesUser);
@@ -96,3 +108,4 @@ app.MapPost("/favorites", (State state, Favorites.Favorite NewFavorite) =>
 
 app.Run();
 public record State(MySqlConnection DB);
+
