@@ -75,7 +75,30 @@ public class Auctions
     Console.WriteLine($"An error occurred: {ex.Message}");
     return false;
   }
+}
+public static bool CreateAuction(State state, Auction newAuction)
+{
+  try
+  {
+    using var cmd = new MySqlCommand("insert into Auctions (title, slug, description, valuationPrice, priceRange, images, endTime, category, company) values (@title, @slug, @description, @valuationPrice, @priceRange, @images, @endTime, @category, @company)", state.DB);
+    cmd.Parameters.AddWithValue("@title", newAuction.title);
+    cmd.Parameters.AddWithValue("@slug", newAuction.slug);
+    cmd.Parameters.AddWithValue("@description", newAuction.description);
+    cmd.Parameters.AddWithValue("@valuationPrice", newAuction.valuationPrice);
+    cmd.Parameters.AddWithValue("@priceRange", newAuction.priceRange);
+    cmd.Parameters.AddWithValue("@images", newAuction.images);
+    cmd.Parameters.AddWithValue("@endTime", newAuction.endTime);
+    cmd.Parameters.AddWithValue("@category", newAuction.category);
+    cmd.Parameters.AddWithValue("@company", newAuction.company);
 
+    var affectedRows = cmd.ExecuteNonQuery();
+    return affectedRows > 0;
+  }
+  catch (Exception ex)
+  {
+    Console.WriteLine($"An error occurred: {ex.Message}");
+    return false;
+  }
 }
 }
 

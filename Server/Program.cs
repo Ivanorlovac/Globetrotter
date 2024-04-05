@@ -23,7 +23,7 @@ var app = builder.Build();
 
 app.MapGet("/auctions", Auctions.GetAllAuctions);
 app.MapGet("/auctions/{Id}", Auctions.GetAllAuctionById);
-app.MapDelete("/auctions/{id}", async (int id, State state) =>
+app.MapDelete("/auctions/{id}",  (int id, State state) =>
 {
   if (Auctions.DeleteAuction(state, id))
   {
@@ -34,7 +34,7 @@ app.MapDelete("/auctions/{id}", async (int id, State state) =>
     return Results.BadRequest("Failed to delete the auction.");
   }
 });
-app.MapPut("/auctions/{id}", async (int id, State state, Auctions.Auction auction) =>
+app.MapPut("/auctions/{id}",  (int id, State state, Auctions.Auction auction) =>
 {
   auction = auction with { id = id }; 
   if (Auctions.UpdateAuction(state, auction))
@@ -44,6 +44,18 @@ app.MapPut("/auctions/{id}", async (int id, State state, Auctions.Auction auctio
   else
   {
     return Results.BadRequest("Failed to update the auction.");
+  }
+});
+app.MapPost("/auctions", (State state, Auctions.Auction newAuction) =>
+{
+  var success = Auctions.CreateAuction(state, newAuction);
+  if (success)
+  {
+    return Results.Created($"/auctions/{newAuction.id}", newAuction);
+  }
+  else
+  {
+    return Results.BadRequest("Failed to create the auction.");
   }
 });
 
