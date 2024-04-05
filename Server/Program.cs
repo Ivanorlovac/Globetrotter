@@ -20,7 +20,6 @@ builder.Services.AddAuthorizationBuilder().AddPolicy("admin_route", policy => po
 builder.Services.AddSingleton(state);
 var app = builder.Build();
 
-app.MapGet("/auctions", Auctions.All);
 
 app.MapGet("/bids", Bids.GetAllBids);
 app.MapGet("/bids/user/{user}", Bids.GetAllBidsUser);
