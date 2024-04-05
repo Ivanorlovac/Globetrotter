@@ -70,6 +70,29 @@ app.MapGet("/bids/{user}", Bids.GetAllBidsUser);
 
 app.MapGet("/favorites", Favorites.GetAllFavorites);
 app.MapGet("/favorites/{user}", Favorites.GetAllFavoritesUser);
+app.MapDelete("/favorites/{favoriteId}", (int favoriteId, State state) =>
+{
+  if (Favorites.RemoveOneFavoriteFromDatabase(state, favoriteId))
+  {
+    return Results.Ok("Favorite removed successfully.");
+  }
+  else
+  {
+    return Results.BadRequest("Failed to remove favorite.");
+  }
+});
+app.MapPost("/favorites", (State state, Favorites.Favorite NewFavorite) =>
+{
+  var success = Favorites.AddNewFavorite(state, NewFavorite);
+  if (success)
+  {
+    return Results.Created($"/favorites/{NewFavorite.id}", NewFavorite);
+  }
+  else
+  {
+    return Results.BadRequest("Failed to create the auction.");
+  }
+});
 
 app.Run();
 public record State(MySqlConnection DB);

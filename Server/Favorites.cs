@@ -32,21 +32,41 @@ public class Favorites
         return result;
     }
 
-    public static void RemoveOneFavoriteFromDatabase(State state, int favoriteId)
+    public static bool RemoveOneFavoriteFromDatabase(State state, int favoriteId)
     {
-        MySqlCommand cmd = new("DELETE FROM Favorites WHERE id = @favoriteId", state.DB);
-        cmd.Parameters.AddWithValue("@favoriteId", favoriteId);
+        try
+        {
+            MySqlCommand cmd = new("DELETE FROM Favorites WHERE id = @favoriteId", state.DB);
+            cmd.Parameters.AddWithValue("@favoriteId", favoriteId);
 
-        cmd.ExecuteNonQuery();
+            var affectedRows = cmd.ExecuteNonQuery();
+            return affectedRows > 0;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+            return false;
+        }
+
     }
 
-    public static void AddNewFavorite(State state, int userId, int auctionId)
-    {
-        MySqlCommand cmd = new("INSERT INTO Favorites (userId, auctionId) VALUES (@userId, @auctionId)", state.DB);
-        cmd.Parameters.AddWithValue("@userId", userId);
-        cmd.Parameters.AddWithValue("@auctionId", auctionId);
 
-        cmd.ExecuteNonQuery();
+    public static bool AddNewFavorite(State state, Favorite NewFavorite)
+    {
+        try
+        {
+            MySqlCommand cmd = new("INSERT INTO Favorites (userId, auctionId) VALUES (@userId, @auctionId)", state.DB);
+            cmd.Parameters.AddWithValue("@userId", NewFavorite.userId);
+            cmd.Parameters.AddWithValue("@auctionId", NewFavorite.auctionId);
+
+            var affectedRows = cmd.ExecuteNonQuery();
+            return affectedRows > 0;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"An error occurred: {ex.Message}");
+            return false;
+        }
     }
 
 
