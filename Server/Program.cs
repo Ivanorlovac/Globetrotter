@@ -2,10 +2,12 @@ using Server;
 using MySql.Data.MySqlClient;
 using Microsoft.AspNetCore.Mvc;
 using ServerFavorites;
+using Org.BouncyCastle.Crypto.Prng;
+using MySqlX.XDevAPI.Common;
 
 
 
-State state = new State(new("server=localhost;uid=root;pwd=mypassword!1;database=Globetrotter;port=3306"));
+State state = new State(new("server=localhost;uid=root;pwd=mypassword;database=Globetrotter;port=3306"));
 
 try
 {
@@ -105,6 +107,22 @@ app.MapPost("/favorites", (State state, Favorites.Favorite NewFavorite) =>
     return Results.BadRequest("Failed to create the auction.");
   }
 });
+
+
+
+app.MapPost("/contact", (State state, Contacts.Contact newContact) =>
+{
+  var success = Contacts.AddNewContact(state, newContact);
+  if (success)
+  {
+    return Results.Created($"/contact/{newContact.id}", newContact);
+  }
+  else
+  {
+    return Results.BadRequest("Failed to create new contact formular.");
+  }
+});
+
 
 app.Run();
 public record State(MySqlConnection DB);
