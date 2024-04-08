@@ -109,6 +109,18 @@ app.MapPost("/favorites", (State state, Favorites.Favorite NewFavorite) =>
 });
 
 
+app.MapDelete("/contact/{id}", (State state, int id) =>
+{
+  if (Contacts.DeleteContact(state, id))
+  {
+    return Results.Ok("Contact formula removed succeddfully.");
+  }
+  else
+  {
+    return Results.BadRequest("Failed to remove contact formula.");
+  }
+});
+
 
 app.MapGet("/contact", Contacts.GetAllContacts);
 

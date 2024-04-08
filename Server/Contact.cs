@@ -1,4 +1,5 @@
 using MySql.Data.MySqlClient;
+using Mysqlx.Crud;
 namespace Server;
 
 
@@ -18,6 +19,24 @@ public class Contacts
     }
 
     return result;
+  }
+
+
+  public static bool DeleteContact(State state, int id)
+  {
+    try
+    {
+      MySqlCommand cmd = new("Delete FROM Contacts WHERE id = @id", state.DB);
+      cmd.Parameters.AddWithValue("@id", id);
+
+      var affectedRows = cmd.ExecuteNonQuery();
+      return affectedRows > 0;
+    }
+    catch (Exception ex)
+    {
+      Console.WriteLine($"An error occured: {ex.Message}");
+      return false;
+    }
   }
 
   public static bool AddNewContact(State state, Contact newContact)
