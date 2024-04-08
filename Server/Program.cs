@@ -110,6 +110,9 @@ app.MapPost("/favorites", (State state, Favorites.Favorite NewFavorite) =>
 
 
 
+app.MapGet("/contact", Contacts.GetAllContacts);
+
+
 app.MapPost("/contact", (State state, Contacts.Contact newContact) =>
 {
   var success = Contacts.AddNewContact(state, newContact);
@@ -122,6 +125,8 @@ app.MapPost("/contact", (State state, Contacts.Contact newContact) =>
     return Results.BadRequest("Failed to create new contact formular.");
   }
 });
+
+
 
 
 app.Run();
