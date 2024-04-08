@@ -2,7 +2,8 @@ using Server;
 using MySql.Data.MySqlClient;
 using Microsoft.AspNetCore.Mvc;
 using ServerFavorites;
-
+using Org.BouncyCastle.Crypto.Prng;
+using MySqlX.XDevAPI.Common;
 
 
 
@@ -19,7 +20,7 @@ catch (Exception e)
 }
 
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddAuthentication().AddCookie("opa23.teachers.foodcourt");
+builder.Services.AddAuthentication().AddCookie("opa23.group5.globetrotter");
 builder.Services.AddAuthorizationBuilder().AddPolicy("admin_route", policy => policy.RequireRole("admin"));
 builder.Services.AddSingleton(state);
 var app = builder.Build();
@@ -154,6 +155,39 @@ app.MapPost("/users", async (State state, Users.User user) =>
     return Results.BadRequest("Failed to create the user.");
   }
 });
+
+
+
+app.MapDelete("/contact/{id}", (State state, int id) =>
+{
+  if (Contacts.DeleteContact(state, id))
+  {
+    return Results.Ok("Contact formula removed succeddfully.");
+  }
+  else
+  {
+    return Results.BadRequest("Failed to remove contact formula.");
+  }
+});
+
+
+app.MapGet("/contact", Contacts.GetAllContacts);
+
+
+app.MapPost("/contact", (State state, Contacts.Contact newContact) =>
+{
+  var success = Contacts.AddNewContact(state, newContact);
+  if (success)
+  {
+    return Results.Created($"/contact/{newContact.id}", newContact);
+  }
+  else
+  {
+    return Results.BadRequest("Failed to create new contact formular.");
+  }
+});
+
+
 
 
 app.Run();
