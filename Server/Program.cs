@@ -108,6 +108,55 @@ app.MapPost("/favorites", (State state, Favorites.Favorite NewFavorite) =>
   }
 });
 
+app.MapGet("/users", Users.GetAllUsers);
+app.MapGet("/users/{id}", Users.GetAllUsersById);
+app.MapDelete("/users/{id}", (int id, State state) =>
+{
+  if (Users.DeleteUser(state, id))
+  {
+    return Results.Ok("User deleted successfully.");
+  }
+  else
+  {
+    return Results.BadRequest("Failed to delete the user.");
+  }
+});
+app.MapPut("/users/{id}", (int id, State state, Users.User user) =>
+{
+  user = user with { id = id };
+  if (Users.UpdateUser(state, user))
+  {
+    return Results.Ok("User updated successfully.");
+  }
+  else
+  {
+    return Results.BadRequest("Failed to update the user.");
+  }
+});
+app.MapPost("/users", async (State state, Users.User user) =>
+{
+  
+  if (string.IsNullOrWhiteSpace(user.username))
+  {
+    return Results.BadRequest("Username is required.");
+  }
+ 
+  
+  
+
+  var success = await Users.CreateUserAsync(state, user); 
+  if (success)
+  {
+    
+    return Results.Created($"/users/{user.id}", new { user.id, user.username, user.password, user.role, user.name, user.company });
+  }
+  else
+  {
+    return Results.BadRequest("Failed to create the user.");
+  }
+});
+
+
 
 app.MapDelete("/contact/{id}", (State state, int id) =>
 {
