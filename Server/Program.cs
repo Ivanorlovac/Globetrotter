@@ -1,12 +1,11 @@
 using Server;
 using MySql.Data.MySqlClient;
-using Microsoft.AspNetCore.Mvc;
 using ServerFavorites;
+using App.TimerHostedService;
 
 
 
-
-State state = new State(new("server=localhost;uid=root;pwd=mypassword;database=Globetrotter;port=3306"));
+State state = new State(new("server=localhost;uid=root;pwd=Dunder123!1;database=Globetrotter;port=3306"));
 
 try
 {
@@ -22,6 +21,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication().AddCookie("opa23.teachers.foodcourt");
 builder.Services.AddAuthorizationBuilder().AddPolicy("admin_route", policy => policy.RequireRole("admin"));
 builder.Services.AddSingleton(state);
+builder.Services.AddHostedService<TimerService>();
+
 var app = builder.Build();
 
 app.MapGet("/auctions", Auctions.GetAllAuctions);
@@ -152,6 +153,9 @@ app.MapPost("/users", async (State state, Users.User user) =>
     return Results.BadRequest("Failed to create the user.");
   }
 });
+
+
+
 
 
 app.Run();
