@@ -154,7 +154,7 @@ app.MapPost("/users", async (State state, Users.User user) =>
   }
 });
 
-
+app.MapGet("/closed-auctions", ClosedAuctions.GetAllClosedAuctions);
 
 
 
