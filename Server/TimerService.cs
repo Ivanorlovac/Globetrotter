@@ -11,20 +11,34 @@ namespace App.TimerHostedService;
 public sealed class TimerService : IHostedService, IAsyncDisposable
 {
     private readonly ILogger<TimerService> _logger;
-    private readonly State _state;
+    private readonly State _state = new State(new ("server=localhost;uid=root;pwd=Dunder123!1;database=Globetrotter;port=3306"));
+    private readonly State _state1 = new State(new("server=localhost;uid=root;pwd=Dunder123!1;database=Globetrotter;port=3306"));
+
     private readonly Task _completedTask = Task.CompletedTask;
     private Timer? _timer;
     public record ClosedAuction(int? auctionId = null, int? userId = null, int? amount = null);
 
+    public record State(MySqlConnection DB);
 
-    public TimerService(ILogger<TimerService> logger, State state)
+    public TimerService(ILogger<TimerService> logger)
     {
         _logger = logger;
-        _state = state;
     }
 
     public Task StartAsync(CancellationToken stoppingToken)
     {
+        try
+        {
+            _state.DB.Open();
+            _state1.DB.Open();
+
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+
         _logger.LogInformation("{Service} is running.", nameof(TimerService));
         _timer = new Timer(DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(2));
 
@@ -79,16 +93,13 @@ public sealed class TimerService : IHostedService, IAsyncDisposable
     {
         try
         {
-            using var connection = new MySqlConnection("server=localhost;uid=root;pwd=mypassword;database=Globetrotter;port=3306");
-            connection.Open();
 
-            using var cmd = new MySqlCommand("insert into ClosedAuctions (auctionId, winner, amount) values (@auctionId, @winner, @amount)", connection);
+            using var cmd = new MySqlCommand("insert into ClosedAuctions (auctionId, winner, amount) values (@auctionId, @winner, @amount)", _state1.DB);
             cmd.Parameters.AddWithValue("@auctionId", newClosedAuction.auctionId);
             cmd.Parameters.AddWithValue("@winner", newClosedAuction.userId);
             cmd.Parameters.AddWithValue("@amount", newClosedAuction.amount);
             cmd.ExecuteNonQuery();
             Console.WriteLine("Auction " + newClosedAuction.auctionId + " have successfully been moved to ClosedAuctions"); 
-            connection.Close();
         }
         catch (Exception ex)
         {

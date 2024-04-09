@@ -17,7 +17,7 @@ public class Bids
         return result;
     }
 
-    public static List<Bid> GetAllBidsUser(State state, string user)
+    public static List<Bid> GetAllBidsUser(string user, State state)
     {
         List<Bid> result = new();
         MySqlCommand cmd = new("select * from Bids where userId = @user", state.DB);
@@ -32,7 +32,7 @@ public class Bids
         return result;
     }
 
-    public static List<Bid> GetAllBidsAuction(State state, HttpContext context, string auction)
+    public static List<Bid> GetAllBidsAuction(HttpContext context, string auction, State state)
     {
         List<Bid> result = new();
         MySqlCommand cmd = new("select * from Bids where auctionId = @auction", state.DB);
@@ -46,7 +46,7 @@ public class Bids
         return result;
     }
 
-    public static List<Bid> GetAllBidsUserAuction(State state, string user, string auction)
+    public static List<Bid> GetAllBidsUserAuction(string user, string auction, State state)
     {
         List<Bid> result = new();
         MySqlCommand cmd = new("select * from Bids where userId = @user AND auctionId = @auction", state.DB);
@@ -62,23 +62,14 @@ public class Bids
         return result;
     }
 
-    public static bool CreateBid(State state, Bid newBid)
+    public static bool CreateBid(Bid newBid, State state )
     {
-        try
-        {
-            using var cmd = new MySqlCommand("insert into Bids (auctionId, userId, amount, time) values (@auctionId, @userId, @amount, @time)", state.DB);
-            cmd.Parameters.AddWithValue("@auctionId", newBid.auctionId);
-            cmd.Parameters.AddWithValue("@userId", newBid.userId);
-            cmd.Parameters.AddWithValue("@amount", newBid.amount);
-            cmd.Parameters.AddWithValue("@time", newBid.time);
-            var affectedRows = cmd.ExecuteNonQuery();
-            return affectedRows > 0;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"An error occurred: {ex.Message}");
-            return false;
-        }
+        using var cmd = new MySqlCommand("insert into Bids (auctionId, userId, amount, time) values (@auctionId, @userId, @amount, @time)", state.DB);
+        cmd.Parameters.AddWithValue("@auctionId", newBid.auctionId);
+        cmd.Parameters.AddWithValue("@userId", newBid.userId);
+        cmd.Parameters.AddWithValue("@amount", newBid.amount);
+        cmd.Parameters.AddWithValue("@time", newBid.time);
+        var affectedRows = cmd.ExecuteNonQuery();
+        return affectedRows > 0;
     }
-
 }
