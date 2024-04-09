@@ -7,17 +7,7 @@ using MySqlX.XDevAPI.Common;
 
 
 
-State state = new State(new("server=localhost;uid=root;pwd=Dunder123!1;database=Globetrotter;port=3306"));
-
-try
-{
-  state.DB.Open();
-}
-catch (Exception e)
-{
-  Console.WriteLine(e);
-  throw;
-}
+State state = new State("server=localhost;uid=root;pwd=Dunder123!1;database=Globetrotter;port=3306");
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication().AddCookie("opa23.group5.globetrotter");
@@ -69,18 +59,7 @@ app.MapGet("/bids", Bids.GetAllBids);
 app.MapGet("/bids/user/{user}", Bids.GetAllBidsUser);
 app.MapGet("/bids/auction/{auction}", Bids.GetAllBidsAuction);
 app.MapGet("/bids/auction/{auction}/user/{user}", Bids.GetAllBidsUserAuction);
-app.MapPost("/bids", (State state, Bids.Bid newBid) =>
-{
-  var success = Bids.CreateBid(newBid, state);
-  if (success)
-  {
-    return Results.Created($"/bids/{newBid.id}", newBid);
-  }
-  else
-  {
-    return Results.BadRequest("Failed to create the bid.");
-  }
-});
+app.MapPost("/bids", Bids.CreateBid);
 
 app.MapGet("/favorites", Favorites.GetAllFavorites);
 app.MapGet("/favorites/{user}", Favorites.GetAllFavoritesUser);
@@ -158,9 +137,6 @@ app.MapPost("/users", async (State state, Users.User user) =>
 
 app.MapGet("/closed-auctions", ClosedAuctions.GetAllClosedAuctions);
 
-
-
-
 app.MapDelete("/contact/{id}", (State state, int id) =>
 {
   if (Contacts.DeleteContact(state, id))
@@ -172,11 +148,7 @@ app.MapDelete("/contact/{id}", (State state, int id) =>
     return Results.BadRequest("Failed to remove contact formula.");
   }
 });
-
-
 app.MapGet("/contact", Contacts.GetAllContacts);
-
-
 app.MapPost("/contact", (State state, Contacts.Contact newContact) =>
 {
   var success = Contacts.AddNewContact(state, newContact);
@@ -194,5 +166,5 @@ app.MapPost("/contact", (State state, Contacts.Contact newContact) =>
 
 
 app.Run();
-public record State(MySqlConnection DB);
+public record State(string DB);
 

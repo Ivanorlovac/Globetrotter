@@ -7,8 +7,7 @@ public class Bids
     public static List<Bid> GetAllBids(State state)
     {
         List<Bid> result = new();
-        MySqlCommand cmd = new("select * from Bids", state.DB);
-        using var reader = cmd.ExecuteReader();
+        var reader = MySqlHelper.ExecuteReader(state.DB, "select * from Bids");
         while (reader.Read())
         {
             result.Add(new(reader.GetInt32("id"), reader.GetInt32("auctionId"), reader.GetInt32("userId"), reader.GetInt32("amount"), reader.GetDateTime("time")));
@@ -20,10 +19,8 @@ public class Bids
     public static List<Bid> GetAllBidsUser(string user, State state)
     {
         List<Bid> result = new();
-        MySqlCommand cmd = new("select * from Bids where userId = @user", state.DB);
-        cmd.Parameters.AddWithValue("@user", user);
 
-        using var reader = cmd.ExecuteReader();
+        var reader = MySqlHelper.ExecuteReader(state.DB, "select * from Bids where userId = @user", [new("@user", user)]);
         while (reader.Read())
         {
             result.Add(new(reader.GetInt32("id"), reader.GetInt32("auctionId"), reader.GetInt32("userId"), reader.GetInt32("amount"), reader.GetDateTime("time")));
@@ -35,10 +32,7 @@ public class Bids
     public static List<Bid> GetAllBidsAuction(HttpContext context, string auction, State state)
     {
         List<Bid> result = new();
-        MySqlCommand cmd = new("select * from Bids where auctionId = @auction", state.DB);
-        cmd.Parameters.AddWithValue("@auction", auction);
-
-        using var reader = cmd.ExecuteReader();
+        var reader = MySqlHelper.ExecuteReader(state.DB, "select * from Bids where auctionId = @auction", [new("@auction", auction)]);
         while (reader.Read())
         {
             result.Add(new(reader.GetInt32("id"), reader.GetInt32("auctionId"), reader.GetInt32("userId"), reader.GetInt32("amount"), reader.GetDateTime("time")));
@@ -49,27 +43,25 @@ public class Bids
     public static List<Bid> GetAllBidsUserAuction(string user, string auction, State state)
     {
         List<Bid> result = new();
-        MySqlCommand cmd = new("select * from Bids where userId = @user AND auctionId = @auction", state.DB);
-        cmd.Parameters.AddWithValue("@user", user);
-        cmd.Parameters.AddWithValue("@auction", auction);
 
-        using var reader = cmd.ExecuteReader();
+        var reader = MySqlHelper.ExecuteReader(state.DB, "select * from Bids where userId = @user AND auctionId = @auction", [new("@user", user), new("@auction", auction)]);
         while (reader.Read())
         {
             result.Add(new(reader.GetInt32("id"), reader.GetInt32("auctionId"), reader.GetInt32("userId"), reader.GetInt32("amount"), reader.GetDateTime("time")));
         }
-
         return result;
     }
 
-    public static bool CreateBid(Bid newBid, State state )
+    public static IResult CreateBid(Bid newBid, State state )
     {
-        using var cmd = new MySqlCommand("insert into Bids (auctionId, userId, amount, time) values (@auctionId, @userId, @amount, @time)", state.DB);
-        cmd.Parameters.AddWithValue("@auctionId", newBid.auctionId);
-        cmd.Parameters.AddWithValue("@userId", newBid.userId);
-        cmd.Parameters.AddWithValue("@amount", newBid.amount);
-        cmd.Parameters.AddWithValue("@time", newBid.time);
-        var affectedRows = cmd.ExecuteNonQuery();
-        return affectedRows > 0;
+        var result = MySqlHelper.ExecuteNonQuery(state.DB,
+         "insert into Bids (auctionId, userId, amount, time) values (@auctionId, @userId, @amount, @time)",
+         [new("@auctionId", newBid.auctionId), new("@userId", newBid.userId), new("@amount", newBid.amount), new("@time", newBid.time)]);
+
+        if(result == 0)
+        {
+            return TypedResults.Ok("Bid successfully created");
+        }
+        return TypedResults.Problem();
     }
 }
