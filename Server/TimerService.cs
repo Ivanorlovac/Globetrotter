@@ -14,7 +14,7 @@ public sealed class TimerService : IHostedService, IAsyncDisposable
     private readonly State _state;
     private readonly Task _completedTask = Task.CompletedTask;
     private Timer? _timer;
-    public record ClosedAuction(int auctionId, int userId, int amount);
+    public record ClosedAuction(int? auctionId = null, int? userId = null, int? amount = null);
 
 
     public TimerService(ILogger<TimerService> logger, State state)
@@ -38,33 +38,42 @@ public sealed class TimerService : IHostedService, IAsyncDisposable
         {
             timezoneCmd.ExecuteNonQuery();
         }
-        string query = @"SELECT a.id AS auctionId, a.endTime, b.id AS bidId, b.amount AS maxAmount, b.userId FROM Auctions a
-                            LEFT JOIN ClosedAuctions ca ON a.id = ca.auctionId
-                            LEFT JOIN Bids b ON a.id = b.auctionId
-                            INNER JOIN (
+        
+        string query = @"SELECT a.id AS auctionId, a.endTime, a.valuationPrice, a.priceRange, b.id AS bidId, maxBid.highestBid, b.userId FROM Auctions a
+                            LEFT JOIN (
                                 SELECT
                                     auctionId,
-                                    MAX(amount) AS maxAmount
+                                    MAX(amount) AS highestBid
                                 FROM
                                     Bids
                                 GROUP BY
                                     auctionId
-                            ) mb ON b.auctionId = mb.auctionId AND b.amount = mb.maxAmount
-                        WHERE
-                            a.endTime < Now()
-                            AND ca.auctionId IS NULL
-                        GROUP BY
-                            a.id, b.id, b.amount, b.userId;";
+                            ) maxBid ON a.id = maxBid.auctionId
+                            LEFT JOIN Bids b ON a.id = b.auctionId AND b.amount = maxBid.highestBid
+                            LEFT JOIN ClosedAuctions ca ON a.id = ca.auctionId
+                            WHERE
+                            a.endTime < NOW()
+                            AND ca.auctionId IS NULL;";
 
         MySqlCommand cmd = new(query, _state.DB);
-        using var reader = cmd.ExecuteReader();
-        //Console.WriteLine("Time now: " + DateTime.Now);
+        using var reader = cmd.ExecuteReader();         
         while (reader.Read())
         {
             Console.WriteLine("auctionId: " + reader.GetInt32("auctionId") + " have expired");
-            CreateClosedAuction(new ClosedAuction(reader.GetInt32("auctionId"), reader.GetInt32("userId"), reader.GetInt32("maxAmount")));
+            try
+            {
+                if (reader.GetInt32("valuationPrice") - reader.GetInt32("priceRange") < reader.GetInt32("highestBid"))
+                {
+                    Console.WriteLine("ID: " + reader.GetInt32("auctionId") + " Bud: " + reader.GetInt32("highestBid"));
+                    CreateClosedAuction(new ClosedAuction(reader.GetInt32("auctionId"), reader.GetInt32("userId"), reader.GetInt32("highestBid")));
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Auktion id: " + reader.GetInt32("auctionId") + " har inget bud");
+                CreateClosedAuction(new ClosedAuction(reader.GetInt32("auctionId"), null, null));
+            }
         }
-
     }
     public void CreateClosedAuction(ClosedAuction newClosedAuction)
     {
@@ -78,7 +87,8 @@ public sealed class TimerService : IHostedService, IAsyncDisposable
             cmd.Parameters.AddWithValue("@winner", newClosedAuction.userId);
             cmd.Parameters.AddWithValue("@amount", newClosedAuction.amount);
             cmd.ExecuteNonQuery();
-            Console.WriteLine("Auction " + newClosedAuction.auctionId + " have successfully been moved to ClosedAuctions");
+            Console.WriteLine("Auction " + newClosedAuction.auctionId + " have successfully been moved to ClosedAuctions"); 
+            connection.Close();
         }
         catch (Exception ex)
         {
