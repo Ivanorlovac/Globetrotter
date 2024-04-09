@@ -70,7 +70,7 @@ public sealed class TimerService : IHostedService, IAsyncDisposable
             }
             catch
             {
-                Console.WriteLine("Auktion id: " + reader.GetInt32("auctionId") + " har inget bud");
+                Console.WriteLine("Auction id: " + reader.GetInt32("auctionId") + " have no bids");
                 CreateClosedAuction(new ClosedAuction(reader.GetInt32("auctionId"), null, null));
             }
         }
@@ -79,7 +79,7 @@ public sealed class TimerService : IHostedService, IAsyncDisposable
     {
         try
         {
-            using var connection = new MySqlConnection("server=localhost;uid=root;pwd=Dunder123!1;database=Globetrotter;port=3306");
+            using var connection = new MySqlConnection("server=localhost;uid=root;pwd=mypassword;database=Globetrotter;port=3306");
             connection.Open();
 
             using var cmd = new MySqlCommand("insert into ClosedAuctions (auctionId, winner, amount) values (@auctionId, @winner, @amount)", connection);

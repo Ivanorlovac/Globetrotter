@@ -5,7 +5,7 @@ using App.TimerHostedService;
 
 
 
-State state = new State(new("server=localhost;uid=root;pwd=Dunder123!1;database=Globetrotter;port=3306"));
+State state = new State(new("server=localhost;uid=root;pwd=mypassword;database=Globetrotter;port=3306"));
 
 try
 {
