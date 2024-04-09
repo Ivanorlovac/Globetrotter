@@ -26,41 +26,9 @@ var app = builder.Build();
 
 app.MapGet("/auctions", Auctions.GetAllAuctions);
 app.MapGet("/auctions/{Id}", Auctions.GetAllAuctionById);
-app.MapDelete("/auctions/{id}",  (int id, State state) =>
-{
-  if (Auctions.DeleteAuction(state, id))
-  {
-    return Results.Ok("Auction deleted successfully.");
-  }
-  else
-  {
-    return Results.BadRequest("Failed to delete the auction.");
-  }
-});
-app.MapPut("/auctions/{id}",  (int id, State state, Auctions.Auction auction) =>
-{
-  auction = auction with { id = id }; 
-  if (Auctions.UpdateAuction(state, auction))
-  {
-    return Results.Ok("Auction updated successfully.");
-  }
-  else
-  {
-    return Results.BadRequest("Failed to update the auction.");
-  }
-});
-app.MapPost("/auctions", (State state, Auctions.Auction newAuction) =>
-{
-  var success = Auctions.CreateAuction(state, newAuction);
-  if (success)
-  {
-    return Results.Created($"/auctions/{newAuction.id}", newAuction);
-  }
-  else
-  {
-    return Results.BadRequest("Failed to create the auction.");
-  }
-});
+app.MapDelete("/auctions/{id}", Auctions.DeleteAuction);
+app.MapPut("/auctions/{id}",  Auctions.UpdateAuction);
+app.MapPost("/auctions", Auctions.CreateAuction);
 
 app.MapGet("/bids", Bids.GetAllBids);
 app.MapGet("/bids/user/{user}", Bids.GetAllBidsUser);
@@ -109,51 +77,10 @@ app.MapPost("/favorites", (State state, Favorites.Favorite NewFavorite) =>
 
 app.MapGet("/users", Users.GetAllUsers);
 app.MapGet("/users/{id}", Users.GetAllUsersById);
-app.MapDelete("/users/{id}", (int id, State state) =>
-{
-  if (Users.DeleteUser(state, id))
-  {
-    return Results.Ok("User deleted successfully.");
-  }
-  else
-  {
-    return Results.BadRequest("Failed to delete the user.");
-  }
-});
-app.MapPut("/users/{id}", (int id, State state, Users.User user) =>
-{
-  user = user with { id = id };
-  if (Users.UpdateUser(state, user))
-  {
-    return Results.Ok("User updated successfully.");
-  }
-  else
-  {
-    return Results.BadRequest("Failed to update the user.");
-  }
-});
-app.MapPost("/users", async (State state, Users.User user) =>
-{
-  
-  if (string.IsNullOrWhiteSpace(user.username))
-  {
-    return Results.BadRequest("Username is required.");
-  }
+app.MapDelete("/users/{id}",Users.DeleteUser);
+app.MapPut("/users/{id}", Users.UpdateUser);
+app.MapPost("/users", Users.CreateUser);
  
-  
-  
-
-  var success = await Users.CreateUserAsync(state, user); 
-  if (success)
-  {
-    
-    return Results.Created($"/users/{user.id}", new { user.id, user.username, user.password, user.role, user.name, user.company });
-  }
-  else
-  {
-    return Results.BadRequest("Failed to create the user.");
-  }
-});
 
 
 app.Run();

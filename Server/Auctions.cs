@@ -9,9 +9,9 @@ public class Auctions
   public static List<Auction> GetAllAuctions(State state)
   {
     List<Auction> result = new();
-    MySqlCommand cmd = new MySqlCommand("select * from Auctions ", state.DB);
-    using var reader = cmd.ExecuteReader();
+    var reader = MySqlHelper.ExecuteReader(state.DB, "select * from Auctions");
     while (reader.Read())
+  
     {
       result.Add(new(reader.GetInt32("id"), reader.GetString("title"), reader.GetString("slug"), reader.GetString("description"), reader.GetInt32("valuationPrice"), reader.GetInt32("priceRange"), reader.GetString("images"), reader.GetDateTime("endTime"), reader.GetInt32("category"), reader.GetInt32("company")));
     }
@@ -22,10 +22,7 @@ public class Auctions
   public static List<Auction> GetAllAuctionById(State state, string id)
   {
     List<Auction> result = new();
-    MySqlCommand cmd = new("select * from Auctions WHERE Id = @id", state.DB);
-    cmd.Parameters.AddWithValue("@id", id);
-
-    using var reader = cmd.ExecuteReader();
+    var reader = MySqlHelper.ExecuteReader(state.DB, "select * from Auctions where id = @id", new MySqlParameter("@id", id));
     while (reader.Read())
     {
       result.Add(new(reader.GetInt32("id"), reader.GetString("title"), reader.GetString("slug"), reader.GetString("description"), reader.GetInt32("valuationPrice"), reader.GetInt32("priceRange"), reader.GetString("images"), reader.GetDateTime("endTime"), reader.GetInt32("category"), reader.GetInt32("company")));
@@ -35,70 +32,75 @@ public class Auctions
 
   }
 
-  public static bool DeleteAuction(State state, int id)
+  public static IResult DeleteAuction(int id, State state)
   {
-    try
+    
+      var removed = MySqlHelper.ExecuteNonQuery(state.DB, "delete from Auctions where id = @id", [new ("@id", id)]);
+  if  (removed > 0)
+  {
+    return TypedResults.Ok("Auction deleted successfully.");
+  }
+  else
+  {
+    return TypedResults.BadRequest("Failed to delete the auction.");
+  }
+}
+  
+      
+    
+      
+      
+   
+
+  public static IResult UpdateAuction(Auction auction, State state)
+  {
+    var result = MySqlHelper.ExecuteScalar(state.DB, "update Auctions set title = @title, slug = @slug, description = @description, valuationPrice = @valuationPrice, priceRange = @priceRange, images = @images, endTime = @endTime, category = @category, company = @company where id = @id",
+    new ("@title", auction.title),
+    new ("@slug", auction.slug),
+    new ("@description", auction.description),
+    new ("@valuationPrice", auction.valuationPrice),
+    new ("@priceRange", auction.priceRange),
+    new ("@images", auction.images),
+    new ("@endTime", auction.endTime),
+    new ("@category", auction.category),
+    new ("@company", auction.company),
+    new ("@id", auction.id));
+    if (result != null)
     {
-      using var cmd = new MySqlCommand("delete from Auctions where id = @id", state.DB);
-      cmd.Parameters.AddWithValue("@id", id);
-      var affectedRows = cmd.ExecuteNonQuery();
-      return affectedRows > 0;
+      return TypedResults.Ok("Auction updated successfully.");
     }
-    catch (Exception ex)
+    else
     {
-      Console.WriteLine($"An error occurred: {ex.Message}");
-      return false;
+      return TypedResults.BadRequest("Failed to update the auction.");
     }
   }
 
-  public static bool UpdateAuction(State state, Auction auction)
+
+
+
+  public static IResult CreateAuction(Auction newAuction, State state)
   {
-    try
+    var result = MySqlHelper.ExecuteScalar(state.DB, "insert into Auctions (title, slug, description, valuationPrice, priceRange, images, endTime, category, company) values (@title, @slug, @description, @valuationPrice, @priceRange, @images, @endTime, @category, @company)",
+    [new ("@title", newAuction.title),
+  new ("@slug", newAuction.slug),
+  new ("@description", newAuction.description),
+  new ("@valuationPrice", newAuction.valuationPrice),
+  new ("@priceRange", newAuction.priceRange),
+  new ("@images", newAuction.images),
+  new ("@endTime", newAuction.endTime),
+  new ("@category", newAuction.category),
+  new ("@company", newAuction.company)]);
+
+    if (result == null)
     {
-    using var cmd = new MySqlCommand("update Auctions set title = @title, slug = @slug, description = @description, valuationPrice = @valuationPrice, priceRange = @priceRange, images = @images, endTime = @endTime, category = @category, company = @company where id = @id", state.DB);
-    cmd.Parameters.AddWithValue("@id", auction.id);
-    cmd.Parameters.AddWithValue("@title", auction.title);
-    cmd.Parameters.AddWithValue("@slug", auction.slug);
-    cmd.Parameters.AddWithValue("@description", auction.description);
-    cmd.Parameters.AddWithValue("@valuationPrice", auction.valuationPrice);
-    cmd.Parameters.AddWithValue("@priceRange", auction.priceRange);
-    cmd.Parameters.AddWithValue("@images", auction.images);
-    cmd.Parameters.AddWithValue("@endTime", auction.endTime);
-    cmd.Parameters.AddWithValue("@category", auction.category);
-    cmd.Parameters.AddWithValue("@company", auction.company);
+      return TypedResults.Created($"/auctions/{result}", new { id = result, newAuction.title, newAuction.slug, newAuction.description, newAuction.valuationPrice, newAuction.priceRange, newAuction.images, newAuction.endTime, newAuction.category, newAuction.company });
+    }
+    else
 
-    var affectedRows = cmd.ExecuteNonQuery();
-    return affectedRows > 0;
+ 
+    return TypedResults.BadRequest("Failed to create the auction.");
   }
-  catch (Exception ex)
-  {
-    Console.WriteLine($"An error occurred: {ex.Message}");
-    return false;
-  }
+ 
 }
-public static bool CreateAuction(State state, Auction newAuction)
-{
-  try
-  {
-    using var cmd = new MySqlCommand("insert into Auctions (title, slug, description, valuationPrice, priceRange, images, endTime, category, company) values (@title, @slug, @description, @valuationPrice, @priceRange, @images, @endTime, @category, @company)", state.DB);
-    cmd.Parameters.AddWithValue("@title", newAuction.title);
-    cmd.Parameters.AddWithValue("@slug", newAuction.slug);
-    cmd.Parameters.AddWithValue("@description", newAuction.description);
-    cmd.Parameters.AddWithValue("@valuationPrice", newAuction.valuationPrice);
-    cmd.Parameters.AddWithValue("@priceRange", newAuction.priceRange);
-    cmd.Parameters.AddWithValue("@images", newAuction.images);
-    cmd.Parameters.AddWithValue("@endTime", newAuction.endTime);
-    cmd.Parameters.AddWithValue("@category", newAuction.category);
-    cmd.Parameters.AddWithValue("@company", newAuction.company);
 
-    var affectedRows = cmd.ExecuteNonQuery();
-    return affectedRows > 0;
-  }
-  catch (Exception ex)
-  {
-    Console.WriteLine($"An error occurred: {ex.Message}");
-    return false;
-  }
-}
-}
 
