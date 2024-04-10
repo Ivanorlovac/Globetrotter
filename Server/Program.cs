@@ -1,8 +1,5 @@
 using Server;
-using MySql.Data.MySqlClient;
 using App.TimerHostedService;
-using Org.BouncyCastle.Crypto.Prng;
-using MySqlX.XDevAPI.Common;
 
 State state = new State("server=localhost;uid=root;pwd=Dunder123!1;database=Globetrotter;port=3306");
 
@@ -11,6 +8,18 @@ builder.Services.AddAuthentication().AddCookie("globetrotter");
 builder.Services.AddAuthorizationBuilder().AddPolicy("seller", policy => policy.RequireRole("seller")).AddPolicy("buyer", policy => policy.RequireRole("buyer"));
 builder.Services.AddSingleton(state);
 builder.Services.AddHostedService<TimerService>();
+
+var allowedOrigin = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
+
+builder.Services.AddCors(options =>
+{
+  options.AddPolicy("myAppCors", policy =>
+  {
+    policy.WithOrigins(allowedOrigin)
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+  });
+});
 
 var app = builder.Build();
 
@@ -23,7 +32,7 @@ app.MapPost("/auctions", Auctions.CreateAuction);
 app.MapGet("/bids", Bids.GetAllBids);
 app.MapGet("/bids/user/{user}", Bids.GetAllBidsUser).RequireAuthorization("buyer");
 app.MapGet("/bids/auction/{auction}", Bids.GetAllBidsAuction);
-app.MapGet("/bids/auction/{auction}/user/{user}", Bids.GetAllBidsUserAuction).RequireAuthorization("buyer");
+app.MapGet("/bids/auction/{auction}/user/{user}", Bids.GetAllBidsUserAuction);
 app.MapPost("/bids", Bids.CreateBid).RequireAuthorization("buyer");
 
 app.MapGet("/favorites/{user}", Favorites.GetAllFavoritesUser).RequireAuthorization("buyer");
@@ -46,6 +55,7 @@ app.MapGet("/contact/{id}", Contacts.GetContactById);
 app.MapDelete("/contact/{id}", Contacts.DeleteContactById);
 app.MapPost("/contact", Contacts.CreateContact);
 
-app.Run();
+app.UseCors("myAppCors");
+app.Run("http://localhost:3000");
 public record State(string DB);
 
