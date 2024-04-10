@@ -12,7 +12,7 @@ export default function TotalBids(props) {
 
     const interval = setInterval(() => {
       load()
-    },1000)
+    },10000)
 
     async function load() {
       let api = ''
