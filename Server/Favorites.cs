@@ -1,73 +1,56 @@
 using MySql.Data.MySqlClient;
-namespace ServerFavorites;
-using System.Text.Json;
+using Org.BouncyCastle.Bcpg;
+namespace Server;
 public class Favorites
 {
-    public record Favorite(int id, int userId, int auctionId);
-    public static List<Favorite> GetAllFavorites(State state)
+    public record Favorite(string Id, string UserId, string AuctionId);
+
+
+    public static List<Favorite> GetAllFavoritesUser(int user, State state)
     {
         List<Favorite> result = new();
-        MySqlCommand cmd = new("SELECT * FROM Favorites", state.DB);
-        using var reader = cmd.ExecuteReader();
+        var reader = MySqlHelper.ExecuteReader(state.DB, "SELECT * FROM Favorites WHERE userId = @UserId", [new("@UserId", user)]);
+
+
         while (reader.Read())
         {
-            result.Add(new(reader.GetInt32("id"), reader.GetInt32("userId"), reader.GetInt32("auctionId")));
+            result.Add(new(
+            Convert.ToString(reader.GetInt32("id")),
+            Convert.ToString(reader.GetInt32("userId")),
+            Convert.ToString(reader.GetInt32("auctionId"))));
         }
+
 
         return result;
     }
 
-    public static List<Favorite> GetAllFavoritesUser(State state, string user)
+
+    public static IResult RemoveOneFavoriteFromDatabase(int FavoriteId, State state)
     {
-        List<Favorite> result = new();
-        MySqlCommand cmd = new("SELECT * FROM Favorites where userId = @user", state.DB);
-        cmd.Parameters.AddWithValue("@user", user);
-
-        using var reader = cmd.ExecuteReader();
-        while (reader.Read())
+        var removed = MySqlHelper.ExecuteNonQuery(state.DB, "DELETE FROM Favorites WHERE id = @FavoriteId", [new("@FavoriteId", FavoriteId)]);
+        if (removed == 1)
         {
-            result.Add(new(reader.GetInt32("id"), reader.GetInt32("userId"), reader.GetInt32("auctionId")));
+            return TypedResults.Ok("Favorite removed successfully.");
         }
-
-        return result;
-    }
-
-    public static bool RemoveOneFavoriteFromDatabase(State state, int favoriteId)
-    {
-        try
+        else
         {
-            MySqlCommand cmd = new("DELETE FROM Favorites WHERE id = @favoriteId", state.DB);
-            cmd.Parameters.AddWithValue("@favoriteId", favoriteId);
-
-            var affectedRows = cmd.ExecuteNonQuery();
-            return affectedRows > 0;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"An error occurred: {ex.Message}");
-            return false;
-        }
-
-    }
-
-
-    public static bool AddNewFavorite(State state, Favorite NewFavorite)
-    {
-        try
-        {
-            MySqlCommand cmd = new("INSERT INTO Favorites (userId, auctionId) VALUES (@userId, @auctionId)", state.DB);
-            cmd.Parameters.AddWithValue("@userId", NewFavorite.userId);
-            cmd.Parameters.AddWithValue("@auctionId", NewFavorite.auctionId);
-
-            var affectedRows = cmd.ExecuteNonQuery();
-            return affectedRows > 0;
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"An error occurred: {ex.Message}");
-            return false;
+            return TypedResults.NotFound("Failed to remove favorite.");
         }
     }
 
 
+    public static IResult AddNewFavorite(Favorite NewFavorite, State state)
+    {
+        var result = MySqlHelper.ExecuteNonQuery(state.DB, "INSERT INTO Favorites (userId, auctionId) VALUES (@userId, @auctionId)", [new("@UserId", Convert.ToInt32(NewFavorite.UserId)), new("@AuctionId", Convert.ToInt32(NewFavorite.AuctionId))]);
+
+
+        if (result == 1)
+        {
+            return TypedResults.Ok("Favorite added successfully.");
+        }
+        else
+        {
+            return TypedResults.Problem();
+        }
+    }
 }
