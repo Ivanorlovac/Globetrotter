@@ -9,21 +9,25 @@ namespace Server;
 public class Users
 {
     public record User(int id, string username, string password, string role, string name, int? company);
-    public static List<User> GetAllUsers(State state)
+
+
+    public record UserEndPoint(string id, string username, string password, string role, string name, string? creator = null, string? creatorImage = null);
+    public static List<UserEndPoint> GetAllUsers(State state)
     {
-        List<User> result = new();
-        var reader = MySqlHelper.ExecuteReader(state.DB, "select * from Users");
+        List<UserEndPoint> result = new();
+        var reader = MySqlHelper.ExecuteReader(state.DB, @"SELECT u.id, u.username, u.password, u.role, u.name, c.companyName, c.logo FROM Users as u
+LEFT JOIN Companies c ON u.company = c.id");
 
 
         while (reader.Read())
         {
             if (reader.GetString("role") == "seller")
             {
-                result.Add(new(reader.GetInt32("id"), reader.GetString("username"), reader.GetString("password"), reader.GetString("role"), reader.GetString("name"), reader.GetInt32("company")));
+                result.Add(new(Convert.ToString(reader.GetInt32("id")), reader.GetString("username"), reader.GetString("password"), reader.GetString("role"), reader.GetString("name"), reader.GetString("companyName"), reader.GetString("logo")));
             }
             else
             {
-                result.Add(new(reader.GetInt32("id"), reader.GetString("username"), reader.GetString("password"), reader.GetString("role"), reader.GetString("name"), null));
+                result.Add(new(Convert.ToString(reader.GetInt32("id")), reader.GetString("username"), reader.GetString("password"), reader.GetString("role"), reader.GetString("name"), null, null));
             }
 
 
@@ -34,26 +38,27 @@ public class Users
     }
 
 
-    public static List<User> GetAllUsersById(string id, State state)
+    public static List<UserEndPoint> GetAllUsersById(string id, State state)
     {
-        List<User> result = new();
-        var reader = MySqlHelper.ExecuteReader(state.DB, "select * from Users where id = @id", new MySqlParameter("@id", id));
+        List<UserEndPoint> result = new();
+        var reader = MySqlHelper.ExecuteReader(state.DB, @"SELECT u.id, u.username, u.password, u.role, u.name, c.companyName, c.logo FROM Users as u
+LEFT JOIN Companies c ON u.company = c.id
+WHERE u.id = @id", new MySqlParameter("@id", id));
 
 
         while (reader.Read())
         {
             if (reader.GetString("role") == "seller")
             {
-                result.Add(new(reader.GetInt32("id"), reader.GetString("username"), reader.GetString("password"), reader.GetString("role"), reader.GetString("name"), reader.GetInt32("company")));
+                result.Add(new(Convert.ToString(reader.GetInt32("id")), reader.GetString("username"), reader.GetString("password"), reader.GetString("role"), reader.GetString("name"), reader.GetString("companyName"), reader.GetString("logo")));
             }
             else
             {
-                result.Add(new(reader.GetInt32("id"), reader.GetString("username"), reader.GetString("password"), reader.GetString("role"), reader.GetString("name"), null));
+                result.Add(new(Convert.ToString(reader.GetInt32("id")), reader.GetString("username"), reader.GetString("password"), reader.GetString("role"), reader.GetString("name"), null, null));
             }
 
 
         }
-
 
         return result;
     }

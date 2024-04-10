@@ -7,14 +7,32 @@ namespace Server;
 public class Auctions
 {
   public record Auction(int id, string title, string slug, string description, int valuationPrice, int priceRange, string images, DateTime endTime, int category, int company);
-  public static List<Auction> GetAllAuctions(State state)
+
+
+  public record AuctionEndPoint(string id, string title, string slug, string description, int valuationPrice, int priceRange, List<string> images, DateTime endTime, string category, string creator, string creatorImage);
+  public static List<AuctionEndPoint> GetAllAuctions(State state)
   {
-    List<Auction> result = new();
-    var reader = MySqlHelper.ExecuteReader(state.DB, "select * from Auctions");
+    List<AuctionEndPoint> result = new();
+    var reader = MySqlHelper.ExecuteReader(state.DB, @"SELECT a.id, a.title, a.slug, a.description, a.valuationPrice, a.priceRange, a.images, a.endTime, c.companyName as creator, c.logo as creatorImage, cat.name as category FROM Auctions as a
+LEFT JOIN Companies c ON a.company = c.id
+LEFT JOIN Categories cat ON cat.id = a.category");
     while (reader.Read())
 
+
+
+
+
+
     {
-      result.Add(new(reader.GetInt32("id"), reader.GetString("title"), reader.GetString("slug"), reader.GetString("description"), reader.GetInt32("valuationPrice"), reader.GetInt32("priceRange"), reader.GetString("images"), reader.GetDateTime("endTime"), reader.GetInt32("category"), reader.GetInt32("company")));
+      var imagesArray = reader.GetString("images")
+                                    .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                                    .Select(img => img.Trim()
+                                                      .Trim(new char[] { '\"', '\r', '\n' })
+                                                      )
+                                    .ToList();
+
+
+      result.Add(new(Convert.ToString(reader.GetInt32("id")), reader.GetString("title"), reader.GetString("slug"), reader.GetString("description"), reader.GetInt32("valuationPrice"), reader.GetInt32("priceRange"), imagesArray, reader.GetDateTime("endTime"), reader.GetString("category"), reader.GetString("creator"), reader.GetString("creatorImage")));
     }
 
 
@@ -22,13 +40,27 @@ public class Auctions
   }
 
 
-  public static List<Auction> GetAllAuctionById(State state, string id)
+
+
+  public static List<AuctionEndPoint> GetAllAuctionById(State state, string id)
   {
-    List<Auction> result = new();
-    var reader = MySqlHelper.ExecuteReader(state.DB, "select * from Auctions where id = @id", new MySqlParameter("@id", id));
+    List<AuctionEndPoint> result = new();
+    var reader = MySqlHelper.ExecuteReader(state.DB, @"SELECT a.id, a.title, a.slug, a.description, a.valuationPrice, a.priceRange, a.images, a.endTime, c.companyName as creator, c.logo as creatorImage, cat.name as category  
+    FROM Auctions as a
+    LEFT JOIN Companies c ON a.company = c.id
+    LEFT JOIN Categories cat ON cat.id = a.category
+    WHERE a.id = @id", new MySqlParameter("@id", id));
     while (reader.Read())
     {
-      result.Add(new(reader.GetInt32("id"), reader.GetString("title"), reader.GetString("slug"), reader.GetString("description"), reader.GetInt32("valuationPrice"), reader.GetInt32("priceRange"), reader.GetString("images"), reader.GetDateTime("endTime"), reader.GetInt32("category"), reader.GetInt32("company")));
+      var imagesArray = reader.GetString("images")
+                                    .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
+                                    .Select(img => img.Trim()
+                                                      .Trim(new char[] { '\"', '\r', '\n' })
+                                                      )
+                                    .ToList();
+
+
+      result.Add(new(Convert.ToString(reader.GetInt32("id")), reader.GetString("title"), reader.GetString("slug"), reader.GetString("description"), reader.GetInt32("valuationPrice"), reader.GetInt32("priceRange"), imagesArray, reader.GetDateTime("endTime"), reader.GetString("category"), reader.GetString("creator"), reader.GetString("creatorImage")));
 
 
     }

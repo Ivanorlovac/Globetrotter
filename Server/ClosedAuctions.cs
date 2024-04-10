@@ -1,16 +1,20 @@
 using MySql.Data.MySqlClient;
 
 
+
+
 namespace Server;
+
+
 
 
 public class ClosedAuctions
 {
-    public record ClosedAuction(string id, 
-                                string title, 
-                                string slug, 
-                                string description, 
-                                int valuationPrice, 
+    public record ClosedAuction(string id,
+                                string title,
+                                string slug,
+                                string description,
+                                int valuationPrice,
                                 int priceRange,
                                 List<string> images,
                                 DateTime endTime,
@@ -21,9 +25,12 @@ public class ClosedAuctions
                                 string? creatorImage = null
                                 );
 
+
     public static List<ClosedAuction> GetAllClosedAuctions(State state)
     {
         List<ClosedAuction> result = new();
+
+
 
 
         var reader = MySqlHelper.ExecuteReader(
@@ -34,11 +41,12 @@ public class ClosedAuctions
                     LEFT JOIN Categories cat ON cat.id = a.category;"
         );
 
+
         while (reader.Read())
         {
             var imagesArray = reader.GetString("images")
                                     .Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries)
-                                    .Select(img => img.Trim() 
+                                    .Select(img => img.Trim()
                                                       .Trim(new char[] { '\"', '\r', '\n' })
                                                       )
                                     .ToList();
@@ -77,6 +85,7 @@ public class ClosedAuctions
                     reader.GetString("creatorImage")));
             }
         }
+
 
         return result;
     }

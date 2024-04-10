@@ -5,26 +5,29 @@ namespace Server;
 
 public class Contacts
 {
+  public record ContactEndpoint(string id, string surname, string email, string tel, string message);
+
+
   public record Contact(int id, string name, string email, string tel, string message);
-  public static List<Contact> GetAllContacts(State state)
+  public static List<ContactEndpoint> GetAllContacts(State state)
   {
-    List<Contact> result = new();
+    List<ContactEndpoint> result = new();
     var reader = MySqlHelper.ExecuteReader(state.DB, "SELECT * FROM Contacts");
     while (reader.Read())
     {
-      result.Add(new(reader.GetInt32("id"), reader.GetString("name"), reader.GetString("email"), reader.GetString("tel"), reader.GetString("message")));
+      result.Add(new(Convert.ToString(reader.GetInt32("id")), reader.GetString("name"), reader.GetString("email"), reader.GetString("tel"), reader.GetString("message")));
     }
     return result;
   }
 
 
-  public static List<Contact> GetContactById(int id, State state)
+  public static List<ContactEndpoint> GetContactById(int id, State state)
   {
-    List<Contact> result = new();
+    List<ContactEndpoint> result = new();
     var reader = MySqlHelper.ExecuteReader(state.DB, "SELECT * FROM Contacts where id = @id", [new("@id", id)]);
     while (reader.Read())
     {
-      result.Add(new(reader.GetInt32("id"), reader.GetString("name"), reader.GetString("email"), reader.GetString("tel"), reader.GetString("message")));
+      result.Add(new(Convert.ToString(reader.GetInt32("id")), reader.GetString("name"), reader.GetString("email"), reader.GetString("tel"), reader.GetString("message")));
     }
     return result;
   }

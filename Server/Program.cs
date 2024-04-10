@@ -31,6 +31,7 @@ app.MapDelete("/favorites/{FavoriteId}", Favorites.RemoveOneFavoriteFromDatabase
 app.MapPost("/favorites", Favorites.AddNewFavorite).RequireAuthorization("buyer");
 
 app.MapPost("/login", Auth.Login);
+app.MapDelete("/login", Auth.Logout);
 
 app.MapGet("/users", Users.GetAllUsers);
 app.MapGet("/users/{id}", Users.GetAllUsersById);

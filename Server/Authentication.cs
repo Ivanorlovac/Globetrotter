@@ -47,10 +47,9 @@ public class Auth
         return TypedResults.Ok("Signed in");
     }
 
-
-    public static async Task<IResult> Logout(HttpContext ctx)
+    public static async Task Logout(HttpContext ctx)
     {
         await ctx.SignOutAsync();
-        return TypedResults.Ok("Signed out");
     }
+
 }

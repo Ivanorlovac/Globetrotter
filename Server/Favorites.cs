@@ -1,8 +1,9 @@
 using MySql.Data.MySqlClient;
+using Org.BouncyCastle.Bcpg;
 namespace Server;
 public class Favorites
 {
-    public record Favorite(int Id, int UserId, int AuctionId);
+    public record Favorite(string Id, string UserId, string AuctionId);
 
 
     public static List<Favorite> GetAllFavoritesUser(int user, State state)
@@ -13,12 +14,16 @@ public class Favorites
 
         while (reader.Read())
         {
-            result.Add(new(reader.GetInt32("id"), reader.GetInt32("userId"), reader.GetInt32("auctionId")));
+            result.Add(new(
+            Convert.ToString(reader.GetInt32("id")),
+            Convert.ToString(reader.GetInt32("userId")),
+            Convert.ToString(reader.GetInt32("auctionId"))));
         }
 
 
         return result;
     }
+
 
     public static IResult RemoveOneFavoriteFromDatabase(int FavoriteId, State state)
     {
@@ -33,22 +38,19 @@ public class Favorites
         }
     }
 
+
     public static IResult AddNewFavorite(Favorite NewFavorite, State state)
     {
-        var result = MySqlHelper.ExecuteScalar(state.DB, "INSERT INTO Favorites (userId, auctionId) VALUES (@userId, @auctionId) returning id", [new("@UserId", NewFavorite.UserId), new("@AuctionId", NewFavorite.AuctionId)]);
+        var result = MySqlHelper.ExecuteNonQuery(state.DB, "INSERT INTO Favorites (userId, auctionId) VALUES (@userId, @auctionId)", [new("@UserId", Convert.ToInt32(NewFavorite.UserId)), new("@AuctionId", Convert.ToInt32(NewFavorite.AuctionId))]);
 
 
-        if (result is int id)
+        if (result == 1)
         {
-            return TypedResults.Created(id.ToString());
+            return TypedResults.Ok("Favorite added successfully.");
         }
         else
         {
             return TypedResults.Problem();
         }
     }
-
-
-
-
 }
