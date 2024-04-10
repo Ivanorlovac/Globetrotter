@@ -1,6 +1,5 @@
 using MySql.Data.MySqlClient;
 namespace Server;
-using System.Text.Json;
 public class Bids
 {
     public record Bid(int id, int auctionId, int userId, int amount, DateTime time);
@@ -58,10 +57,13 @@ public class Bids
          "insert into Bids (auctionId, userId, amount, time) values (@auctionId, @userId, @amount, @time)",
          [new("@auctionId", newBid.auctionId), new("@userId", newBid.userId), new("@amount", newBid.amount), new("@time", newBid.time)]);
 
-        if(result == 0)
+        if(result == 1)
         {
             return TypedResults.Ok("Bid successfully created");
         }
-        return TypedResults.Problem();
+        else
+        {
+            return TypedResults.Problem();
+        }
     }
 }

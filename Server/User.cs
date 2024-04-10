@@ -3,36 +3,18 @@ namespace Server;
 
 
 
+
+
+
 public class Users
 {
     public record User(int id, string username, string password, string role, string name, int? company);
     public static List<User> GetAllUsers(State state)
     {
         List<User> result = new();
-        MySqlCommand cmd = new("select * from Users", state.DB);
-        using var reader = cmd.ExecuteReader();
-        while (reader.Read())
-        {
-            if (reader.GetString("role") == "seller")
-            {
-                result.Add(new(reader.GetInt32("id"), reader.GetString("username"), reader.GetString("password"), reader.GetString("role"), reader.GetString("name"), reader.GetInt32("company")));
-            } else
-            {
-                result.Add(new(reader.GetInt32("id"), reader.GetString("username"), reader.GetString("password"), reader.GetString("role"), reader.GetString("name"),null));
-            }
-            
-        }
+        var reader = MySqlHelper.ExecuteReader(state.DB, "select * from Users");
 
-        return result;
-    }
 
-    public static List<User> GetAllUsersById(State state, string id)
-    {
-        List<User> result = new();
-        MySqlCommand cmd = new("select * from Users where id = @id", state.DB);
-        cmd.Parameters.AddWithValue("@id", id);
-
-        using var reader = cmd.ExecuteReader();
         while (reader.Read())
         {
             if (reader.GetString("role") == "seller")
@@ -44,75 +26,102 @@ public class Users
                 result.Add(new(reader.GetInt32("id"), reader.GetString("username"), reader.GetString("password"), reader.GetString("role"), reader.GetString("name"), null));
             }
 
+
         }
+
 
         return result;
     }
 
-    public static bool DeleteUser(State state, int id)
+
+    public static List<User> GetAllUsersById(string id, State state)
     {
-        try
+        List<User> result = new();
+        var reader = MySqlHelper.ExecuteReader(state.DB, "select * from Users where id = @id", new MySqlParameter("@id", id));
+
+
+        while (reader.Read())
         {
-            using var cmd = new MySqlCommand("delete from Users where id = @id", state.DB);
-            cmd.Parameters.AddWithValue("@id", id);
-            var affectedRows = cmd.ExecuteNonQuery();
-            return affectedRows > 0;
+            if (reader.GetString("role") == "seller")
+            {
+                result.Add(new(reader.GetInt32("id"), reader.GetString("username"), reader.GetString("password"), reader.GetString("role"), reader.GetString("name"), reader.GetInt32("company")));
+            }
+            else
+            {
+                result.Add(new(reader.GetInt32("id"), reader.GetString("username"), reader.GetString("password"), reader.GetString("role"), reader.GetString("name"), null));
+            }
+
+
         }
-        catch (Exception ex)
+
+
+        return result;
+    }
+
+
+    public static IResult DeleteUser(int id, State state)
+    {
+        var removed = MySqlHelper.ExecuteNonQuery(state.DB, "delete from Users where id = @id", new MySqlParameter("@id", id));
+        if (removed > 0)
         {
-            Console.WriteLine($"An error occurred: {ex.Message}");
-            return false;
+            return Results.Ok("User deleted successfully.");
+        }
+        else
+        {
+            return Results.BadRequest("Failed to delete the user.");
         }
     }
 
-    public static bool UpdateUser(State state, User user)
+
+
+
+    public static IResult UpdateUser(int id, User updatedUser, State state)
     {
-        try
+        var result = MySqlHelper.ExecuteScalar(state.DB, "update Users set username = @username, password = @password, role = @role, name = @name, company = @company where id = @id",
+
+
+        new("@username", updatedUser.username),
+        new("@password", updatedUser.password),
+        new("@role", updatedUser.role),
+        new("@name", updatedUser.name),
+        new("@company", updatedUser.company),
+        new("@id", id));
+
+
+
+
+        if (result == null)
         {
-            using var cmd = new MySqlCommand("update Users set username = @username, password = @password, role = @role, name= @name, company= @company where id = @id", state.DB);
-            cmd.Parameters.AddWithValue("@id", user.id);
-            cmd.Parameters.AddWithValue("@username", user.username);
-            cmd.Parameters.AddWithValue("@password", user.password);
-            cmd.Parameters.AddWithValue("@role", user.role);
-            cmd.Parameters.AddWithValue("@name", user.name);
-            cmd.Parameters.AddWithValue("@company", user.company);
-            var affectedRows = cmd.ExecuteNonQuery();
-            return affectedRows > 0;
+            return Results.Ok("User updated successfully.");
         }
-        catch (Exception ex)
+        else
         {
-            Console.WriteLine($"An error occurred: {ex.Message}");
-            return false;
+            return Results.BadRequest("Failed to update the user.");
         }
     }
 
-  public static async Task<bool> CreateUserAsync(State state, User user)
-  {
-    try
+
+
+
+
+
+    public static IResult CreateUser(State state, User user)
     {
-   
+        var result = MySqlHelper.ExecuteScalar(state.DB, "insert into Users (username, password, role, name, company) values (@username, @password, @role, @name, @company)",
+        new("@username", user.username),
+        new("@password", user.password),
+        new("@role", user.role),
+        new("@name", user.name),
+        new("@company", user.company));
 
-      using var cmd = new MySqlCommand("INSERT INTO Users (username, password, role, name, company) VALUES (@username, @password, @role, @name, @company)", state.DB);
-      cmd.Parameters.AddWithValue("@username", user.username);
-      cmd.Parameters.AddWithValue("@password", user.password); // Use the hashed password
-      cmd.Parameters.AddWithValue("@role", user.role);
-      cmd.Parameters.AddWithValue("@name", user.name);
-      cmd.Parameters.AddWithValue("@company", user.company);
 
-      if (state.DB.State != System.Data.ConnectionState.Open)
-        await state.DB.OpenAsync();
-
-      var affectedRows = await cmd.ExecuteNonQueryAsync();
-      return affectedRows > 0;
+        if (result == null)
+        {
+            return TypedResults.Created($"/users/{user.id}", new { user.id, user.username, user.password, user.role, user.name, user.company });
+        }
+        else
+        {
+            return TypedResults.BadRequest("Failed to create the user.");
+        }
     }
-    catch (Exception ex)
-    {
-      Console.WriteLine($"An error occurred: {ex.Message}");
-      return false;
-    }
-  }
-
 }
-
-            
-
