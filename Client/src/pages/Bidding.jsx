@@ -21,7 +21,7 @@ export default function Bidding() {
       const response = await fetch("/api/auctions/" + id)
 
       const dataAuction = await response.json()
-      setAuction(dataAuction)
+      setAuction(dataAuction[0])
     }
     load()
   }, [])
