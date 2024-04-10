@@ -4,7 +4,7 @@ using App.TimerHostedService;
 using Org.BouncyCastle.Crypto.Prng;
 using MySqlX.XDevAPI.Common;
 
-State state = new State("server=localhost;uid=root;pwd=Dunder123!1;database=Globetrotter;port=3306");
+State state = new State("server=localhost;uid=root;pwd=mypassword;database=Globetrotter;port=3306");
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication().AddCookie("globetrotter");
