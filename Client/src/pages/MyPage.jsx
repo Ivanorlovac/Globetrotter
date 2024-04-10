@@ -40,7 +40,7 @@ export default function MyPage() {
       const id = user.id
 
       async function getMyBids() {
-        const response = await fetch('/api/bids?userId=' + id)
+        const response = await fetch('/api/bids/user/' + id)
         const data = await response.json()
         return data
       }

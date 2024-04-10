@@ -17,7 +17,7 @@ export default function PlaceBid() {
   const { id } = useParams();
   
   useEffect(() => {
-    fetch(`http://localhost:3000/bids?userId=${user.id}&auctionId=${id}`)
+    fetch(`http://localhost:3000/bids/auction${id}/user/${user.id}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Nätverksfel vid hämtning av auktionsdetaljer');

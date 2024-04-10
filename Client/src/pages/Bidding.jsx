@@ -40,7 +40,7 @@ export default function Bidding() {
       }, timeLeft)
 
       return () => clearTimeout(timer)
-    } else {
+    } else if(timeLeft < 0) {
       setAuctionClosed(true)
     }
 
