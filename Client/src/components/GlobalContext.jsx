@@ -16,7 +16,7 @@ function GlobalProvider({ children }) {
     if (Object.keys(user).length !== 0) {
       const id = user.id
       async function getFavorites() {
-        const response = await fetch(`/api/favorites?user_id=${id}`)
+        const response = await fetch(`/api/favorites/${id}`)
         const data = await response.json()
         return data
       }
@@ -49,9 +49,10 @@ function GlobalProvider({ children }) {
 
   const updateUser = async (updatedUser) => {
     setUser(updatedUser); 
+    console.log("Updated user: ", updatedUser)
 
     try {
-      const response = await fetch(`http://localhost:3000/users/${updatedUser.id}`, {
+      const response = await fetch(`/api/users/${updatedUser.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(updatedUser),

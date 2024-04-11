@@ -20,17 +20,17 @@ export default function MyPage() {
   const [showAuctions, setShowAuctions] = useState(true);
   const [showEndedAuctions, setShowEndedAuctions] = useState(true);
   const [newUsername, setNewUsername] = useState(user.username);
-  const [newPassword, setNewPassword] = useState(user.password);
+  const [newPassword, setNewPassword] = useState("");
+  const [newName, setNewName] = useState(user.name);
   const [filteredFavoriteAuctions, setFilteredFavoriteAuctions] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
   const isConfirmed = window.confirm('Är du säker på att du vill uppdatera din profil?');
     if (isConfirmed) {
-      updateUser({ ...user, username: newUsername, password: newPassword });
+      updateUser({ ...user, username: newUsername, password: newPassword, name: newName });
       alert('Profil uppdaterad!');
     } else {
-
       return;
     } 
   };
@@ -51,7 +51,7 @@ export default function MyPage() {
       }
 
       async function getEndedAuctions() {
-        const response = await fetch('/api/closed_auctions')
+        const response = await fetch('/api/closed-auctions')
         const data = await response.json()
         return data
       }
@@ -78,10 +78,10 @@ export default function MyPage() {
         let data = myAuctionsData.sort((a, b) => {
           return new Date(a.endTime) - new Date(b.endTime)
         })
-
+        console.log("Favorites in mypages: ", favorites)
         data = data.filter(auction => {
           return favorites.some(favorite => {
-            return favorite.auction_id === auction.id
+            return favorite.auctionId === auction.id
           })
         })
 
@@ -107,7 +107,7 @@ export default function MyPage() {
     load()
 
 
-  }, [favorites])
+  }, [favorites, updateUser])
 
 
   const favoritesPopdown = () => {
@@ -133,7 +133,7 @@ export default function MyPage() {
   };  
 
   const toggleFavorite = (articleObj) => {
-    const existingFavorite = favorites.find(obj => obj.auction_id === articleObj.id);
+    const existingFavorite = favorites.find(obj => obj.auctionId === articleObj.id);
     if (existingFavorite) {
       deleteFavorite(existingFavorite);
       const removedFavoriteObject = filteredFavoriteAuctions.filter(auction => {
@@ -145,10 +145,9 @@ export default function MyPage() {
 
   const deleteFavorite = existingFavorite => {
 
-    fetch(`/api/favorites/${existingFavorite.id}`, {
+    fetch(`/api/favorites/${existingFavorite.userId}/${existingFavorite.auctionId}`, {
       method: "DELETE",
     })
-      .then(response => response.json())
       .then(() => {
         setUpdateFavorites(updateFavorites + 1)
       })
@@ -266,7 +265,7 @@ export default function MyPage() {
 
     <div className="my-page-main">
       <section id="my_page_first_section">
-        <h2>Välkommen {user.username} till Mina sidor!</h2>
+        <h2>Välkommen {user.name} till Mina sidor!</h2>
         <h3>Konto:</h3>
         <form onSubmit={handleSubmit}>
           <label>
@@ -277,6 +276,10 @@ export default function MyPage() {
             Nytt lösenord: <br/>
             <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
           </label>
+          <label>
+            Namn: <br/>
+            <input type="name" value={newName} onChange={(e) => setNewName(e.target.value)} />
+          </label>          
           <button id="my_page_update_button" className="button_smooth" type="submit">Uppdatera profil</button>
         </form>
       </section>

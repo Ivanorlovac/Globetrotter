@@ -17,7 +17,7 @@ export default function PlaceBid() {
   const { id } = useParams();
   
   useEffect(() => {
-    fetch(`http://localhost:3000/bids/auction${id}/user/${user.id}`)
+    fetch(`/api/bids/auction/${id}/user/${user.id}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Nätverksfel vid hämtning av auktionsdetaljer');
@@ -62,11 +62,13 @@ export default function PlaceBid() {
 
     const newBid = {
       auctionId: id,
+      userId: user.id,      
       amount: bidAmount,
-      userId: user.id,
-      time: new Date().toLocaleString('se-SE', { timeZone: 'cet' })
+      time: new Date().toLocaleString('se-SE', { timeZone: 'cet' }).replace(" ", "T")
     };
 
+    console.log("newbid time:", newBid.time)
+    
     fetch('/api/bids', {
       method: 'POST',
       headers: {

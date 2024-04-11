@@ -14,19 +14,30 @@ export default function Favorites() {
 
 
   useEffect(() => {
-    if (favorites.some(obj => obj.auction_id === id)) {
+    console.log("favorites start: ", favorites)
+
+    if (favorites.some(obj => obj.auctionId === id)) {
       setIsFavorited(true)
     } else {
       setIsFavorited(false)
     }
   },[])
 
-  const toggleFavorite = () => {
-    const existingFavorite = favorites.find(obj => obj.auction_id === id);
-    if (!existingFavorite) {
-      const favorite = { user_id: user.id, auction_id: id };
+  const toggleFavorite = () => {    
+    let existingFavorite = favorites.find(obj => obj.auctionId === id);
+    console.log("existingFavorite: ", existingFavorite)
+    
+    console.log("favorites: ", favorites)
+    if (favorites.length === 0) {
+      existingFavorite = []
+    }
+
+    if (existingFavorite.length === 0) {
+      console.log("Första")
+      const favorite = { userId: user.id, auctionId: id };
       saveFavorite(favorite);
     } else {
+      console.log("Andra: ", existingFavorite)
       deleteFavorite(existingFavorite);
     }
   };
@@ -41,10 +52,8 @@ export default function Favorites() {
         body: JSON.stringify(data),
       });
 
-      const result = await response.json();
-
-      if (response.ok) {
-        const newFavorites = [...favorites, result];
+      if (response) {
+        const newFavorites = [...favorites, data];
         setFavorites(newFavorites);
         setIsFavorited(true)
       }
@@ -55,13 +64,13 @@ export default function Favorites() {
   }
 
   const deleteFavorite = favoriteObj => {
+    console.log("favoriteObj: ", favoriteObj)
 
-    fetch(`/api/favorites/${favoriteObj.id}`, {
+    fetch(`/api/favorites/${favoriteObj.userId}/${favoriteObj.auctionId}`, {
       method: "DELETE",
     })
-      .then(response => response.json())
       .then(() => {
-        const updatedFavorites = favorites.filter(obj => obj.auction_id !== id);
+        const updatedFavorites = favorites.filter(obj => obj.auctionId !== id);
         setFavorites(updatedFavorites);
         setIsFavorited(false) 
       })
