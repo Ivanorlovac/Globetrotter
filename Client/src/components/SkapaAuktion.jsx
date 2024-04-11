@@ -7,7 +7,7 @@ const SkapaAuktion = () => {
   const [description, setDescription] = useState('');
   const [valuationPrice, setValuationPrice] = useState('');
   const [priceRange, setPriceRange] = useState('');
-  const [category, setCategory] = useState('all-inclusive');
+  const [category, setCategory] = useState('all inclusive');
   const [endTime, setEndTime] = useState('');
   const [images, setImages] = useState([]);
   const { user } = useContext(Globalcontext);
@@ -23,18 +23,22 @@ const SkapaAuktion = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    let imagesString = images + ""
+    
     const auctionData = {
       title,
       slug,
       description,
       valuationPrice: parseInt(valuationPrice),
       priceRange: parseInt(priceRange),
-      images,
+      imagesString,
       category,
       endTime,
       creator:user.creator,
       creatorImage:user.creatorImage,
     };
+
+    console.log("Auction data: ", auctionData)
 
     try {
       const response = await fetch('/api/auctions', {
@@ -42,7 +46,7 @@ const SkapaAuktion = () => {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(auctionData)
       });
-      if (!response.ok) throw new Error('Nätverksrespons var inte ok');
+      if (!response) throw new Error('Nätverksrespons var inte ok');
       alert('Auktion skapad!');
     } catch (error) {
       console.error('Fel vid skapande av auktion:', error);
@@ -106,10 +110,9 @@ const SkapaAuktion = () => {
         <div className="mb-3">
           <label htmlFor="category" className="form-label">Category</label>
           <select className="form-select" id="category" value={category} onChange={e => setCategory(e.target.value)}>
-            <option value="all-inclusive">All Inclusive</option>
-            <option value="city-break">City Break</option>
-            <option value="excursion">Excursion</option>
-            <option value="cruise">Cruise</option>
+            <option value="all inclusive">All Inclusive</option>
+            <option value="city">City</option>
+            <option value="adventure">Adventure</option>
             <option value="spa">Spa</option>
           </select>
         </div>
