@@ -15,7 +15,7 @@ const SellersPage = () => {
     
     if (isConfirmed) {
       try {
-        const response = await fetch(`http://localhost:3000/auctions/${auktionId}`, {
+        const response = await fetch(`/api/auctions/${auktionId}`, {
           method: 'DELETE',
         });
         if (!response.ok) throw new Error('Nätverksfel vid radering av auktion');
@@ -40,7 +40,7 @@ const SellersPage = () => {
 
   const fetchAuctions = async () => {
     try {
-      const response = await fetch(`http://localhost:3000/auctions?creator=${encodeURIComponent(user.creator)}`);
+      const response = await fetch(`/api/auctions?creator=${encodeURIComponent(user.creator)}`);
       if (!response.ok) throw new Error('Nätverksfel vid hämtning av auktioner');
       const data = await response.json();
       setAuctions(data);
@@ -65,7 +65,7 @@ const SellersPage = () => {
     e.preventDefault();
     
     try {
-      const response = await fetch(`http://localhost:3000/auctions/${editingAuction.id}`, {
+      const response = await fetch(`/api/auctions/${editingAuction.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editingAuction),

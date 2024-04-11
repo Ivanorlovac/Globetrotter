@@ -8,7 +8,7 @@ function getData() {
   const [filteredAuctions, setFilteredAuctions] = useState([]);
 
   useEffect(() => {
-    fetch('http://localhost:3000/auctions')
+    fetch('/api/auctions')
       .then(response => {
         if (!response.ok) {
           throw new Error('Något gick fel vid hämtning av auktioner');

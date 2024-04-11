@@ -67,7 +67,7 @@ export default function PlaceBid() {
       time: new Date().toLocaleString('se-SE', { timeZone: 'cet' })
     };
 
-    fetch('http://localhost:3000/bids', {
+    fetch('/api/bids', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ export default function PlaceBid() {
 
 
   return <>
-    {user.role !== 'user' ? <NoUser /> : <>
+    {user.role !== 'buyer' ? <NoUser /> : <>
       <div className='show-bid'>
         {higestBid > 0 ? <p style={{color:"black", fontWeight: "400", fontSize: "90%"}}>Ditt högst lagda bud: <span style={{color: "black", fontSize: "160%", fontWeight: "bold"}}>{higestBid} kr</span></p> : <p>Lägg ett bud för att gå med i auktion</p>}
       </div>          

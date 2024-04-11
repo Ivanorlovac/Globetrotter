@@ -15,16 +15,28 @@ const LoginForm = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(''); 
-    try {
-      const response = await fetch(`http://localhost:3000/users?username=${username}&password=${password}`);
+    try { // Gjort om denna kod så den skickar username och password som en body.
+      const response = await fetch("/api/login", { 
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ username, password }),
+      });
+      
       if (!response.ok) {
         throw new Error('Nätverksfel vid inloggning');
       }
-      const data = await response.json();
+      const dataRaw = await response.json();
+      let data = []
+      data.push(dataRaw)
+      console.log("Data: ", data)
+      console.log("Login Name: ", data[0].name)
+
       if (data.length > 0) {
         setUser(data[0]);
         localStorage.setItem('user', JSON.stringify(data[0]));
-        setLoginMessage('Välkommen ' + data[0].username);
+        setLoginMessage('Välkommen ' + data[0].name);
         if (data[0].role === 'seller') {
           navigate('/SellersPage');
         } else {
