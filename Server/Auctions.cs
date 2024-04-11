@@ -6,7 +6,7 @@ namespace Server;
 
 public class Auctions
 {
-  public record Auction(int id, string title, string slug, string description, int valuationPrice, int priceRange, string images, DateTime endTime, int category, int company);
+  public record Auction(int id, string title, string slug, string description, int valuationPrice, int priceRange, string imagesString, DateTime endTime, string category, string creator);
 
 
   public record AuctionEndPoint(string id, string title, string slug, string description, int valuationPrice, int priceRange, List<string> images, DateTime endTime, string category, string creator, string creatorImage);
@@ -93,16 +93,19 @@ LEFT JOIN Categories cat ON cat.id = a.category");
 
   public static IResult UpdateAuction(Auction auction, State state)
   {
+
+    using var getCompanyId = MySqlHelper.ExecuteReader(state.DB, "SELECT id FROM Categories WHERE name = @category", [new("@category", auction.category)]);
+
     var result = MySqlHelper.ExecuteScalar(state.DB, "update Auctions set title = @title, slug = @slug, description = @description, valuationPrice = @valuationPrice, priceRange = @priceRange, images = @images, endTime = @endTime, category = @category, company = @company where id = @id",
     new("@title", auction.title),
     new("@slug", auction.slug),
     new("@description", auction.description),
     new("@valuationPrice", auction.valuationPrice),
     new("@priceRange", auction.priceRange),
-    new("@images", auction.images),
+    new("@images", auction.imagesString),
     new("@endTime", auction.endTime),
     new("@category", auction.category),
-    new("@company", auction.company),
+    new("@company", auction.creator),
     new("@id", auction.id));
     if (result != null)
     {
@@ -116,27 +119,74 @@ LEFT JOIN Categories cat ON cat.id = a.category");
 
   public static IResult CreateAuction(Auction newAuction, State state)
   {
-    var result = MySqlHelper.ExecuteScalar(state.DB, "insert into Auctions (title, slug, description, valuationPrice, priceRange, images, endTime, category, company) values (@title, @slug, @description, @valuationPrice, @priceRange, @images, @endTime, @category, @company)",
-    [new ("@title", newAuction.title),
-  new ("@slug", newAuction.slug),
-  new ("@description", newAuction.description),
-  new ("@valuationPrice", newAuction.valuationPrice),
-  new ("@priceRange", newAuction.priceRange),
-  new ("@images", newAuction.images),
-  new ("@endTime", newAuction.endTime),
-  new ("@category", newAuction.category),
-  new ("@company", newAuction.company)]);
 
+    var getCategoryId = Convert.ToInt32(MySqlHelper.ExecuteScalar(state.DB, "SELECT id FROM Categories WHERE name = @category", [new("@category", newAuction.category)]));
+    var getCompanyId = Convert.ToInt32(MySqlHelper.ExecuteScalar(state.DB, "SELECT id FROM Companies WHERE companyName = @company", [new("@company", newAuction.creator)])); 
 
-    if (result == null)
+    var result = MySqlHelper.ExecuteNonQuery(state.DB, "insert into Auctions (title, slug, description, valuationPrice, priceRange, images, endTime, category, company) values (@title, @slug, @description, @valuationPrice, @priceRange, @images, @endTime, @category, @company)",
+      [new("@title", newAuction.title),
+      new("@slug", newAuction.slug),
+      new("@description", newAuction.description),
+      new("@valuationPrice", newAuction.valuationPrice),
+      new("@priceRange", newAuction.priceRange),
+      new("@images", newAuction.imagesString),
+      new("@endTime", newAuction.endTime),
+      new("@category", getCategoryId),
+      new("@company", getCompanyId)]);
+
+    if (result == 1)
     {
-      return TypedResults.Created($"/auctions/{result}", new { id = result, newAuction.title, newAuction.slug, newAuction.description, newAuction.valuationPrice, newAuction.priceRange, newAuction.images, newAuction.endTime, newAuction.category, newAuction.company });
+      return TypedResults.Ok(true);
     }
     else
+    {
+      return TypedResults.Problem();
+    }
 
-
-
-      return TypedResults.BadRequest("Failed to create the auction.");
   }
 
 }
+
+
+/* {
+    "title": "malaga",
+    "slug": "malaga",
+    "description": "malaga-sun",
+    "valuationPrice": 10000,
+    "priceRange": 2000,
+    "imagesString": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW_2PjRXefNjhxZUMOiu2Kv5lM6SJScOx-Gx_1yTet5A&s,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW_2PjRXefNjhxZUMOiu2Kv5lM6SJScOx-Gx_1yTet5A&s",
+    "category": "all inclusive",
+    "endTime": "2024-04-20T15:03",
+    "creator": "Suntrip Ab",
+    "creatorImage": "https://seeklogo.com/images/S/SunTrip-logo-DD2B572E4F-seeklogo.com.gif"
+} */
+
+
+/* {
+    "title": "Malaga sun",
+    "slug": "malaga-sun",
+    "description": "malaga-sun",
+    "valuationPrice": 10000,
+    "priceRange": 2000,
+    "images": [
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW_2PjRXefNjhxZUMOiu2Kv5lM6SJScOx-Gx_1yTet5A&s",
+        "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW_2PjRXefNjhxZUMOiu2Kv5lM6SJScOx-Gx_1yTet5A&s"
+    ],
+    "category": "all-inclusive",
+    "endTime": "2024-04-13T14:35",
+    "creator": "Suntrip Ab",
+    "creatorImage": "https://seeklogo.com/images/S/SunTrip-logo-DD2B572E4F-seeklogo.com.gif"
+} */
+
+/* {
+    "title": "Malaga sun",
+    "slug": "malaga-sun",
+    "description": "malaga-sun",
+    "valuationPrice": 10000,
+    "priceRange": 2000,
+    "imagesString": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW_2PjRXefNjhxZUMOiu2Kv5lM6SJScOx-Gx_1yTet5A&s,https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSW_2PjRXefNjhxZUMOiu2Kv5lM6SJScOx-Gx_1yTet5A&s",
+    "category": "all-inclusive",
+    "endTime": "2024-04-13T14:35",
+    "creator": "Suntrip Ab",
+    "creatorImage": "https://seeklogo.com/images/S/SunTrip-logo-DD2B572E4F-seeklogo.com.gif"
+} */

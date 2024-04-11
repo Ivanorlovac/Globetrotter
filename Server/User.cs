@@ -10,8 +10,8 @@ public class Users
 {
     public record User(int id, string username, string password, string role, string name, int? company);
 
-
     public record UserEndPoint(string id, string username, string password, string role, string name, string? creator = null, string? creatorImage = null);
+
     public static List<UserEndPoint> GetAllUsers(State state)
     {
         List<UserEndPoint> result = new();
@@ -78,40 +78,51 @@ LEFT JOIN Companies c ON u.company = c.id");
     }
 
 
-
-
     public static IResult UpdateUser(int id, User updatedUser, State state)
     {
-        var result = MySqlHelper.ExecuteScalar(state.DB, "update Users set username = @username, password = @password, role = @role, name = @name, company = @company where id = @id",
+        var getId = "";
+/*         if (updatedUser.role == "seller"){
+            getId = MySqlHelper.ExecuteScalar(state.DB, "Select id FROM Companies WHERE companyName = @company", [new("@company", updatedUser.creator)]);
+        } */
 
-
+        var result = MySqlHelper.ExecuteScalar(state.DB, "update Users set username = @username, role = @role, name = @name, company = @company where id = @id",
         new("@username", updatedUser.username),
-        new("@password", updatedUser.password),
         new("@role", updatedUser.role),
         new("@name", updatedUser.name),
-        new("@company", updatedUser.company),
+        new("@company", getId),
         new("@id", id));
 
-
-
+        if (updatedUser.password != "")
+        {
+            result = MySqlHelper.ExecuteScalar(state.DB, "update Users set username = @username, password = @password, role = @role, name = @name, company = @company where id = @id",
+            new("@username", updatedUser.username),
+            new("@password", updatedUser.password),
+            new("@role", updatedUser.role),
+            new("@name", updatedUser.name),
+            new("@company", updatedUser.company),
+            new("@id", id));
+        }
 
         if (result == null)
         {
-            return Results.Ok("User updated successfully.");
+            return Results.Ok();
         }
         else
         {
-            return Results.BadRequest("Failed to update the user.");
+            return Results.BadRequest();
         }
     }
 
-
-
-
-
+    public record Company(string companyName, string logo, string about);
 
     public static IResult CreateUser(State state, User user)
     {
+        if (user.role == "seller" && user.company != null)
+        {
+
+            var idCompany = Companies.CreateCompanies;
+        }
+
         var result = MySqlHelper.ExecuteScalar(state.DB, "insert into Users (username, password, role, name, company) values (@username, @password, @role, @name, @company)",
         new("@username", user.username),
         new("@password", user.password),
@@ -129,4 +140,5 @@ LEFT JOIN Companies c ON u.company = c.id");
             return TypedResults.BadRequest("Failed to create the user.");
         }
     }
+
 }

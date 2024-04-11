@@ -64,8 +64,7 @@ public class Bids
     {
         var result = MySqlHelper.ExecuteNonQuery(state.DB,
          "insert into Bids (auctionId, userId, amount, time) values (@auctionId, @userId, @amount, @time)",
-         [new("@auctionId", newBid.auctionId), new("@userId", newBid.userId), new("@amount", newBid.amount), new("@time", newBid.time)]);
-
+         [new("@auctionId", newBid.auctionId), new("@userId", newBid.userId), new("@amount", newBid.amount), new("@time", DateTime.Now.ToString("yyyy'-'MM'-'dd'T'HH':'mm':'ss"))]);
 
         if (result == 1)
         {

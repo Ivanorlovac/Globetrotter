@@ -26,7 +26,7 @@ app.MapGet("/bids/auction/{auction}/user/{user}", Bids.GetAllBidsUserAuction);
 app.MapPost("/bids", Bids.CreateBid).RequireAuthorization("buyer");
 
 app.MapGet("/favorites/{user}", Favorites.GetAllFavoritesUser).RequireAuthorization("buyer");
-app.MapDelete("/favorites/{FavoriteId}", Favorites.RemoveOneFavoriteFromDatabase).RequireAuthorization("buyer");
+app.MapDelete("/favorites/{userId}/{auctionId}", Favorites.RemoveOneFavoriteFromDatabase).RequireAuthorization("buyer");
 app.MapPost("/favorites", Favorites.AddNewFavorite).RequireAuthorization("buyer");
 
 app.MapPost("/login", Auth.Login);
