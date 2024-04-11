@@ -12,7 +12,7 @@ public class Contacts
   public static List<ContactEndpoint> GetAllContacts(State state)
   {
     List<ContactEndpoint> result = new();
-    var reader = MySqlHelper.ExecuteReader(state.DB, "SELECT * FROM Contacts");
+    using var reader = MySqlHelper.ExecuteReader(state.DB, "SELECT * FROM Contacts");
     while (reader.Read())
     {
       result.Add(new(Convert.ToString(reader.GetInt32("id")), reader.GetString("name"), reader.GetString("email"), reader.GetString("tel"), reader.GetString("message")));
@@ -24,7 +24,7 @@ public class Contacts
   public static List<ContactEndpoint> GetContactById(int id, State state)
   {
     List<ContactEndpoint> result = new();
-    var reader = MySqlHelper.ExecuteReader(state.DB, "SELECT * FROM Contacts where id = @id", [new("@id", id)]);
+    using var reader = MySqlHelper.ExecuteReader(state.DB, "SELECT * FROM Contacts where id = @id", [new("@id", id)]);
     while (reader.Read())
     {
       result.Add(new(Convert.ToString(reader.GetInt32("id")), reader.GetString("name"), reader.GetString("email"), reader.GetString("tel"), reader.GetString("message")));

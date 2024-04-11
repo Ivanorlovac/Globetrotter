@@ -15,7 +15,7 @@ public class Users
     public static List<UserEndPoint> GetAllUsers(State state)
     {
         List<UserEndPoint> result = new();
-        var reader = MySqlHelper.ExecuteReader(state.DB, @"SELECT u.id, u.username, u.password, u.role, u.name, c.companyName, c.logo FROM Users as u
+        using var reader = MySqlHelper.ExecuteReader(state.DB, @"SELECT u.id, u.username, u.password, u.role, u.name, c.companyName, c.logo FROM Users as u
 LEFT JOIN Companies c ON u.company = c.id");
 
 
@@ -41,9 +41,9 @@ LEFT JOIN Companies c ON u.company = c.id");
     public static List<UserEndPoint> GetAllUsersById(string id, State state)
     {
         List<UserEndPoint> result = new();
-        var reader = MySqlHelper.ExecuteReader(state.DB, @"SELECT u.id, u.username, u.password, u.role, u.name, c.companyName, c.logo FROM Users as u
-LEFT JOIN Companies c ON u.company = c.id
-WHERE u.id = @id", new MySqlParameter("@id", id));
+        using var reader = MySqlHelper.ExecuteReader(state.DB, @"SELECT u.id, u.username, u.password, u.role, u.name, c.companyName, c.logo FROM Users as u
+                                                                    LEFT JOIN Companies c ON u.company = c.id
+                                                                    WHERE u.id = @id", new MySqlParameter("@id", id));
 
 
         while (reader.Read())

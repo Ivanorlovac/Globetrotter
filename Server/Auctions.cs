@@ -13,7 +13,7 @@ public class Auctions
   public static List<AuctionEndPoint> GetAllAuctions(State state)
   {
     List<AuctionEndPoint> result = new();
-    var reader = MySqlHelper.ExecuteReader(state.DB, @"SELECT a.id, a.title, a.slug, a.description, a.valuationPrice, a.priceRange, a.images, a.endTime, c.companyName as creator, c.logo as creatorImage, cat.name as category FROM Auctions as a
+    using var reader = MySqlHelper.ExecuteReader(state.DB, @"SELECT a.id, a.title, a.slug, a.description, a.valuationPrice, a.priceRange, a.images, a.endTime, c.companyName as creator, c.logo as creatorImage, cat.name as category FROM Auctions as a
 LEFT JOIN Companies c ON a.company = c.id
 LEFT JOIN Categories cat ON cat.id = a.category");
     while (reader.Read())
@@ -45,7 +45,7 @@ LEFT JOIN Categories cat ON cat.id = a.category");
   public static List<AuctionEndPoint> GetAllAuctionById(State state, string id)
   {
     List<AuctionEndPoint> result = new();
-    var reader = MySqlHelper.ExecuteReader(state.DB, @"SELECT a.id, a.title, a.slug, a.description, a.valuationPrice, a.priceRange, a.images, a.endTime, c.companyName as creator, c.logo as creatorImage, cat.name as category  
+    using var reader = MySqlHelper.ExecuteReader(state.DB, @"SELECT a.id, a.title, a.slug, a.description, a.valuationPrice, a.priceRange, a.images, a.endTime, c.companyName as creator, c.logo as creatorImage, cat.name as category  
     FROM Auctions as a
     LEFT JOIN Companies c ON a.company = c.id
     LEFT JOIN Categories cat ON cat.id = a.category

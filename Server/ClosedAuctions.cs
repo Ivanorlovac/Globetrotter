@@ -33,7 +33,7 @@ public class ClosedAuctions
 
 
 
-        var reader = MySqlHelper.ExecuteReader(
+        using var reader = MySqlHelper.ExecuteReader(
             state.DB,
             @"SELECT a.id, a.title, a.slug, a.description, a.valuationPrice, a.priceRange, a.images, a.endTime, cat.name as category, ca.winner as winner_user_id, ca.amount as winner_amount, c.companyName as creator, c.logo as creatorImage FROM Auctions as a
                     LEFT JOIN ClosedAuctions ca ON a.id = ca.auctionId

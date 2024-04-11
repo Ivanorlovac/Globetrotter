@@ -9,7 +9,7 @@ public class Favorites
     public static List<Favorite> GetAllFavoritesUser(int user, State state)
     {
         List<Favorite> result = new();
-        var reader = MySqlHelper.ExecuteReader(state.DB, "SELECT * FROM Favorites WHERE userId = @UserId", [new("@UserId", user)]);
+        using var reader = MySqlHelper.ExecuteReader(state.DB, "SELECT * FROM Favorites WHERE userId = @UserId", [new("@UserId", user)]);
 
 
         while (reader.Read())

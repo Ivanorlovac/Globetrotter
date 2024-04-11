@@ -9,16 +9,7 @@ builder.Services.AddAuthorizationBuilder().AddPolicy("seller", policy => policy.
 builder.Services.AddSingleton(state);
 builder.Services.AddHostedService<TimerService>();
 
-var allowedOrigin = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
-builder.Services.AddCors(options =>
-{
-  options.AddPolicy("myAppCors", policy =>
-  {
-    policy.WithOrigins(allowedOrigin)
-              .AllowAnyHeader()
-              .AllowAnyMethod();
-  });
-});
+
 
 var app = builder.Build();
 
@@ -54,7 +45,8 @@ app.MapGet("/contact/{id}", Contacts.GetContactById);
 app.MapDelete("/contact/{id}", Contacts.DeleteContactById);
 app.MapPost("/contact", Contacts.CreateContact);
 
-app.UseCors("myAppCors");
 app.Run("http://localhost:3000");
 public record State(string DB);
+
+
 
