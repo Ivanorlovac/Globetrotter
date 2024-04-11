@@ -10,7 +10,6 @@ builder.Services.AddSingleton(state);
 builder.Services.AddHostedService<TimerService>();
 
 var allowedOrigin = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
-
 builder.Services.AddCors(options =>
 {
   options.AddPolicy("myAppCors", policy =>
