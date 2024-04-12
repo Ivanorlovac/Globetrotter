@@ -8,7 +8,7 @@ namespace Server;
 
 public class Users
 {
-    public record User(int id, string username, string password, string role, string name, int? company);
+    public record User(string username, string password, string role, string name, string? creator);
 
     public record UserEndPoint(string id, string username, string password, string role, string name, string? creator = null, string? creatorImage = null);
 
@@ -16,9 +16,7 @@ public class Users
     {
         List<UserEndPoint> result = new();
         using var reader = MySqlHelper.ExecuteReader(state.DB, @"SELECT u.id, u.username, u.password, u.role, u.name, c.companyName, c.logo FROM Users as u
-LEFT JOIN Companies c ON u.company = c.id");
-
-
+                                                                LEFT JOIN Companies c ON u.company = c.id");
         while (reader.Read())
         {
             if (reader.GetString("role") == "seller")
@@ -29,14 +27,11 @@ LEFT JOIN Companies c ON u.company = c.id");
             {
                 result.Add(new(Convert.ToString(reader.GetInt32("id")), reader.GetString("username"), reader.GetString("password"), reader.GetString("role"), reader.GetString("name"), null, null));
             }
-
-
         }
 
 
         return result;
     }
-
 
     public static List<UserEndPoint> GetAllUsersById(string id, State state)
     {
@@ -99,7 +94,7 @@ LEFT JOIN Companies c ON u.company = c.id");
             new("@password", updatedUser.password),
             new("@role", updatedUser.role),
             new("@name", updatedUser.name),
-            new("@company", updatedUser.company),
+            new("@company", updatedUser.creator),
             new("@id", id));
         }
 
@@ -113,14 +108,14 @@ LEFT JOIN Companies c ON u.company = c.id");
         }
     }
 
-    public record Company(string companyName, string logo, string about);
+    public record Company(string? companyName);
 
     public static IResult CreateUser(State state, User user)
     {
-        if (user.role == "seller" && user.company != null)
+        int? idCompany = null;
+        if (user.role == "seller")
         {
-
-            var idCompany = Companies.CreateCompanies;
+            idCompany = CreateCompanies(state, user.creator); 
         }
 
         var result = MySqlHelper.ExecuteScalar(state.DB, "insert into Users (username, password, role, name, company) values (@username, @password, @role, @name, @company)",
@@ -128,12 +123,11 @@ LEFT JOIN Companies c ON u.company = c.id");
         new("@password", user.password),
         new("@role", user.role),
         new("@name", user.name),
-        new("@company", user.company));
-
+        new("@company", idCompany));
 
         if (result == null)
         {
-            return TypedResults.Created($"/users/{user.id}", new { user.id, user.username, user.password, user.role, user.name, user.company });
+            return TypedResults.Ok();
         }
         else
         {
@@ -141,4 +135,47 @@ LEFT JOIN Companies c ON u.company = c.id");
         }
     }
 
+    public static int CreateCompanies(State state, string? company)
+    {
+        int getId;
+        try
+        {
+            getId = (int)MySqlHelper.ExecuteScalar(state.DB, "SELECT id FROM Companies WHERE companyName = @companyName", [new("@companyName", company)]);
+        }
+        catch
+        {
+            getId = 0;
+        }
+
+        if (getId > 0)
+        {
+            return getId;
+        }
+        else
+        {
+            ulong result = (ulong)MySqlHelper.ExecuteScalar(state.DB, "INSERT INTO Companies (companyName, about) values (@companyName, @about); SELECT LAST_INSERT_ID();",
+            new("@companyName", company),
+            new("@about", null));
+
+            int newProdID = Convert.ToInt32(result);
+
+            if (newProdID > 0)
+            {
+                return newProdID;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+    }
+
 }
+
+/* {
+    "username": "ivan",
+    "password": "abc",
+    "name": "ivanivan",
+    "role": "seller",
+    "creator": "ivansforetag"
+} */

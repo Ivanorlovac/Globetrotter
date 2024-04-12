@@ -15,7 +15,7 @@ const LoginForm = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     setError(''); 
-    try { // Gjort om denna kod så den skickar username och password som en body.
+    try {
       const response = await fetch("/api/login", { 
           method: 'POST',
           headers: {

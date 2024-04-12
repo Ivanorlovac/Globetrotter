@@ -4,9 +4,9 @@ import React, { useState } from 'react';
 const RegisterForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [name, setName] = useState('');
   const [role, setRole] = useState('user');
   const [creator, setCreator] = useState('');
-  const [creatorImage, setCreatorImage] = useState('');
 
 
 
@@ -16,10 +16,12 @@ const RegisterForm = () => {
     const userData = {
       username,
       password,
+      name,
       role,
-      ...(role === 'seller' && { creator, creatorImage })
+      ...(role === 'seller' && { creator })
     };
 
+    console.log("UserData: ", userData)
 
     try {
       const response = await fetch('/api/users', {
@@ -31,8 +33,9 @@ const RegisterForm = () => {
       });
       if (!response.ok) {
         throw new Error('Registrering misslyckades');
+      } else {
+        console.log("Registering lyckades!")
       }
-      const data = await response.json();
 
     } catch (error) {
       console.error('Registrering misslyckades', error);
@@ -58,7 +61,13 @@ const RegisterForm = () => {
             placeholder="Lösenord"
             required
           />
-
+          <input
+            type="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="Namn"
+            required
+          />
           <select value={role}
             onChange={(e) => setRole(e.target.value)}
             required
@@ -71,7 +80,6 @@ const RegisterForm = () => {
         {role === 'seller' && (
           <div id='sellers_register'>
             <input type="text" value={creator} onChange={(e) => setCreator(e.target.value)} placeholder="Företagsnamn" required={role === 'seller'} />
-            <input type="text" value={creatorImage} onChange={(e) => setCreatorImage(e.target.value)} placeholder="Företagslogga URL" required={role === 'seller'} />
           </div>
         )}
 
@@ -82,7 +90,7 @@ const RegisterForm = () => {
     ;
 };
 
-const handleLogin = async (username, password) => {
+/* const handleLogin = async (username, password) => {
   try {
     const response = await fetch(`http://localhost:3000/users?username=${username}&password=${password}`);
     if (!response.ok) {
@@ -98,7 +106,7 @@ const handleLogin = async (username, password) => {
   } catch (error) {
     console.error('Fel vid inloggning', error);
   }
-};
+}; */
 
 
-export default RegisterForm; handleLogin;
+export default RegisterForm;
