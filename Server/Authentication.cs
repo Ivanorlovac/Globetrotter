@@ -43,9 +43,6 @@ public class Auth
             userResult = new User(id, username, role, name, null, null);
         }
 
-        Console.WriteLine(id + ", " + role);
-
-
         await ctx.SignInAsync("globetrotter", new ClaimsPrincipal(
             new ClaimsIdentity(
                 new Claim[]

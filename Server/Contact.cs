@@ -47,14 +47,14 @@ public class Contacts
   }
   public static IResult CreateContact(Contact newContact, State state)
   {
-    var result = MySqlHelper.ExecuteScalar(state.DB, "INSERT INTO Contacts (name, email, tel, message) VALUES (@name, @email, @tel, @message)",
+    var result = MySqlHelper.ExecuteNonQuery(state.DB, "INSERT INTO Contacts (name, email, tel, message) VALUES (@name, @email, @tel, @message)",
     [new("@name", newContact.name),
       new("email", newContact.email),
       new("tel", newContact.tel),
       new("message", newContact.message)]);
 
 
-    if (result == null)
+    if (result == 1)
     {
       return TypedResults.Created($"/contact/{result}", new { id = result, newContact.name, newContact.email, newContact.tel, newContact.message });
     }

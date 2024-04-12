@@ -15,6 +15,7 @@ var app = builder.Build();
 
 app.MapGet("/auctions", Auctions.GetAllAuctions);
 app.MapGet("/auctions/{Id}", Auctions.GetAllAuctionById);
+app.MapGet("/auctions/seller/{companyName}", Auctions.GetAllAuctionByName);
 app.MapDelete("/auctions/{id}", Auctions.DeleteAuction);
 app.MapPut("/auctions/{id}", Auctions.UpdateAuction);
 app.MapPost("/auctions", Auctions.CreateAuction);

@@ -10,6 +10,10 @@ public class Auctions
 
 
   public record AuctionEndPoint(string id, string title, string slug, string description, int valuationPrice, int priceRange, List<string> images, DateTime endTime, string category, string creator, string creatorImage);
+
+  public record AuctionSeller(string id, string title, string slug, string description, int valuationPrice, int priceRange, DateTime endTime, string category, string creator, string creatorImage);
+
+
   public static List<AuctionEndPoint> GetAllAuctions(State state)
   {
     List<AuctionEndPoint> result = new();
@@ -60,14 +64,27 @@ LEFT JOIN Categories cat ON cat.id = a.category");
                                     .ToList();
 
 
-      result.Add(new(Convert.ToString(reader.GetInt32("id")), reader.GetString("title"), reader.GetString("slug"), reader.GetString("description"), reader.GetInt32("valuationPrice"), reader.GetInt32("priceRange"), imagesArray, reader.GetDateTime("endTime"), reader.GetString("category"), reader.GetString("creator"), reader.GetString("creatorImage")));
-
+      result.Add(new(reader.GetInt32("id").ToString(), reader.GetString("title"), reader.GetString("slug"), reader.GetString("description"), reader.GetInt32("valuationPrice"), reader.GetInt32("priceRange"), imagesArray, reader.GetDateTime("endTime"), reader.GetString("category"), reader.GetString("creator"), reader.GetString("creatorImage")));
 
     }
     return result;
-
-
   }
+
+  public static List<AuctionSeller> GetAllAuctionByName(State state, string companyName)
+  {
+    List<AuctionSeller> result = new();
+    using var reader = MySqlHelper.ExecuteReader(state.DB, @"SELECT a.id, a.title, a.slug, a.description, a.valuationPrice, a.priceRange, a.endTime, c.companyName as creator, c.logo as creatorImage, cat.name as category  
+    FROM Auctions as a
+    LEFT JOIN Companies c ON a.company = c.id
+    LEFT JOIN Categories cat ON cat.id = a.category
+    WHERE c.companyName = @name", new MySqlParameter("@name", companyName));
+    while (reader.Read())
+    {
+      result.Add(new(reader.GetInt32("id").ToString(), reader.GetString("title"), reader.GetString("slug"), reader.GetString("description"), reader.GetInt32("valuationPrice"), reader.GetInt32("priceRange"), reader.GetDateTime("endTime"), reader.GetString("category"), reader.GetString("creator"), reader.GetString("creatorImage")));
+    }
+    return result;
+  }
+
 
 
   public static IResult DeleteAuction(int id, State state)
@@ -94,22 +111,23 @@ LEFT JOIN Categories cat ON cat.id = a.category");
   public static IResult UpdateAuction(Auction auction, State state)
   {
 
-    using var getCompanyId = MySqlHelper.ExecuteReader(state.DB, "SELECT id FROM Categories WHERE name = @category", [new("@category", auction.category)]);
+    var getCategoryId = Convert.ToInt32(MySqlHelper.ExecuteScalar(state.DB, "SELECT id FROM Categories WHERE name = @category", [new("@category", auction.category)]));
+    var getCompanyId = Convert.ToInt32(MySqlHelper.ExecuteScalar(state.DB, "SELECT id FROM Companies WHERE companyName = @company", [new("@company", auction.creator)]));
 
-    var result = MySqlHelper.ExecuteScalar(state.DB, "update Auctions set title = @title, slug = @slug, description = @description, valuationPrice = @valuationPrice, priceRange = @priceRange, images = @images, endTime = @endTime, category = @category, company = @company where id = @id",
+    var result = MySqlHelper.ExecuteNonQuery(state.DB, "update Auctions set title = @title, slug = @slug, description = @description, valuationPrice = @valuationPrice, priceRange = @priceRange, endTime = @endTime, category = @category, company = @company where id = @id",
     new("@title", auction.title),
     new("@slug", auction.slug),
     new("@description", auction.description),
     new("@valuationPrice", auction.valuationPrice),
     new("@priceRange", auction.priceRange),
-    new("@images", auction.imagesString),
     new("@endTime", auction.endTime),
-    new("@category", auction.category),
-    new("@company", auction.creator),
+    new("@category", getCategoryId),
+    new("@company", getCompanyId),
     new("@id", auction.id));
-    if (result != null)
+
+    if (result == 1)
     {
-      return TypedResults.Ok("Auction updated successfully.");
+      return TypedResults.Ok();
     }
     else
     {

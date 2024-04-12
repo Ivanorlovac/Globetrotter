@@ -75,30 +75,33 @@ public class Users
 
     public static IResult UpdateUser(int id, User updatedUser, State state)
     {
-        var getId = "";
-/*         if (updatedUser.role == "seller"){
-            getId = MySqlHelper.ExecuteScalar(state.DB, "Select id FROM Companies WHERE companyName = @company", [new("@company", updatedUser.creator)]);
-        } */
+        int? getCompanyId = null;
+        if(updatedUser.role == "seller")
+        {
+            getCompanyId = Convert.ToInt32(MySqlHelper.ExecuteScalar(state.DB, "SELECT id FROM Companies WHERE companyName = @company", [new("@company", updatedUser.creator)]));
+        }
 
-        var result = MySqlHelper.ExecuteScalar(state.DB, "update Users set username = @username, role = @role, name = @name, company = @company where id = @id",
+        var result = MySqlHelper.ExecuteNonQuery(state.DB, "update Users set username = @username, role = @role, name = @name, company = @company where id = @id",
         new("@username", updatedUser.username),
         new("@role", updatedUser.role),
         new("@name", updatedUser.name),
-        new("@company", getId),
+        new("@company", getCompanyId),
         new("@id", id));
 
         if (updatedUser.password != "")
         {
-            result = MySqlHelper.ExecuteScalar(state.DB, "update Users set username = @username, password = @password, role = @role, name = @name, company = @company where id = @id",
+            result = MySqlHelper.ExecuteNonQuery(state.DB, "update Users set username = @username, password = @password, role = @role, name = @name, company = @company where id = @id",
             new("@username", updatedUser.username),
             new("@password", updatedUser.password),
             new("@role", updatedUser.role),
             new("@name", updatedUser.name),
-            new("@company", updatedUser.creator),
+            new("@company", getCompanyId),
             new("@id", id));
+        }else{
+            
         }
-
-        if (result == null)
+        
+        if (result == 1)
         {
             return Results.Ok();
         }
