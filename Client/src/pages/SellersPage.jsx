@@ -29,18 +29,19 @@ const SellersPage = () => {
 
   
   useEffect(() => {
-    
+
+    console.log("User: ", user)
     if (user && user.role === 'seller') {
       fetchAuctions();
     } else {
-      
       navigate('/');
     }
   }, [user, navigate]);
 
   const fetchAuctions = async () => {
     try {
-      const response = await fetch(`/api/auctions/${encodeURIComponent(user.creator)}`);
+      const response = await fetch(`/api/auctions/seller/${user.creator}`);
+      
       if (!response.ok) throw new Error('Nätverksfel vid hämtning av auktioner');
       const data = await response.json();
       setAuctions(data);
@@ -63,14 +64,13 @@ const SellersPage = () => {
 
   const handleUpdateAuction = async (e) => {
     e.preventDefault();
-    
     try {
       const response = await fetch(`/api/auctions/${editingAuction.id}`, {
         method: 'PUT',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(editingAuction),
       });
-      if (!response.ok) {
+      if (!response) {
         throw new Error('Misslyckades att uppdatera auktion');
       }
       alert('Auktion uppdaterad');

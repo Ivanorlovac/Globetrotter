@@ -14,6 +14,7 @@ const SellerProfile = () => {
     const updatedUser = {
       ...user,
       username,
+      name,
       password, 
       creatorImage: userImage,
     };

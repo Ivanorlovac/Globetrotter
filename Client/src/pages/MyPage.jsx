@@ -51,7 +51,7 @@ export default function MyPage() {
       }
 
       async function getEndedAuctions() {
-        const response = await fetch('/api/closed-auctions')
+        const response = await fetch('/api/closed-auctions/')
         const data = await response.json()
         return data
       }
@@ -60,6 +60,7 @@ export default function MyPage() {
       setMybids(dataBids)
       const dataAuctions = await getAuctions()
       const dataEndedAuctions = await getEndedAuctions()
+      console.log("dataEndedAuctions: ", dataEndedAuctions)
 
       if (dataBids && dataAuctions ) {
 

@@ -4,13 +4,13 @@ import { MdEmail, MdPhone, MdLocationOn } from 'react-icons/md';
 
 function Contact() {
 
-  const [surname, setSurname] = useState('')
+  const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [tel, setTel] = useState('')
   const [message, setMessage] = useState('')
 
   const resetForm = () => {
-    setSurname('');
+    setName('');
     setEmail('');
     setTel('');
     setMessage('');
@@ -20,7 +20,7 @@ function Contact() {
   const createContact = async (e) => {
     e.preventDefault();
 
-    if (!surname || !email || !tel || !message) {
+    if (!name || !email || !tel || !message) {
       alert('Fyll i alla fält!');
       return;
     }
@@ -32,7 +32,7 @@ function Contact() {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          surname,
+          name,
           email,
           tel,
           message
@@ -59,7 +59,7 @@ function Contact() {
           <form onSubmit={createContact}>
             <div className="form-group">
               <label htmlFor="firstName">Förnamn</label>
-              <input className="custom-input" type="text" id="firstName" value={surname} onChange={(e)=>setSurname(e.target.value)} />
+              <input className="custom-input" type="text" id="firstName" value={name} onChange={(e)=>setName(e.target.value)} />
             </div>
 
             <div className="form-group">

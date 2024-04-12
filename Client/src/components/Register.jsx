@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 const RegisterForm = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
-  const [role, setRole] = useState('user');
+  const [role, setRole] = useState('buyer');
   const [creator, setCreator] = useState('');
-
-
+  const navigate = useNavigate();
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -32,9 +32,11 @@ const RegisterForm = () => {
         body: JSON.stringify(userData),
       });
       if (!response.ok) {
+        alert('Registrering misslyckades!');
         throw new Error('Registrering misslyckades');
       } else {
-        console.log("Registering lyckades!")
+        alert('Registrering lyckades!');
+        navigate('/login');
       }
 
     } catch (error) {

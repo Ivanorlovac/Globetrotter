@@ -13,7 +13,8 @@ function GlobalProvider({ children }) {
   const [updateFavorites, setUpdateFavorites] = useState(0)
 
   useEffect(() => {
-    if (Object.keys(user).length !== 0) {
+    
+    if (Object.keys(user).length !== 0 && user.role == 'buyer') {
       const id = user.id
       async function getFavorites() {
         const response = await fetch(`/api/favorites/${id}`)
@@ -49,7 +50,6 @@ function GlobalProvider({ children }) {
 
   const updateUser = async (updatedUser) => {
     setUser(updatedUser); 
-    console.log("Updated user: ", updatedUser)
 
     try {
       const response = await fetch(`/api/users/${updatedUser.id}`, {
@@ -58,11 +58,9 @@ function GlobalProvider({ children }) {
         body: JSON.stringify(updatedUser),
       });
 
-      if (!response.ok) throw new Error('Failed to update user profile');
-
+      if (!response) throw new Error('Failed to update user profile');
       
-      const refreshedUser = await response.json();
-      setUser(refreshedUser);
+      setUser(updatedUser);
       console.log('Profile updated successfully');
     } catch (error) {
       console.error('Error updating user profile:', error);

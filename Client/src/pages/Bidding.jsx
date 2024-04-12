@@ -31,21 +31,26 @@ export default function Bidding() {
     if (!auction.endTime) return;
 
     let timeNow = new Date().toLocaleString('se-SE', { timeZone: 'cet' })
+    console.log("TimeNow: ", timeNow)
     let timeEnd = new Date(auction.endTime).toLocaleString('se-SE', { timeZone: 'cet' })
+    console.log("timeEnd: ", timeEnd)
     const timeLeft = Date.parse(timeEnd) - Date.parse(timeNow)
+    console.log("timeLeft: ", timeLeft)
 
-    if (timeLeft > 0) {
+
+    if (timeLeft > 0 && timeLeft < 2147483647) {
       const timer = setTimeout(() => {
         setAuctionClosed(true)
       }, timeLeft)
-
       return () => clearTimeout(timer)
-    } else if(timeLeft < 0) {
+      
+    } else if (timeLeft < 0) {
       setAuctionClosed(true)
     }
 
   }, [auction])
 
+  console.log("auctionClosed: ", auctionClosed)
 
   const goBack = () => {
     history.back()
