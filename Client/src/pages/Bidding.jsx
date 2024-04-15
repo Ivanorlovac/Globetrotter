@@ -21,7 +21,7 @@ export default function Bidding() {
       const response = await fetch("/api/auctions/" + id)
 
       const dataAuction = await response.json()
-      setAuction(dataAuction)
+      setAuction(dataAuction[0])
     }
     load()
   }, [])
@@ -34,13 +34,13 @@ export default function Bidding() {
     let timeEnd = new Date(auction.endTime).toLocaleString('se-SE', { timeZone: 'cet' })
     const timeLeft = Date.parse(timeEnd) - Date.parse(timeNow)
 
-    if (timeLeft > 0) {
+    if (timeLeft > 0 && timeLeft < 2000000000) {
       const timer = setTimeout(() => {
         setAuctionClosed(true)
       }, timeLeft)
-
       return () => clearTimeout(timer)
-    } else {
+      
+    } else if (timeLeft < 0) {
       setAuctionClosed(true)
     }
 

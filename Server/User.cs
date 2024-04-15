@@ -8,17 +8,15 @@ namespace Server;
 
 public class Users
 {
-    public record User(int id, string username, string password, string role, string name, int? company);
-
+    public record User(string username, string password, string role, string name, string? creator, string? creatorImage);
 
     public record UserEndPoint(string id, string username, string password, string role, string name, string? creator = null, string? creatorImage = null);
+
     public static List<UserEndPoint> GetAllUsers(State state)
     {
         List<UserEndPoint> result = new();
-        var reader = MySqlHelper.ExecuteReader(state.DB, @"SELECT u.id, u.username, u.password, u.role, u.name, c.companyName, c.logo FROM Users as u
-LEFT JOIN Companies c ON u.company = c.id");
-
-
+        using var reader = MySqlHelper.ExecuteReader(state.DB, @"SELECT u.id, u.username, u.password, u.role, u.name, c.companyName, c.logo FROM Users as u
+                                                                LEFT JOIN Companies c ON u.company = c.id");
         while (reader.Read())
         {
             if (reader.GetString("role") == "seller")
@@ -29,21 +27,18 @@ LEFT JOIN Companies c ON u.company = c.id");
             {
                 result.Add(new(Convert.ToString(reader.GetInt32("id")), reader.GetString("username"), reader.GetString("password"), reader.GetString("role"), reader.GetString("name"), null, null));
             }
-
-
         }
 
 
         return result;
     }
 
-
     public static List<UserEndPoint> GetAllUsersById(string id, State state)
     {
         List<UserEndPoint> result = new();
-        var reader = MySqlHelper.ExecuteReader(state.DB, @"SELECT u.id, u.username, u.password, u.role, u.name, c.companyName, c.logo FROM Users as u
-LEFT JOIN Companies c ON u.company = c.id
-WHERE u.id = @id", new MySqlParameter("@id", id));
+        using var reader = MySqlHelper.ExecuteReader(state.DB, @"SELECT u.id, u.username, u.password, u.role, u.name, c.companyName, c.logo FROM Users as u
+                                                                    LEFT JOIN Companies c ON u.company = c.id
+                                                                    WHERE u.id = @id", new MySqlParameter("@id", id));
 
 
         while (reader.Read())
@@ -78,55 +73,116 @@ WHERE u.id = @id", new MySqlParameter("@id", id));
     }
 
 
-
-
     public static IResult UpdateUser(int id, User updatedUser, State state)
     {
-        var result = MySqlHelper.ExecuteScalar(state.DB, "update Users set username = @username, password = @password, role = @role, name = @name, company = @company where id = @id",
-
-
-        new("@username", updatedUser.username),
-        new("@password", updatedUser.password),
-        new("@role", updatedUser.role),
-        new("@name", updatedUser.name),
-        new("@company", updatedUser.company),
-        new("@id", id));
-
-
-
-
-        if (result == null)
+        int? getCompanyId = null;
+        if(updatedUser.role == "seller")
         {
-            return Results.Ok("User updated successfully.");
+            getCompanyId = Convert.ToInt32(MySqlHelper.ExecuteScalar(state.DB, "SELECT id FROM Companies WHERE companyName = @company", [new("@company", updatedUser.creator)]));
+
+            var resultCompany = MySqlHelper.ExecuteNonQuery(state.DB, "UPDATE Companies set companyName = @creator, logo = @creatorImage where id = @id", [new("@creator", updatedUser.creator), new("@creatorImage", updatedUser.creatorImage), new("@id", getCompanyId)]);
+            if (resultCompany == 1)
+            {
+                Console.WriteLine("Seller company data updated");
+            }
+            else
+            {
+                return Results.BadRequest();
+            }
+
+        }
+
+        int result;
+        if (updatedUser.password != "")
+        {
+            result = MySqlHelper.ExecuteNonQuery(state.DB, "update Users set username = @username, password = @password, role = @role, name = @name, company = @company where id = @id",
+            new("@username", updatedUser.username),
+            new("@password", updatedUser.password),
+            new("@role", updatedUser.role),
+            new("@name", updatedUser.name),
+            new("@company", getCompanyId),
+            new("@id", id));
         }
         else
         {
-            return Results.BadRequest("Failed to update the user.");
+            result = MySqlHelper.ExecuteNonQuery(state.DB, "update Users set username = @username, role = @role, name = @name, company = @company where id = @id",
+            new("@username", updatedUser.username),
+            new("@role", updatedUser.role),
+            new("@name", updatedUser.name),
+            new("@company", getCompanyId),
+            new("@id", id));
+        }
+        
+        if (result == 1)
+        {
+            return Results.Ok();
+        }
+        else
+        {
+            return Results.BadRequest();
         }
     }
 
-
-
-
-
+    public record Company(string? companyName);
 
     public static IResult CreateUser(State state, User user)
     {
+        int? idCompany = null;
+        if (user.role == "seller")
+        {
+            idCompany = CreateCompanies(state, user.creator); 
+        }
+
         var result = MySqlHelper.ExecuteScalar(state.DB, "insert into Users (username, password, role, name, company) values (@username, @password, @role, @name, @company)",
         new("@username", user.username),
         new("@password", user.password),
         new("@role", user.role),
         new("@name", user.name),
-        new("@company", user.company));
-
+        new("@company", idCompany));
 
         if (result == null)
         {
-            return TypedResults.Created($"/users/{user.id}", new { user.id, user.username, user.password, user.role, user.name, user.company });
+            return TypedResults.Ok();
         }
         else
         {
             return TypedResults.BadRequest("Failed to create the user.");
         }
     }
+
+    public static int CreateCompanies(State state, string? company)
+    {
+        int getId;
+        try
+        {
+            getId = (int)MySqlHelper.ExecuteScalar(state.DB, "SELECT id FROM Companies WHERE companyName = @companyName", [new("@companyName", company)]);
+        }
+        catch
+        {
+            getId = 0;
+        }
+
+        if (getId > 0)
+        {
+            return getId;
+        }
+        else
+        {
+            ulong result = (ulong)MySqlHelper.ExecuteScalar(state.DB, "INSERT INTO Companies (companyName, about) values (@companyName, @about); SELECT LAST_INSERT_ID();",
+            new("@companyName", company),
+            new("@about", null));
+
+            int newProdID = Convert.ToInt32(result);
+
+            if (newProdID > 0)
+            {
+                return newProdID;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+    }
+
 }

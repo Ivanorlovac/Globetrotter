@@ -18,7 +18,7 @@ export default function TotalBids(props) {
       let api = ''
 
       if (id !== null) {
-        api = `/api/bids?auctionId=${id}`
+        api = `/api/bids/auction/${id}`
       } else {
         api = `/api/bids`
       }

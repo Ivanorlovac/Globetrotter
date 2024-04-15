@@ -17,7 +17,7 @@ export default function PlaceBid() {
   const { id } = useParams();
   
   useEffect(() => {
-    fetch(`http://localhost:3000/bids?userId=${user.id}&auctionId=${id}`)
+    fetch(`/api/bids/auction/${id}/user/${user.id}`)
       .then(response => {
         if (!response.ok) {
           throw new Error('Nätverksfel vid hämtning av auktionsdetaljer');
@@ -62,12 +62,14 @@ export default function PlaceBid() {
 
     const newBid = {
       auctionId: id,
+      userId: user.id,      
       amount: bidAmount,
-      userId: user.id,
-      time: new Date().toLocaleString('se-SE', { timeZone: 'cet' })
+      time: new Date().toLocaleString('se-SE', { timeZone: 'cet' }).replace(" ", "T")
     };
 
-    fetch('http://localhost:3000/bids', {
+    console.log("newbid time:", newBid.time)
+    
+    fetch('/api/bids', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -98,7 +100,7 @@ export default function PlaceBid() {
 
 
   return <>
-    {user.role !== 'user' ? <NoUser /> : <>
+    {user.role !== 'buyer' ? <NoUser /> : <>
       <div className='show-bid'>
         {higestBid > 0 ? <p style={{color:"black", fontWeight: "400", fontSize: "90%"}}>Ditt högst lagda bud: <span style={{color: "black", fontSize: "160%", fontWeight: "bold"}}>{higestBid} kr</span></p> : <p>Lägg ett bud för att gå med i auktion</p>}
       </div>          

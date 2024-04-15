@@ -11,6 +11,7 @@ import { IoIosArrowForward } from "react-icons/io";
 
 export default function MyPage() {
 
+  const [userLocalStorage, setUserLocalStorage] = useState({});
   const [myAuctions, setMyAuctions] = useState([])
   const [myEndedAuctions, setMyEndedAuctions] = useState([])
   const [myWonAuctions, setMyWonAuctions] = useState([])
@@ -19,18 +20,18 @@ export default function MyPage() {
   const [showFavorites, setShowFavorites] = useState(true);
   const [showAuctions, setShowAuctions] = useState(true);
   const [showEndedAuctions, setShowEndedAuctions] = useState(true);
-  const [newUsername, setNewUsername] = useState(user.username);
-  const [newPassword, setNewPassword] = useState(user.password);
+  const [newUsername, setNewUsername] = useState(userLocalStorage.username);
+  const [newPassword, setNewPassword] = useState("");
+  const [newName, setNewName] = useState(userLocalStorage.name);
   const [filteredFavoriteAuctions, setFilteredFavoriteAuctions] = useState([]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
   const isConfirmed = window.confirm('Är du säker på att du vill uppdatera din profil?');
     if (isConfirmed) {
-      updateUser({ ...user, username: newUsername, password: newPassword });
+      updateUser({ ...user, username: newUsername, password: newPassword, name: newName });
       alert('Profil uppdaterad!');
     } else {
-
       return;
     } 
   };
@@ -40,7 +41,7 @@ export default function MyPage() {
       const id = user.id
 
       async function getMyBids() {
-        const response = await fetch('/api/bids?userId=' + id)
+        const response = await fetch('/api/bids/user/' + id)
         const data = await response.json()
         return data
       }
@@ -51,7 +52,7 @@ export default function MyPage() {
       }
 
       async function getEndedAuctions() {
-        const response = await fetch('/api/closed_auctions')
+        const response = await fetch('/api/closed-auctions/')
         const data = await response.json()
         return data
       }
@@ -60,6 +61,7 @@ export default function MyPage() {
       setMybids(dataBids)
       const dataAuctions = await getAuctions()
       const dataEndedAuctions = await getEndedAuctions()
+      console.log("dataEndedAuctions: ", dataEndedAuctions)
 
       if (dataBids && dataAuctions ) {
 
@@ -78,10 +80,10 @@ export default function MyPage() {
         let data = myAuctionsData.sort((a, b) => {
           return new Date(a.endTime) - new Date(b.endTime)
         })
-
+        console.log("Favorites in mypages: ", favorites)
         data = data.filter(auction => {
           return favorites.some(favorite => {
-            return favorite.auction_id === auction.id
+            return favorite.auctionId === auction.id
           })
         })
 
@@ -107,7 +109,18 @@ export default function MyPage() {
     load()
 
 
-  }, [favorites])
+  }, [favorites, updateUser])
+
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const userData = JSON.parse(storedUser) 
+      setUserLocalStorage(userData);
+      setNewUsername(userData.username)
+      setNewName(userData.name)
+    }
+  },[]);
 
 
   const favoritesPopdown = () => {
@@ -133,7 +146,7 @@ export default function MyPage() {
   };  
 
   const toggleFavorite = (articleObj) => {
-    const existingFavorite = favorites.find(obj => obj.auction_id === articleObj.id);
+    const existingFavorite = favorites.find(obj => obj.auctionId === articleObj.id);
     if (existingFavorite) {
       deleteFavorite(existingFavorite);
       const removedFavoriteObject = filteredFavoriteAuctions.filter(auction => {
@@ -145,10 +158,9 @@ export default function MyPage() {
 
   const deleteFavorite = existingFavorite => {
 
-    fetch(`/api/favorites/${existingFavorite.id}`, {
+    fetch(`/api/favorites/${existingFavorite.userId}/${existingFavorite.auctionId}`, {
       method: "DELETE",
     })
-      .then(response => response.json())
       .then(() => {
         setUpdateFavorites(updateFavorites + 1)
       })
@@ -262,24 +274,31 @@ export default function MyPage() {
     </>
   }
 
+
+
   return <>
 
-    <div className="my-page-main">
+      <div className="my-page-main">
       <section id="my_page_first_section">
-        <h2>Välkommen {user.username} till Mina sidor!</h2>
-        <h3>Konto:</h3>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Användarnamn: <br/>
-            <input type="text" value={newUsername} onChange={(e) => setNewUsername(e.target.value)} />
-          </label>
-          <label>
-            Nytt lösenord: <br/>
-            <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-          </label>
-          <button id="my_page_update_button" className="button_smooth" type="submit">Uppdatera profil</button>
-        </form>
-      </section>
+          <h2>Välkommen {userLocalStorage.name} till Mina sidor!</h2>
+          <h3>Konto:</h3>
+          <form onSubmit={handleSubmit}>
+            <label>
+              Användarnamn: <br/>
+              <input type="text" value={newUsername} onChange={(e) => setNewUsername(e.target.value)} />
+            </label>
+            <label>
+              Nytt lösenord: <br/>
+              <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+            </label>
+            <label>
+              Namn: <br/>
+              <input type="name" value={newName} onChange={(e) => setNewName(e.target.value)} />
+            </label>          
+            <button id="my_page_update_button" className="button_smooth" type="submit">Uppdatera profil</button>
+          </form>
+        </section>
+      
       <section className="section-information">
         <div className="favorite-section" onClick={favoritesPopdown}>
           <h3 className="favorite-drop-button" >Mina favoriter</h3>
@@ -302,6 +321,7 @@ export default function MyPage() {
       </section>
       
     </div>
+
 
 
 
