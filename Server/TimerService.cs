@@ -81,6 +81,11 @@ public sealed class TimerService : IHostedService, IAsyncDisposable
                     Console.WriteLine("ID: " + reader.GetInt32("auctionId") + " Bud: " + reader.GetInt32("highestBid"));
                     CreateClosedAuction(new ClosedAuction(reader.GetInt32("auctionId"), reader.GetInt32("userId"), reader.GetInt32("highestBid")));
                 }
+                else
+                {
+                    Console.WriteLine("ID: " + reader.GetInt32("auctionId") + " Bud: " + reader.GetInt32("highestBid") + " did not meet the auction's requirements.");
+                    CreateClosedAuction(new ClosedAuction(reader.GetInt32("auctionId"), null, null));
+                }
             }
             catch
             {
