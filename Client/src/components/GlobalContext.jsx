@@ -49,6 +49,7 @@ function GlobalProvider({ children }) {
   };
 
   const updateUser = async (updatedUser) => {
+    localStorage.setItem('user', JSON.stringify(updatedUser));
     setUser(updatedUser); 
 
     try {
@@ -59,7 +60,7 @@ function GlobalProvider({ children }) {
       });
 
       if (!response) throw new Error('Failed to update user profile');
-      
+      console.log("Ny user data: ", updatedUser)
       setUser(updatedUser);
       console.log('Profile updated successfully');
     } catch (error) {

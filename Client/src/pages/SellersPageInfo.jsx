@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Globalcontext } from "../components/GlobalContext";
 
 const SellerProfile = () => {
@@ -7,6 +7,16 @@ const SellerProfile = () => {
   const [name, setName] = useState(user.name);
   const [password, setPassword] = useState('');
   const [userImage, setUserImage] = useState(user.creatorImage || '');
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const userData = JSON.parse(storedUser) 
+      setUsername(userData.username)
+      setName(userData.name)
+      setUserImage(userData.creatorImage)
+    }
+  },[]);
 
   const handleUpdate = async (e) => {
     e.preventDefault();

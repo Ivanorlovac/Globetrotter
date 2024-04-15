@@ -14,7 +14,6 @@ export default function Favorites() {
 
 
   useEffect(() => {
-    console.log("favorites start: ", favorites)
 
     if (favorites.some(obj => obj.auctionId === id)) {
       setIsFavorited(true)
@@ -25,19 +24,15 @@ export default function Favorites() {
 
   const toggleFavorite = () => {    
     let existingFavorite = favorites.find(obj => obj.auctionId === id);
-    console.log("existingFavorite: ", existingFavorite)
-    
-    console.log("favorites: ", favorites)
-    if (favorites.length === 0) {
+
+    if (favorites.length === 0 || existingFavorite === undefined) {
       existingFavorite = []
     }
 
-    if (existingFavorite.length === 0) {
-      console.log("Första")
+    if (existingFavorite.length === 0 ) {
       const favorite = { userId: user.id, auctionId: id };
       saveFavorite(favorite);
     } else {
-      console.log("Andra: ", existingFavorite)
       deleteFavorite(existingFavorite);
     }
   };

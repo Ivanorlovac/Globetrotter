@@ -11,6 +11,7 @@ import { IoIosArrowForward } from "react-icons/io";
 
 export default function MyPage() {
 
+  const [userLocalStorage, setUserLocalStorage] = useState({});
   const [myAuctions, setMyAuctions] = useState([])
   const [myEndedAuctions, setMyEndedAuctions] = useState([])
   const [myWonAuctions, setMyWonAuctions] = useState([])
@@ -19,9 +20,9 @@ export default function MyPage() {
   const [showFavorites, setShowFavorites] = useState(true);
   const [showAuctions, setShowAuctions] = useState(true);
   const [showEndedAuctions, setShowEndedAuctions] = useState(true);
-  const [newUsername, setNewUsername] = useState(user.username);
+  const [newUsername, setNewUsername] = useState(userLocalStorage.username);
   const [newPassword, setNewPassword] = useState("");
-  const [newName, setNewName] = useState(user.name);
+  const [newName, setNewName] = useState(userLocalStorage.name);
   const [filteredFavoriteAuctions, setFilteredFavoriteAuctions] = useState([]);
 
   const handleSubmit = (e) => {
@@ -109,6 +110,17 @@ export default function MyPage() {
 
 
   }, [favorites, updateUser])
+
+
+  useEffect(() => {
+    const storedUser = localStorage.getItem('user');
+    if (storedUser) {
+      const userData = JSON.parse(storedUser) 
+      setUserLocalStorage(userData);
+      setNewUsername(userData.username)
+      setNewName(userData.name)
+    }
+  },[]);
 
 
   const favoritesPopdown = () => {
@@ -262,28 +274,31 @@ export default function MyPage() {
     </>
   }
 
+
+
   return <>
 
-    <div className="my-page-main">
+      <div className="my-page-main">
       <section id="my_page_first_section">
-        <h2>Välkommen {user.name} till Mina sidor!</h2>
-        <h3>Konto:</h3>
-        <form onSubmit={handleSubmit}>
-          <label>
-            Användarnamn: <br/>
-            <input type="text" value={newUsername} onChange={(e) => setNewUsername(e.target.value)} />
-          </label>
-          <label>
-            Nytt lösenord: <br/>
-            <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
-          </label>
-          <label>
-            Namn: <br/>
-            <input type="name" value={newName} onChange={(e) => setNewName(e.target.value)} />
-          </label>          
-          <button id="my_page_update_button" className="button_smooth" type="submit">Uppdatera profil</button>
-        </form>
-      </section>
+          <h2>Välkommen {userLocalStorage.name} till Mina sidor!</h2>
+          <h3>Konto:</h3>
+          <form onSubmit={handleSubmit}>
+            <label>
+              Användarnamn: <br/>
+              <input type="text" value={newUsername} onChange={(e) => setNewUsername(e.target.value)} />
+            </label>
+            <label>
+              Nytt lösenord: <br/>
+              <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)} />
+            </label>
+            <label>
+              Namn: <br/>
+              <input type="name" value={newName} onChange={(e) => setNewName(e.target.value)} />
+            </label>          
+            <button id="my_page_update_button" className="button_smooth" type="submit">Uppdatera profil</button>
+          </form>
+        </section>
+      
       <section className="section-information">
         <div className="favorite-section" onClick={favoritesPopdown}>
           <h3 className="favorite-drop-button" >Mina favoriter</h3>
@@ -306,6 +321,7 @@ export default function MyPage() {
       </section>
       
     </div>
+
 
 
 

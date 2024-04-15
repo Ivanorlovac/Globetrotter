@@ -8,7 +8,7 @@ namespace Server;
 
 public class Users
 {
-    public record User(string username, string password, string role, string name, string? creator);
+    public record User(string username, string password, string role, string name, string? creator, string? creatorImage);
 
     public record UserEndPoint(string id, string username, string password, string role, string name, string? creator = null, string? creatorImage = null);
 
@@ -79,15 +79,20 @@ public class Users
         if(updatedUser.role == "seller")
         {
             getCompanyId = Convert.ToInt32(MySqlHelper.ExecuteScalar(state.DB, "SELECT id FROM Companies WHERE companyName = @company", [new("@company", updatedUser.creator)]));
+
+            var resultCompany = MySqlHelper.ExecuteNonQuery(state.DB, "UPDATE Companies set companyName = @creator, logo = @creatorImage where id = @id", [new("@creator", updatedUser.creator), new("@creatorImage", updatedUser.creatorImage), new("@id", getCompanyId)]);
+            if (resultCompany == 1)
+            {
+                Console.WriteLine("Seller company data updated");
+            }
+            else
+            {
+                return Results.BadRequest();
+            }
+
         }
 
-        var result = MySqlHelper.ExecuteNonQuery(state.DB, "update Users set username = @username, role = @role, name = @name, company = @company where id = @id",
-        new("@username", updatedUser.username),
-        new("@role", updatedUser.role),
-        new("@name", updatedUser.name),
-        new("@company", getCompanyId),
-        new("@id", id));
-
+        int result;
         if (updatedUser.password != "")
         {
             result = MySqlHelper.ExecuteNonQuery(state.DB, "update Users set username = @username, password = @password, role = @role, name = @name, company = @company where id = @id",
@@ -97,8 +102,15 @@ public class Users
             new("@name", updatedUser.name),
             new("@company", getCompanyId),
             new("@id", id));
-        }else{
-            
+        }
+        else
+        {
+            result = MySqlHelper.ExecuteNonQuery(state.DB, "update Users set username = @username, role = @role, name = @name, company = @company where id = @id",
+            new("@username", updatedUser.username),
+            new("@role", updatedUser.role),
+            new("@name", updatedUser.name),
+            new("@company", getCompanyId),
+            new("@id", id));
         }
         
         if (result == 1)
@@ -174,11 +186,3 @@ public class Users
     }
 
 }
-
-/* {
-    "username": "ivan",
-    "password": "abc",
-    "name": "ivanivan",
-    "role": "seller",
-    "creator": "ivansforetag"
-} */
