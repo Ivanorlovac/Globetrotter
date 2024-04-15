@@ -3,13 +3,15 @@ using Org.BouncyCastle.Bcpg;
 namespace Server;
 public class Favorites
 {
-    public record Favorite(string Id, string UserId, string AuctionId);
+    public record FavoriteEndpoint(string Id, string UserId, string AuctionId);
+    public record Favorite(int UserId, int AuctionId);
 
 
-    public static List<Favorite> GetAllFavoritesUser(int user, State state)
+
+    public static List<FavoriteEndpoint> GetAllFavoritesUser(int user, State state)
     {
-        List<Favorite> result = new();
-        var reader = MySqlHelper.ExecuteReader(state.DB, "SELECT * FROM Favorites WHERE userId = @UserId", [new("@UserId", user)]);
+        List<FavoriteEndpoint> result = new();
+        using var reader = MySqlHelper.ExecuteReader(state.DB, "SELECT * FROM Favorites WHERE userId = @UserId", [new("@UserId", user)]);
 
 
         while (reader.Read())
@@ -25,12 +27,12 @@ public class Favorites
     }
 
 
-    public static IResult RemoveOneFavoriteFromDatabase(int FavoriteId, State state)
+    public static IResult RemoveOneFavoriteFromDatabase(int userId, int auctionId, State state)
     {
-        var removed = MySqlHelper.ExecuteNonQuery(state.DB, "DELETE FROM Favorites WHERE id = @FavoriteId", [new("@FavoriteId", FavoriteId)]);
+        var removed = MySqlHelper.ExecuteNonQuery(state.DB, "DELETE FROM Favorites WHERE userId = @userId AND auctionId = @auctionId", [new("@userId", userId), new("@auctionId", auctionId)]);
         if (removed == 1)
         {
-            return TypedResults.Ok("Favorite removed successfully.");
+            return TypedResults.Ok(true);
         }
         else
         {
@@ -43,10 +45,9 @@ public class Favorites
     {
         var result = MySqlHelper.ExecuteNonQuery(state.DB, "INSERT INTO Favorites (userId, auctionId) VALUES (@userId, @auctionId)", [new("@UserId", Convert.ToInt32(NewFavorite.UserId)), new("@AuctionId", Convert.ToInt32(NewFavorite.AuctionId))]);
 
-
         if (result == 1)
         {
-            return TypedResults.Ok("Favorite added successfully.");
+            return TypedResults.Ok(true);
         }
         else
         {
