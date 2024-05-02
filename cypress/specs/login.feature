@@ -17,7 +17,6 @@ Scenario: Login failed
       | username | password |
       | test0000 | 321abc   |
 
-
 Scenario: Login
   Given I am on the "/login" page
   When I write my "<username>" under username
