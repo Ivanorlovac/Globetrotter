@@ -1,0 +1,50 @@
+import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+
+Given('I am on the {string} page', (a) => {
+  // TODO: implement step
+});
+
+When('I click on {string}', (a) => {
+  // TODO: implement step
+});
+
+/* No duplicate steps, this one already above
+When('I click on {string}', (a) => {});*/
+
+Then('I get directed to the login page', () => {
+  // TODO: implement step
+});
+
+/* No duplicate steps, this one already above
+Given('I am on the {string} page', (a) => {});*/
+
+When('I write my {string} under username', (username) => {
+  // TODO: implement step
+});
+
+When('I write my {string} under password', (password) => {
+  // TODO: implement step
+});
+
+/* No duplicate steps, this one already above
+When('I click on {string}', (a) => {});*/
+
+Then('I will not get logged in {string}', (username,password) => {
+  // TODO: implement step
+});
+
+/* No duplicate steps, this one already above
+Given('I am on the {string} page', (a) => {});*/
+
+/* No duplicate steps, this one already above
+When('I write my {string} under username', (username) => {});*/
+
+/* No duplicate steps, this one already above
+When('I write my {string} under password', (password) => {});*/
+
+/* No duplicate steps, this one already above
+When('I click on {string}', (a) => {});*/
+
+Then('I will get logged in', () => {
+  // TODO: implement step
+});
