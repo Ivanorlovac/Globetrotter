@@ -55,6 +55,10 @@ module.exports = defineConfig(
               console.log(message)
               return null
             },
+              resetDatabase() {
+                console.log("Heeej!")
+              return null; 
+            }
           }
         );
 

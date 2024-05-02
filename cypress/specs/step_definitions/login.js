@@ -1,5 +1,8 @@
-import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
+import { Given, When, Then, Before } from "@badeball/cypress-cucumber-preprocessor";
 
+Before(() => {
+  cy.task('resetDatabase');
+})
 
 Then('I get directed to the login page', () => {
   cy.get('h1').should("have.text", "Logga in")
