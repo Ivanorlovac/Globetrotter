@@ -12,7 +12,7 @@ Scenario: Login failed
     When I write my "<username>" under username
     And I write my "<password>" under password
     And I click on "login-button"
-    Then I will not get logged in "<username>" and "<password>"
+    Then I will not get logged in
 
     Examples:
       | username | password |
@@ -27,5 +27,5 @@ Scenario: Login
 
   Examples:
       | username | password |
-      | test1337  | abc123  |
+      | test1337 | abc123   |
 

@@ -1,1 +1,0 @@
-const { connect, disconnect } = require("./cypress/support/db");
