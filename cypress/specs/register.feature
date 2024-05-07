@@ -1,5 +1,4 @@
-Feature: Register
+# Feature: Register
 
-  Scenario: Empty register form
-    Given I am on the "/register" page
-    When 
+#   Scenario: Register a user
+#     Given I am on the "/register" page

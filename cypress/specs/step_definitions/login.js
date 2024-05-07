@@ -3,6 +3,11 @@ import { Given, When, Then, Before } from "@badeball/cypress-cucumber-preprocess
 let userN = ''
 let userP = ''
 
+/* before(() => {
+  cy.deleteTestUser('test1337')
+});
+ */
+
 Then('I get directed to the login page', () => {
   cy.get('h1').should("have.text", "Logga in")
 });
