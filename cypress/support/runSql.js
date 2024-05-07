@@ -1,9 +1,6 @@
 const mysql2 = require('mysql2');
 
 function deleteTestUser(username) {
-
-  console.log("KÖRS DENNA ENS?")
-
   const connection = mysql2.createConnection({
       host: 'localhost',
       user: 'root',
@@ -11,20 +8,17 @@ function deleteTestUser(username) {
       database: 'Globetrotter'
   });
 
-  connection.connect();
-
-  let row;
-  const sql = 'DELETE FROM Users WHERE username = ?';
-  connection.query(sql, [username], (error, results) => {
-    console.log("Log: ", results)
-
-    if (error) throw error;
-    row = results.affectedRows
+  return new Promise((resolve, reject) => {
+    const sql = 'DELETE FROM Users WHERE username = ?';
+    connection.query(sql, [username], (error, results) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(results);
+      }
+      connection.end();
+    });
   });
-
-  connection.end();
-  return row;
-
 }
 
-module.exports = {deleteTestUser};
+module.exports = { deleteTestUser };

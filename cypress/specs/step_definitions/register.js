@@ -14,5 +14,7 @@ When('I choose the role {string}', (role) => {
 
 
 Then('I will get registered', () => {
-  // TODO: implement step
+  cy.on('window:alert',(txt)=>{
+    expect(txt).to.contains("Registrering lyckades!");
+  })
 });

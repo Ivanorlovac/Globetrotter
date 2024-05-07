@@ -56,8 +56,8 @@ module.exports = defineConfig(
               console.log(message)
               return null
             }, */
-          deleteTestUser() {
-            return deleteTestUser;
+          deleteTestUser(username) {
+            return deleteTestUser(username);
           }
           }
         );
