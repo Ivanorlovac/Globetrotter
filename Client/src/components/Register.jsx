@@ -85,7 +85,7 @@ const RegisterForm = () => {
 
         {role === 'seller' && (
           <div id='sellers_register'>
-            <input type="text" value={creator} onChange={(e) => setCreator(e.target.value)} placeholder="Företagsnamn" required={role === 'seller'} />
+            <input type="text" id = "companyName" value={creator} onChange={(e) => setCreator(e.target.value)} placeholder="Företagsnamn" required={role === 'seller'} />
           </div>
         )}
 
