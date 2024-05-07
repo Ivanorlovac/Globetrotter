@@ -4,7 +4,7 @@ function deleteTestUser(username) {
   const connection = mysql2.createConnection({
       host: 'localhost',
       user: 'root',
-      password: 'Dunder123!1',
+      password: 'mypassword',
       database: 'Globetrotter'
   });
 
