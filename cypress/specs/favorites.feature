@@ -1,25 +1,28 @@
-    Scenario: favorite-star turn yellow
+Feature: Favorites
+
+    Background: Login
         Given I am logged in
-        And I am on the "auction" page
+
+    Scenario: Favorite-star turn yellow
+        And I am on the "auction/2/blue-star-jaz-aquamarine-hurghada-kusten-egypten" page
         When I click on an empty star
         Then the star should turn yellow
 
     Scenario: favorites added to my pages
-        Given I am logged in
-        And I am on the "auction" page
+        And I am on the "auction/2/blue-star-jaz-aquamarine-hurghada-kusten-egypten" page
         When I click on an empty star
         And I go to my pages
         Then the auction should appear in my favorites on my pages
 
+
     Scenario: favorites on my pages
-        Given I am logged in
-        And I am on my pages
+        And I am on the "/mina-sidor" page
         When I click on my favorites
         Then a list of my favorites should appear
 
+
     Scenario: remove favorites
-        Given I am logged in
-        And I am on my pages
-        And I have clicked on my favorites
+        And I am on the "/mina-sidor" page
+        And I click on my favorites
         When I click on the star
         Then the favorite will be removed
