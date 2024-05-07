@@ -1,7 +1,13 @@
 Feature: Register
 
+  Scenario: Access registration page
+    Given I am on the "/" page
+    When I click on "navbar-button"
+    And I click on "navlink-register"
+    Then I get directed to the register page
+
   @register
-  Scenario: Register a buyer
+  Scenario: Register new buyer
     Given I am on the "/register" page
     When I write my "<username>" under username
     And I write my "<password>" under password
@@ -14,7 +20,7 @@ Feature: Register
       | username | password | name | role |
       | TestBuyer | 321abc   | test | Köpare|
 
-  Scenario: Register a seller
+  Scenario: Register new seller
     Given I am on the "/register" page
     When I write my "<username>" under username
     And I write my "<password>" under password

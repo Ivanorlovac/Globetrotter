@@ -24,3 +24,7 @@ Then('I will get registered', () => {
     expect(txt).to.contains("Registrering lyckades!");
   })
 });
+
+Then('I get directed to the register page', () => {
+  cy.get('h2').should("have.text", "Registrera ny användare")
+});
