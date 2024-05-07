@@ -51,12 +51,14 @@ const RegisterForm = () => {
         <div>
           <input
             type="text"
+            id ="username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             placeholder="Användarnamn"
             required
           />
           <input
+            id ="password"            
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -64,6 +66,7 @@ const RegisterForm = () => {
             required
           />
           <input
+            id = "name"
             type="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
@@ -71,6 +74,7 @@ const RegisterForm = () => {
             required
           />
           <select value={role}
+            id = "role-dropdown"
             onChange={(e) => setRole(e.target.value)}
             required
           >
@@ -85,7 +89,7 @@ const RegisterForm = () => {
           </div>
         )}
 
-        <button className='button_smooth' type="submit">Registrera</button>
+        <button id = "register-button" className='button_smooth' type="submit">Registrera</button>
       </form>
     </div>
   </div>
