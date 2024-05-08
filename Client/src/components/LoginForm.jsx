@@ -56,6 +56,7 @@ const LoginForm = () => {
       <div id='left_login'>
         <label>Användarnamn:</label>
         <input
+          id ="username"
           type="text"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
@@ -63,6 +64,7 @@ const LoginForm = () => {
         />
         <label>Lösenord:</label>
         <input
+          id ="password"
           type="password"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
@@ -71,7 +73,7 @@ const LoginForm = () => {
       </div>
       {error && <p>{error}</p>}
       <div id='right_login'>
-        <button className='button_smooth' type="submit">Logga in</button>
+        <button id="login-button" className='button_smooth' type="submit">Logga in</button>
       </div>
     </form>
   );
