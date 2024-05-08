@@ -6,7 +6,7 @@ Feature: Register
     And I click on "navlink-register"
     Then I get directed to the register page
 
-  @register
+  @registerBuyer
   Scenario: Register new buyer
     Given I am on the "/register" page
     When I write my "<username>" under username
@@ -19,7 +19,8 @@ Feature: Register
     Examples:
       | username | password | name | role |
       | TestBuyer | 321abc   | test | Köpare|
-
+      
+  @registerSeller
   Scenario: Register new seller
     Given I am on the "/register" page
     When I write my "<username>" under username
