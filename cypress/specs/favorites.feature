@@ -9,7 +9,7 @@ Feature: Favorites
         Then the star should turn yellow
 
     Scenario: favorites added to my pages
-        And I am on the "/auction/27/varnding-tour-du-mont-blanc" page
+        And I am on the "auction/2/blue-star-jaz-aquamarine-hurghada-kusten-egypten" page
         When I click on an empty star
         And I go to my pages
         Then the auction should appear in my favorites on my pages

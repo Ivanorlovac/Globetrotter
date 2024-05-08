@@ -20,5 +20,12 @@ Then('I will get to the {string} page', (a) => {
 });
 
 Then('I will get {string} in the results', (searchTerm) => {
-  // TODO: implement step
+  cy.get('h5').invoke('text').then((text) => {
+    // Normalize the text: convert to lower case and remove punctuation
+    const normalizedText = text.toLowerCase().replace(/[^\w\s]|_/g, "");
+    // Split the normalized text into an array of words
+    const words = normalizedText.split(' ');
+    // Check if 'egypten' is one of the words
+    expect(words).to.include(searchTerm);
+  });
 });

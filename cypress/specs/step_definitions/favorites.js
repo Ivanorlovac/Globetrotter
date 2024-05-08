@@ -26,7 +26,6 @@ Then('the auction should appear in my favorites on my pages', () => {
   cy.get('.favorite-section').click()
   cy.get('.favorite-article')
 
-  // Här borde jag ha en if-sats som kontrollerar att favorite-article är fler än 1.
 });
 
 When('I click on my favorites', () => {
@@ -46,5 +45,4 @@ When('I click on the star', () => {
 Then('the favorite will be removed', () => {
   cy.get('.favorite-article')
 
-  // Här borde jag ha en if-sats som kontrollerar att favorite-article är färre än 1.
 });
