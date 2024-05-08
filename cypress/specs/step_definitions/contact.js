@@ -28,10 +28,9 @@ When('I submit the form', () => {
 });
 
 Then('a thank you message {string} should be displayed', (expectedMessage) => {
-  cy.on('window:alert', (str) => {
-      expect(str).to.equal(a)
+  cy.on('window:alert', (txt) => {
+      expect(txt).to.contains(expectedMessage)
     })
-
 });
 
 Given('the user is on the contact page', () => {
