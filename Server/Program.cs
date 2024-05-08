@@ -16,6 +16,29 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 });
 
 var app = builder.Build();
+
+var distPath = Path.Combine(app.Environment.ContentRootPath, "dist");
+var fileProvider = new PhysicalFileProvider(distPath);
+
+app.UseHttpsRedirection();
+
+app.UseDefaultFiles(new DefaultFilesOptions
+{
+  FileProvider = fileProvider,
+  DefaultFileNames = new List<string> { "index.html" }
+});
+
+app.UseStaticFiles(new StaticFileOptions
+{
+  FileProvider = fileProvider,
+  RequestPath = ""
+});
+
+app.UseRouting();
+
+app.UseAuthentication();
+app.UseAuthorization();
+
 var routes = app.MapGroup("/api"); 
 
 routes.MapGet("/auctions", Auctions.GetAllAuctions);
@@ -50,26 +73,6 @@ routes.MapGet("/contact", Contacts.GetAllContacts);
 routes.MapGet("/contact/{id}", Contacts.GetContactById);
 routes.MapDelete("/contact/{id}", Contacts.DeleteContactById);
 routes.MapPost("/contact", Contacts.CreateContact);
-
-
-var distPath = Path.Combine(app.Environment.ContentRootPath, "dist");
-var fileProvider = new PhysicalFileProvider(distPath);
-
-app.UseHttpsRedirection();
-
-app.UseDefaultFiles(new DefaultFilesOptions
-{
-  FileProvider = fileProvider,
-  DefaultFileNames = new List<string> { "index.html" }
-});
-
-app.UseStaticFiles(new StaticFileOptions
-{
-  FileProvider = fileProvider,
-  RequestPath = ""
-});
-
-app.UseRouting();
 
 
 app.MapFallback(async context => 
