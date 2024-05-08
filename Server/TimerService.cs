@@ -11,8 +11,8 @@ namespace App.TimerHostedService;
 public sealed class TimerService : IHostedService, IAsyncDisposable
 {
     private readonly ILogger<TimerService> _logger;
-    private readonly State _state = new State(new ("server=127.0.0.1 ;uid=root;pwd=;database=Globetrotter;port=3306"));
-    private readonly State _state1 = new State(new("server=127.0.0.1 ;uid=root;pwd=;database=Globetrotter;port=3306"));
+    private readonly State _state = new State(new ("server=127.0.0.1 ;uid=root;pwd=mypassword;database=Globetrotter;port=3306"));
+    private readonly State _state1 = new State(new("server=127.0.0.1 ;uid=root;pwd=mypassword;database=Globetrotter;port=3306"));
 
     private readonly Task _completedTask = Task.CompletedTask;
     private Timer? _timer;
@@ -47,12 +47,12 @@ public sealed class TimerService : IHostedService, IAsyncDisposable
 
     private void DoWork(object? state)
     {
-        string setTimezoneQuery = "SET time_zone='Europe/Stockholm';";
+        string setTimezoneQuery = "SET time_zone='+02:00';"; 
         using (var timezoneCmd = new MySqlCommand(setTimezoneQuery, _state.DB))
         {
             timezoneCmd.ExecuteNonQuery();
         }
-        
+
         string query = @"SELECT a.id AS auctionId, a.endTime, a.valuationPrice, a.priceRange, b.id AS bidId, maxBid.highestBid, b.userId FROM Auctions a
                             LEFT JOIN (
                                 SELECT
