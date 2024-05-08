@@ -12,7 +12,7 @@ builder.Services.AddHostedService<TimerService>();
 
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
-  serverOptions.ListenAnyIP(3000);
+  serverOptions.ListenAnyIP(5000);
 });
 
 var app = builder.Build();
