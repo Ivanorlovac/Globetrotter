@@ -1,7 +1,8 @@
 using Server;
 using App.TimerHostedService;
+using Microsoft.Extensions.FileProviders;
 
-State state = new State("server=localhost;uid=root;pwd=mypassword;database=Globetrotter;port=3306");
+State state = new State("server=127.0.0.1 ;uid=root;pwd=mypassword;database=Globetrotter;port=3306");
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication().AddCookie("globetrotter");
@@ -9,7 +10,10 @@ builder.Services.AddAuthorizationBuilder().AddPolicy("seller", policy => policy.
 builder.Services.AddSingleton(state);
 builder.Services.AddHostedService<TimerService>();
 
-
+builder.WebHost.ConfigureKestrel(serverOptions =>
+{
+  serverOptions.ListenAnyIP(3000);
+});
 
 var app = builder.Build();
 
@@ -46,8 +50,34 @@ app.MapGet("/contact/{id}", Contacts.GetContactById);
 app.MapDelete("/contact/{id}", Contacts.DeleteContactById);
 app.MapPost("/contact", Contacts.CreateContact);
 
-app.Run("http://localhost:3000");
+
+//----------------------------------------------------------------------------------
+var distPath = Path.Combine(app.Environment.ContentRootPath, "dist");
+var fileProvider = new PhysicalFileProvider(distPath);
+
+app.UseHttpsRedirection();
+
+app.UseDefaultFiles(new DefaultFilesOptions
+{
+  FileProvider = fileProvider,
+  DefaultFileNames = new List<string> { "index.html" }
+});
+
+app.UseStaticFiles(new StaticFileOptions
+{
+  FileProvider = fileProvider,
+  RequestPath = ""
+});
+
+app.UseRouting();
+
+app.MapFallback(async context =>
+{
+  context.Response.ContentType = "text/html";
+  await context.Response.SendFileAsync(Path.Combine(distPath, "index.html"));
+});
+//----------------------------------------------------------------------------------
+
+app.Run("http://localhost:3000"); 
 public record State(string DB);
-
-
 
