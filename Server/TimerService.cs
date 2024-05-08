@@ -47,7 +47,7 @@ public sealed class TimerService : IHostedService, IAsyncDisposable
 
     private void DoWork(object? state)
     {
-        string setTimezoneQuery = "SET time_zone='+02:00';"; 
+        string setTimezoneQuery = "SET time_zone='+02:00';";
         using (var timezoneCmd = new MySqlCommand(setTimezoneQuery, _state.DB))
         {
             timezoneCmd.ExecuteNonQuery();
