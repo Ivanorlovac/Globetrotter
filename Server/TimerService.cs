@@ -11,8 +11,8 @@ namespace App.TimerHostedService;
 public sealed class TimerService : IHostedService, IAsyncDisposable
 {
     private readonly ILogger<TimerService> _logger;
-    private readonly State _state = new State(new ("server=127.0.0.1 ;uid=root;pwd=mypassword;database=Globetrotter;port=3306"));
-    private readonly State _state1 = new State(new("server=127.0.0.1 ;uid=root;pwd=mypassword;database=Globetrotter;port=3306"));
+    private readonly State _state = new State(new ("server=127.0.0.1;uid=root;pwd=mypassword;database=Globetrotter;port=3306"));
+    private readonly State _state1 = new State(new("server=127.0.0.1;uid=root;pwd=mypassword;database=Globetrotter;port=3306"));
 
     private readonly Task _completedTask = Task.CompletedTask;
     private Timer? _timer;
