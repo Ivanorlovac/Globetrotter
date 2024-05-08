@@ -2,7 +2,7 @@ using Server;
 using App.TimerHostedService;
 using Microsoft.Extensions.FileProviders;
 
-State state = new State("server=127.0.0.1 ;uid=root;pwd=mypassword;database=Globetrotter;port=3306");
+State state = new State("server=127.0.0.1;uid=root;pwd=mypassword;database=Globetrotter;port=3306");
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddAuthentication().AddCookie("globetrotter");
@@ -12,7 +12,7 @@ builder.Services.AddHostedService<TimerService>();
 
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
-  serverOptions.ListenAnyIP(5000);
+  serverOptions.ListenAnyIP(3000);
 });
 
 var app = builder.Build();
@@ -51,7 +51,6 @@ app.MapDelete("/contact/{id}", Contacts.DeleteContactById);
 app.MapPost("/contact", Contacts.CreateContact);
 
 
-//----------------------------------------------------------------------------------
 var distPath = Path.Combine(app.Environment.ContentRootPath, "dist");
 var fileProvider = new PhysicalFileProvider(distPath);
 
@@ -71,13 +70,17 @@ app.UseStaticFiles(new StaticFileOptions
 
 app.UseRouting();
 
-app.MapFallback(async context =>
-{
-  context.Response.ContentType = "text/html";
-  await context.Response.SendFileAsync(Path.Combine(distPath, "index.html"));
-});
-//----------------------------------------------------------------------------------
 
-app.Run("http://localhost:3000"); 
+app.MapFallback(async context => 
+{    
+   string? path = context.Request.Path.Value;      
+   if (!path.StartsWith("/auctions/") || !path.StartsWith("/bids/") || !path.StartsWith("/favorites/") || !path.StartsWith("/login/") || !path.StartsWith("/users/") || !path.StartsWith("/closed-auctions/") || !path.StartsWith("/contact/"))
+  {         
+    context.Response.ContentType = "text/html";
+    await context.Response.SendFileAsync(Path.Combine(distPath, "index.html"));     
+    } 
+});
+
+app.Run(); 
 public record State(string DB);
 
