@@ -16,39 +16,40 @@ builder.WebHost.ConfigureKestrel(serverOptions =>
 });
 
 var app = builder.Build();
+var routes = app.MapGroup("/api"); 
 
-app.MapGet("/auctions", Auctions.GetAllAuctions);
-app.MapGet("/auctions/{Id}", Auctions.GetAllAuctionById);
-app.MapGet("/auctions/seller/{companyName}", Auctions.GetAllAuctionByName);
-app.MapDelete("/auctions/{id}", Auctions.DeleteAuction);
-app.MapPut("/auctions/{id}", Auctions.UpdateAuction);
-app.MapPost("/auctions", Auctions.CreateAuction);
+routes.MapGet("/auctions", Auctions.GetAllAuctions);
+routes.MapGet("/auctions/{Id}", Auctions.GetAllAuctionById);
+routes.MapGet("/auctions/seller/{companyName}", Auctions.GetAllAuctionByName);
+routes.MapDelete("/auctions/{id}", Auctions.DeleteAuction);
+routes.MapPut("/auctions/{id}", Auctions.UpdateAuction);
+routes.MapPost("/auctions", Auctions.CreateAuction);
 
-app.MapGet("/bids", Bids.GetAllBids);
-app.MapGet("/bids/user/{user}", Bids.GetAllBidsUser).RequireAuthorization("buyer");
-app.MapGet("/bids/auction/{auction}", Bids.GetAllBidsAuction);
-app.MapGet("/bids/auction/{auction}/user/{user}", Bids.GetAllBidsUserAuction);
-app.MapPost("/bids", Bids.CreateBid).RequireAuthorization("buyer");
+routes.MapGet("/bids", Bids.GetAllBids);
+routes.MapGet("/bids/user/{user}", Bids.GetAllBidsUser).RequireAuthorization("buyer");
+routes.MapGet("/bids/auction/{auction}", Bids.GetAllBidsAuction);
+routes.MapGet("/bids/auction/{auction}/user/{user}", Bids.GetAllBidsUserAuction);
+routes.MapPost("/bids", Bids.CreateBid).RequireAuthorization("buyer");
 
-app.MapGet("/favorites/{user}", Favorites.GetAllFavoritesUser).RequireAuthorization("buyer");
-app.MapDelete("/favorites/{userId}/{auctionId}", Favorites.RemoveOneFavoriteFromDatabase).RequireAuthorization("buyer");
-app.MapPost("/favorites", Favorites.AddNewFavorite).RequireAuthorization("buyer");
+routes.MapGet("/favorites/{user}", Favorites.GetAllFavoritesUser).RequireAuthorization("buyer");
+routes.MapDelete("/favorites/{userId}/{auctionId}", Favorites.RemoveOneFavoriteFromDatabase).RequireAuthorization("buyer");
+routes.MapPost("/favorites", Favorites.AddNewFavorite).RequireAuthorization("buyer");
 
-app.MapPost("/login", Auth.Login);
-app.MapDelete("/login", Auth.Logout);
+routes.MapPost("/login", Auth.Login);
+routes.MapDelete("/login", Auth.Logout);
 
-app.MapGet("/users", Users.GetAllUsers);
-app.MapGet("/users/{id}", Users.GetAllUsersById);
-app.MapDelete("/users/{id}", Users.DeleteUser);
-app.MapPut("/users/{id}", Users.UpdateUser);
-app.MapPost("/users", Users.CreateUser);
+routes.MapGet("/users", Users.GetAllUsers);
+routes.MapGet("/users/{id}", Users.GetAllUsersById);
+routes.MapDelete("/users/{id}", Users.DeleteUser);
+routes.MapPut("/users/{id}", Users.UpdateUser);
+routes.MapPost("/users", Users.CreateUser);
 
-app.MapGet("/closed-auctions", ClosedAuctions.GetAllClosedAuctions);
+routes.MapGet("/closed-auctions", ClosedAuctions.GetAllClosedAuctions);
 
-app.MapGet("/contact", Contacts.GetAllContacts);
-app.MapGet("/contact/{id}", Contacts.GetContactById);
-app.MapDelete("/contact/{id}", Contacts.DeleteContactById);
-app.MapPost("/contact", Contacts.CreateContact);
+routes.MapGet("/contact", Contacts.GetAllContacts);
+routes.MapGet("/contact/{id}", Contacts.GetContactById);
+routes.MapDelete("/contact/{id}", Contacts.DeleteContactById);
+routes.MapPost("/contact", Contacts.CreateContact);
 
 
 var distPath = Path.Combine(app.Environment.ContentRootPath, "dist");
@@ -74,7 +75,7 @@ app.UseRouting();
 app.MapFallback(async context => 
 {    
    string? path = context.Request.Path.Value;      
-   if (!path.StartsWith("/auctions/") || !path.StartsWith("/bids/") || !path.StartsWith("/favorites/") || !path.StartsWith("/login/") || !path.StartsWith("/users/") || !path.StartsWith("/closed-auctions/") || !path.StartsWith("/contact/"))
+   if (!path.StartsWith("/api/auctions/") || !path.StartsWith("/api/bids/") || !path.StartsWith("/api/favorites/") || !path.StartsWith("/api/login/") || !path.StartsWith("/api/users/") || !path.StartsWith("/api/closed-auctions/") || !path.StartsWith("/api/contact/"))
   {         
     context.Response.ContentType = "text/html";
     await context.Response.SendFileAsync(Path.Combine(distPath, "index.html"));     
