@@ -24,7 +24,7 @@ jobs:
       - name: Install Cypress dependencies
         run: cd ./cypress && npm ci
       - name: Run cypress
-        run: npm run test
+        run: cd ./cypress && npm run test
 
   deploy:
   # This job will run only when the cypress_tests job is successful.
