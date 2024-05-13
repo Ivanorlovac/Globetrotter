@@ -26,7 +26,7 @@ Then('I will get logged in', () => {
 Then('I will not get logged in', () => {
   cy.request({
     method: 'POST',
-    url: 'http://localhost:5173/api/login',
+    url: 'https://team5.nodehill.se/api/login',
     headers: {
       'Content-Type': 'application/json'
     },
