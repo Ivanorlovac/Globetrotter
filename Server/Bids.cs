@@ -2,7 +2,7 @@ using MySql.Data.MySqlClient;
 namespace Server;
 public class Bids
 {
-    public record Bid(int id, int auctionId, int userId, int amount, DateTime time);
+    public record Bid(int id, int auctionId, int userId, int amount);
     public record BidEndpoint(string id, string auctionId, string userId, int amount, DateTime time);
 
 

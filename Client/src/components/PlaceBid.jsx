@@ -106,7 +106,7 @@ export default function PlaceBid() {
       </div>          
         <form onSubmit={handleBidSubmit}>
         <input type="number" placeholder='Ange summa' value={bidAmount} className="input-place-bid" onChange={(e) => setBidAmount(e.target.value)} />
-        <input type="submit" value="Lägg bud" className='button-place-bid' />
+        <input type="submit" value="Lägg bud" className='button-place-bid' id='place-bid-button'/>
         </form>
         {showAlert && (checkBid ? <ShowAlert type={'danger'} /> : bidPlaced ? <ShowAlert type={'success'} /> : <></>)}
     </>}

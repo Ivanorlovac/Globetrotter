@@ -1,10 +1,7 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 Given('I am logged in', () => {
-    cy.visit('/login')
-    cy.get('#username').type("test1337")
-    cy.get('#password').type("abc123")
-    cy.get('#login-button').click()
+    cy.loginUser("TestBuyer", "321abc")
 });
 
 When('I click on an empty star', () => {
