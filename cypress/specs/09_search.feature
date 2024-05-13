@@ -11,6 +11,6 @@ Feature: Search
 
         Examples:
             | searchTerm |
-            | barcelona |
-            | nice |
+            | mexico |
+            | sicilien |
             | egypten |
