@@ -18,9 +18,13 @@ jobs:
     
       - name: Install dependencies
         run: npm ci
-
+        
+      - name: Build
+        run: npm run build
       - name: Start the server
-        run: nohup npm run start &
+        run: nohup npm run start-server &
+      - name: Start frontend
+        run: npm run start-frontend
       - name: Install Cypress dependencies
         run: cd ./cypress && npm ci
       - name: Run cypress
@@ -53,6 +57,7 @@ jobs:
             rm -r cypress
             cd /var/www/Globetrotter/Client           
             npm ci
+            rm -r dist
             npm run build
             cd /var/www/Globetrotter/Server
             rm -r dist
