@@ -13,18 +13,13 @@ jobs:
         uses: actions/checkout@v2
     # Setup Node.js using the actions/setup-node@v2 action.
       - name: Setup Node.js
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4
         with:
           node-version: '20'
     
-      - name: Check working directory
-        run: echo $GITHUB_WORKSPACE
-      - name: Run npm ci
-        run: npm ci
-    
           # Install dependencies, build and start the server.
       - name: Install dependencies
-        run: npm i
+        run: npm ci
       - name: Build
         run: npm run build
       - name: Start server
@@ -32,7 +27,7 @@ jobs:
     # Install Cypress dependencies and run the tests.
       - name: Install Cypress Dependencies
       # Change the directory to the cypress folder.
-        run: cd ./cypress && npm i
+        run: cd ./cypress && npm ci
 
       - name: Run Cypress tests
       # Change the directory to the cypress folder.
