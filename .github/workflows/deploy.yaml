@@ -8,9 +8,9 @@ jobs:
   cypress_tests:
     runs-on: ubuntu-latest
     steps:
-
       - name: Checkout code
         uses: actions/checkout@v2
+
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
@@ -21,20 +21,28 @@ jobs:
         
       - name: Start the server
         run: nohup npm run start-server &
+
       - name: Start frontend
         run: nohup npm run start-frontend &
 
+      - name: Wait for frontend to become available
+        run: |
+          echo "Waiting for frontend to launch on port 5173..."
+          while ! nc -z localhost 5173; do   
+            sleep 1 # wait for 1 second before check again
+          done
+
       - name: Install Cypress dependencies
         run: cd ./cypress && npm ci
-      - name: Run cypress
+
+      - name: Run Cypress tests
         run: cd ./cypress && npm run test
+        env:
+          CYPRESS_BASE_URL: http://localhost:5173
 
   deploy:
-  # This job will run only when the cypress_tests job is successful.
     needs: cypress_tests
-    runs-on:
-      ubuntu-latest
-  # The steps to deploy the application to the server using SSH action.
+    runs-on: ubuntu-latest
     steps:
       - name: Doing a deploy
         uses: appleboy/ssh-action@v0.1.10
@@ -43,7 +51,6 @@ jobs:
           username: ${{ secrets.USER }}
           password: ${{ secrets.PASSWORD }}
           port: ${{ secrets.PORT }}
-
           script: |
             echo "Deploying to the server"
             source /root/.nvm/nvm.sh
