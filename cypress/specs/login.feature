@@ -16,7 +16,7 @@ Feature: login
 
     Examples:
       | username | password |
-      | test0000 | 321abc   |
+      | TestBuyer | abc123 |
 
   Scenario: Login
     Given I am on the "/login" page
@@ -27,5 +27,5 @@ Feature: login
 
     Examples:
       | username | password |
-      | test1337 | abc123   |
+      | TestBuyer | 321abc |
 

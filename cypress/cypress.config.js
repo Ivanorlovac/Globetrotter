@@ -1,6 +1,7 @@
 const { defineConfig } = require("cypress");
 const webpack = require("@cypress/webpack-preprocessor");
 const { addCucumberPreprocessorPlugin } = require("@badeball/cypress-cucumber-preprocessor");
+const {deleteTestUser, deleteBuyerBids} = require('./support/runSql.js');
 
 const baseUrl = require('./baseUrl.js');
 
@@ -11,7 +12,7 @@ module.exports = defineConfig(
       specPattern: '**/*.feature',
       baseUrl,
       video: false,
-      supportFile: false,
+      supportFile:'support/commands.js',
       screenshotOnRunFailure: false,
       setupNodeEvents(on, config) {
         // implement node event listeners here
@@ -26,7 +27,7 @@ module.exports = defineConfig(
               webpackOptions:
               {
                 resolve: {
-                  extensions: [".js"],
+                  extensions: [".js"],                
                 },
                 module: {
                   rules:
@@ -51,10 +52,16 @@ module.exports = defineConfig(
         on(
           'task',
           {
-            log(message) {
+/*             log(message) {
               console.log(message)
               return null
+            }, */
+          deleteTestUser(username) {
+            return deleteTestUser(username);
             },
+          deleteBuyerBids(username) {
+            return deleteBuyerBids(username);
+          }            
           }
         );
 

@@ -15,7 +15,6 @@ public class Bids
             result.Add(new(Convert.ToString(reader.GetInt32("id")), Convert.ToString(reader.GetInt32("auctionId")), Convert.ToString(reader.GetInt32("userId")), reader.GetInt32("amount"), reader.GetDateTime("time")));
         }
 
-
         return result;
     }
 
