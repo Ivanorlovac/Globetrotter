@@ -1,7 +1,7 @@
 const { defineConfig } = require("cypress");
 const webpack = require("@cypress/webpack-preprocessor");
 const { addCucumberPreprocessorPlugin } = require("@badeball/cypress-cucumber-preprocessor");
-const {deleteTestUser} = require('./support/runSql.js');
+const {deleteTestUser, deleteBuyerBids} = require('./support/runSql.js');
 
 const baseUrl = require('./baseUrl.js');
 
@@ -58,7 +58,10 @@ module.exports = defineConfig(
             }, */
           deleteTestUser(username) {
             return deleteTestUser(username);
-          }
+            },
+          deleteBuyerBids(username) {
+            return deleteBuyerBids(username);
+          }            
           }
         );
 

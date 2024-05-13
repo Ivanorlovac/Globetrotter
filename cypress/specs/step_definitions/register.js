@@ -1,7 +1,8 @@
 import { Given, When, Then, Before } from "@badeball/cypress-cucumber-preprocessor";
 
 
-Before({tags: '@registerBuyer'} , () => {
+Before({ tags: '@registerBuyer' }, () => {
+  cy.deleteBuyerBids('TestBuyer')
   cy.deleteTestUser('TestBuyer')  
 })
 
