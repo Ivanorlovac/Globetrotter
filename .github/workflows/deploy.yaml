@@ -22,7 +22,15 @@ jobs:
       - name: Start the server
         run: nohup npm run start-server &
       - name: Start frontend
-        run: npm run start-frontend
+        run: nohup npm run start-frontend &
+
+      - name: Wait for frontend to become available
+        run: |
+          echo "Waiting for frontend to launch on port 3000..."
+          while ! nc -z localhost 3000; do   
+            sleep 1 # wait for 1 second before check again
+          done
+
       - name: Install Cypress dependencies
         run: cd ./cypress && npm ci
       - name: Run cypress
