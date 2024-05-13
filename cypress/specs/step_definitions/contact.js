@@ -17,10 +17,10 @@ Given('I am on the contact page', () => {
 });
 
 When('I fill in all required fields correctly', () => {
-  cy.get('input#firstName').type('Hana')
-  cy.get('input#email').type('hana@gmail.com')
-  cy.get('input#phone').type('0760894663')
-  cy.get('textarea#message').type('Hana was here.')
+  cy.get('input#firstName').type('Julia')
+  cy.get('input#email').type('hdgjd@gmail.com')
+  cy.get('input#phone').type('0760899663')
+  cy.get('textarea#message').type('Julia was here.')
 });
 
 When('I submit the form', () => {
@@ -38,10 +38,10 @@ Given('the user is on the contact page', () => {
 });
 
 Given('the user has entered data into all fields', () => {
-  cy.get('input#firstName').type('Elena')
-  cy.get('input#email').type('elena@gmail.com')
+  cy.get('input#firstName').type('Gabriel')
+  cy.get('input#email').type('gabriel@gmail.com')
   cy.get('input#phone').type('0760894684')
-  cy.get('textarea#message').type('Elena was here.')
+  cy.get('textarea#message').type('Gabriel was here.')
 });
 
 When('the user clicks the submit button', () => {
@@ -76,6 +76,8 @@ Then('the form should not be submitted', () => {
   cy.url().should('include', '/contact')
 });
 
-Then('an error message {string} should be displayed', () => {
-  
+Then('an error message {string} should be displayed', (expectedMessage) => {
+   cy.on('window:alert', (txt) => {
+      expect(txt).to.contains(expectedMessage)
+    })
 });
