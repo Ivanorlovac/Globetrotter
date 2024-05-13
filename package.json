@@ -4,8 +4,8 @@
   "description": "This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.",
   "main": "index.js",
   "scripts": {
-    "start-server" : "cd ./Server && dotnet run",
-    "start-frontend" : "cd ./Client && npm run dev",
+    "start-server" : "cd Server && dotnet run",
+    "start-frontend" : "cd Client && npm run dev",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",

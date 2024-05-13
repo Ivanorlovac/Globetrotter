@@ -19,6 +19,16 @@ jobs:
       - name: Install dependencies
         run: npm ci
         
+      - name: Install Server Dependencies
+        run: |
+          cd Server
+          npm ci
+
+      - name: Install Client Dependencies
+        run: |
+          cd Client
+          npm ci
+
       - name: Start the server
         run: nohup npm run start-server &
 
