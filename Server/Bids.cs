@@ -2,7 +2,7 @@ using MySql.Data.MySqlClient;
 namespace Server;
 public class Bids
 {
-    public record Bid(int id, int auctionId, int userId, int amount, DateTime time);
+    public record Bid(int id, int auctionId, int userId, int amount);
     public record BidEndpoint(string id, string auctionId, string userId, int amount, DateTime time);
 
 
@@ -14,7 +14,6 @@ public class Bids
         {
             result.Add(new(Convert.ToString(reader.GetInt32("id")), Convert.ToString(reader.GetInt32("auctionId")), Convert.ToString(reader.GetInt32("userId")), reader.GetInt32("amount"), reader.GetDateTime("time")));
         }
-
 
         return result;
     }
