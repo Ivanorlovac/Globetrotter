@@ -8,10 +8,6 @@ jobs:
   cypress_tests:
     runs-on: ubuntu-latest
     steps:
-      - name: Check working directory
-        run: echo $GITHUB_WORKSPACE
-      - name: Run npm ci
-        run: npm ci
 
       - name: Checkout code
         uses: actions/checkout@v2
@@ -20,7 +16,13 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: '20'
-    # Install dependencies, build and start the server.
+    
+      - name: Check working directory
+        run: echo $GITHUB_WORKSPACE
+      - name: Run npm ci
+        run: npm ci
+    
+          # Install dependencies, build and start the server.
       - name: Install dependencies
         run: npm i
       - name: Build
