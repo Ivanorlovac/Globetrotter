@@ -16,7 +16,7 @@ Then('the star should turn yellow', () => {
 When('I click on an empty star', () => {});*/
 
 When('I go to my pages', () => {
-  cy.visit("/mina-sidor")
+  cy.visit("/mina-sidor", { headers: { "Accept-Encoding": "gzip, deflate" } })
 });
 
 Then('the auction should appear in my favorites on my pages', () => {

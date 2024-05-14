@@ -16,7 +16,7 @@ When('press the search button', () => {
 });
 
 Then('I will get to the {string} page', (a) => {
-  cy.visit(a)
+  cy.visit(a, { headers: { "Accept-Encoding": "gzip, deflate" } })
 });
 
 Then('I will get {string} in the results', (searchTerm) => {

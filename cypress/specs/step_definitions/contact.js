@@ -1,7 +1,7 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 Given('I am on the home page', () => {
-  cy.visit('/')
+  cy.visit('/', { headers: { "Accept-Encoding": "gzip, deflate" } })
 });
 
 When('I click on Kontakt', () => {
@@ -13,7 +13,7 @@ Then('I will be directed to the contact page', () => {
 });
 
 Given('I am on the contact page', () => {
-  cy.visit('/contact')
+  cy.visit('/contact', { headers: { "Accept-Encoding": "gzip, deflate" } })
 });
 
 When('I fill in all required fields correctly', () => {
@@ -34,7 +34,7 @@ Then('a thank you message {string} should be displayed', (expectedMessage) => {
 });
 
 Given('the user is on the contact page', () => {
- cy.visit('/contact')
+ cy.visit('/contact', { headers: { "Accept-Encoding": "gzip, deflate" } })
 });
 
 Given('the user has entered data into all fields', () => {
@@ -73,7 +73,7 @@ When('I attempt to submit the form', () => {
 });
 
 Then('the form should not be submitted', () => {
-  cy.url().should('include', '/contact')
+  cy.url().should('include', '/contact', { headers: { "Accept-Encoding": "gzip, deflate" } })
 });
 
 Then('an error message {string} should be displayed', (expectedMessage) => {

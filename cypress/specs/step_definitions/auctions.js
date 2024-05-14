@@ -3,7 +3,7 @@ import { Given, When, Then, And } from "@badeball/cypress-cucumber-preprocessor"
 
 
 Given('I am logged in as a seller', () => {
-  cy.visit('/');
+  cy.visit('/', { headers: { "Accept-Encoding": "gzip, deflate" } });
   cy.get('.navbar-toggler-icon').click();
   cy.get('#navlink-login').click();
   cy.get('.btn-close').click();
@@ -18,7 +18,7 @@ Given('I am logged in as a seller', () => {
 
 
 When('I fill in the auction form with the following details:', () => {
-  cy.visit('/skapa-auktion');
+  cy.visit('/skapa-auktion', { headers: { "Accept-Encoding": "gzip, deflate" } });
   cy.get('#title').type('Sommarlands Kap');
   cy.get('#description').type('En kap till sommarland');
   cy.get('#valuationPrice').type(2000);
@@ -46,7 +46,7 @@ When ('I press "Skapa Auktion"', () => {
 
 
 Given('I am on {string} page', (url) => {
-  cy.visit(url);
+  cy.visit(url, { headers: { "Accept-Encoding": "gzip, deflate" } });
   cy.url().should('include', SellersPage);
 
 });
@@ -72,7 +72,7 @@ When('I press "Spara ändringar"', () => {
 }
 );
 Then('auction with the changed details should be listed in {string} page', (SellersPage) => {
-  cy.visit(SellersPage);
+  cy.visit(SellersPage, { headers: { "Accept-Encoding": "gzip, deflate" } });
   cy.url().should('include', SellersPage);
 
 });
