@@ -86,7 +86,7 @@ When('I press {string} on the {string} page', (buttonText) => {
 
 
 Then('the auction should be deleted from the {string} page', (SellersPage) => {
-  cy.visit(SellersPage);
+  cy.visit(SellersPage, { headers: { "Accept-Encoding": "gzip, deflate" } });
   cy.url(SellersPage).should('include', SellersPage);
 }
 );
