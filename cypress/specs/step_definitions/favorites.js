@@ -1,7 +1,7 @@
 import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 Given('I am logged in', () => {
-    cy.visit('/login')
+    cy.visit('/login', { headers: { "Accept-Encoding": "gzip, deflate" } })
     cy.get('#username').type("test1337")
     cy.get('#password').type("abc123")
     cy.get('#login-button').click()
@@ -19,7 +19,7 @@ Then('the star should turn yellow', () => {
 When('I click on an empty star', () => {});*/
 
 When('I go to my pages', () => {
-  cy.visit("/mina-sidor")
+  cy.visit("/mina-sidor", { headers: { "Accept-Encoding": "gzip, deflate" } })
 });
 
 Then('the auction should appear in my favorites on my pages', () => {
