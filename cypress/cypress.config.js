@@ -55,13 +55,7 @@ module.exports = defineConfig(
 /*             log(message) {
               console.log(message)
               return null
-            }, */
-          deleteTestUser(username) {
-            return deleteTestUser(username);
-            },
-          deleteBuyerBids(username) {
-            return deleteBuyerBids(username);
-          }            
+            }, */           
           }
         );
 
