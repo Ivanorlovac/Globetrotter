@@ -34,6 +34,7 @@ When('I fill in the auction form with the following details:', () => {
 
 When ('I press "Skapa Auktion"', () => {
   cy.get('.btn').click();
+  cy.wait(2000)
 });
 
 // Then('I should see a alert saying "Auktion skapad!"', (a) => {
