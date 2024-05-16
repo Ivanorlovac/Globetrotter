@@ -1,8 +1,5 @@
 import { Given, When, Then, Before } from "@badeball/cypress-cucumber-preprocessor";
 
-let userN = ''
-let userP = ''
-
 Then('I get directed to the login page', () => {
   cy.get('h1').should("have.text", "Logga in")
 });
@@ -10,12 +7,10 @@ Then('I get directed to the login page', () => {
 
 When('I write my {string} under username', (username) => {
   cy.get('#username').type(username)
-  userN = username
 });
 
 When('I write my {string} under password', (password) => {
   cy.get('#password').type(password)
-  userP = password
 });
 
 Then('I will get logged in', () => {
