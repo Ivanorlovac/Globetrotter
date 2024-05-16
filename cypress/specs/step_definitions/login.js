@@ -24,18 +24,5 @@ Then('I will get logged in', () => {
 });
 
 Then('I will not get logged in', () => {
-  cy.request({
-    method: 'POST',
-    url: 'https://team5.nodehill.se/api/login',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: {
-      username: userN,
-      password: userP
-    },
-    failOnStatusCode: false
-  }).then((resp) => {
-    expect(resp.status).to.eq(500);
-  });
+  cy.get('.blue_box_centered_login > form > p').should('have.text', 'Ett fel uppstod vid inloggning.')
 });
